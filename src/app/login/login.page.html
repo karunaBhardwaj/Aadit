@@ -1,0 +1,52 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-title>Log In</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div id= "logo">
+      
+      <img src ="assets/images/logo.png"/>
+  </div>
+
+  <div id ="contentLine">
+    <p >Add a few lines for content</p>
+  </div>
+  
+  <!-- <form (ngSubmit)="login()" [formGroup]="loginForm">
+    <ion-item [ngClass]="{ invalid: false }">
+      <ion-input type="text" placeholder="Email" formControlName="email"></ion-input>
+    </ion-item>
+
+
+    <ion-item [ngClass]="{ invalid: false }">
+      <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+    </ion-item> -->
+    
+    <div padding-horizantal>
+      <div  class="form-error">{{loginError}}</div>
+      
+      <!-- <ion-button type ="submit" full [disabled]="!loginForm.valid">Log in</ion-button>
+      
+      <div class="login-footer">
+        <p>
+          <a href="#">Forgot password?</a>
+          If you're a new user, please sign up.
+        </p> -->
+      </div>
+
+      <!-- <ion-list> -->
+
+        <button ion-button  class="loginBtn loginBtn--google" (click)="loginWithGoogle()">
+          Log in with Google
+        </button>
+      
+        <!-- <ion-button class="register-btn" icon-right block clear (click)="signup()">
+          <ion-icon name="person-add"></ion-icon>
+          Sign up
+        </ion-button> -->
+      <!-- </ion-list> -->
+    <!-- </div>
+  </form> -->
+</ion-content>

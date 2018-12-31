@@ -1,0 +1,31 @@
+ion-toolbar {
+    --background: url('../../assets/images/bg.jpg') no-repeat 100% 100%;
+    } 
+  
+ion-content {
+    --background: url('../../assets/images/bg.jpg') no-repeat 100% 100%;
+    }
+
+ion-scroll {
+    --background: url('../../assets/images/bg.jpg') no-repeat 100% 100%;
+    }
+
+ion-content ion-scroll {
+    --background: url('../../assets/images/bg.jpg');
+    }
+
+// .ios, .md {
+ 
+//     page-home {
+ 
+//         .scroll-content {
+//             --background: map-get($colors, light);
+//         }
+ 
+//         ion-card-header {
+//             font-weight: bold;
+//         }
+ 
+//     }
+ 
+// }

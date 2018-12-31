@@ -1,0 +1,20 @@
+ion-toolbar {
+    --background: url('../../assets/images/bg.jpg') no-repeat 100% 100%;
+    } 
+  
+ion-content {
+    --background: url('../../assets/images/bg.jpg') no-repeat 100% 100%;
+    }
+
+ion-scroll {
+    --background: url('../../assets/images/bg.jpg') no-repeat 100% 100%;
+    }
+
+ion-content ion-scroll {
+    --background: url('../../assets/images/bg.jpg');
+    }
+ 
+.item.item-trns {
+	--background: url('../../assets/images/bg.jpg');
+	 
+}
