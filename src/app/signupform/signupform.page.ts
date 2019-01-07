@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-// import { NavController, NavParams } from '@ionic/angular';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { NavController, NavParams } from '@ionic/angular';
+import { GoogleDriveService } from 'src/app/services/google-drive.service';
+import { SheetTabsTitleConst } from '../constants/sheet.constant';
+import { DriveRequestModel } from '../models/drive-postdata.model';
+
 
 
 @Component({
@@ -13,23 +15,28 @@ import { NavController, NavParams } from '@ionic/angular';
 export class SignupformPage implements OnInit {
 
   myForm: FormGroup;
-  gender: string ;
-  constructor(private router: Router) {
+  sex: string ;
+  constructor(private router: Router,
+              private googleDriveService: GoogleDriveService
+    ) {
   }
 
   ngOnInit() {
+
     this.myForm = new FormGroup({
-      organization: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      firstname: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      lastname: new FormControl('', [Validators.required, Validators.minLength(2)]),
       email: new FormControl('', [Validators.required, Validators.email, Validators.minLength(4)]),
-      year: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      organization: new FormControl('', [Validators.required, Validators.minLength(2)]),
       contact: new FormControl('', [Validators.required, Validators.minLength(9), Validators.maxLength(10)]),
-      name: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      gender: new FormControl('', [Validators.required])
+      gender: new FormControl('', [Validators.required]),
+      year: new FormControl('', [Validators.required, Validators.minLength(4)])
       });
+      console.log(this.googleDriveService.getLocalSheetTabData(SheetTabsTitleConst.SIGN_UP));
   }
   selectGender(gender) {
-    this.gender = '';
-    this.gender = gender;
+    this.sex = '';
+    this.sex = gender;
   }
   get email(): string {
     return this.myForm.value['email'];
@@ -40,26 +47,52 @@ export class SignupformPage implements OnInit {
   get contact(): string {
     return this.myForm.value['contact'];
   }
-  get name(): string {
-    return this.myForm.value['name'];
+  get firstname(): string {
+    return this.myForm.value['firstname'];
   }
-  // get gender(): string {
-  //   return this.myForm.value['gender'];
-  // }
+  get lastname(): string {
+    return this.myForm.value['lastname'];
+  }
+  get gender(): string {
+   return this.myForm.value['gender'] = this.sex;
+  }
 
   get year(): string {
     return this.myForm.value['year'];
   }
 
 
-  goToGoals( ) {
-    console.log(this.email);
-    console.log(this.organization);
-    console.log(this.contact);
-    console.log(this.name);
-    console.log(this.gender);
-    console.log(this.year);
-    this.router.navigateByUrl('/goals');
+  onSubmit( ) {
 
-  }
+      const postData: DriveRequestModel = this.getParsedPostData(this.myForm.value);
+
+      this.googleDriveService.setAllSheetData(this.googleDriveService.getSheetId(), postData).subscribe();
+
+      this.router.navigateByUrl('/goals');
+    }
+
+    private getParsedPostData(formData): DriveRequestModel {
+
+      console.log(formData);
+      const values = [];
+
+      Object.values(formData).forEach(value => {
+        values.push(value);
+      });
+
+      const postData: DriveRequestModel = {
+        'valueInputOption': 'USER_ENTERED',
+        'data': [{
+          'range': `${SheetTabsTitleConst.SIGN_UP}!A2:G2`,
+          'majorDimension': 'ROWS',
+          'values': [values]
+        }]
+      };
+
+      console.log('postData', postData);
+      return postData;
+
+    }
+
+
 }

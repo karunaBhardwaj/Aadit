@@ -1,5 +1,5 @@
 <ion-app>
-  <ion-split-pane>
+  <!-- <ion-split-pane> -->
     <ion-menu>
       <ion-header>
         <ion-toolbar>
@@ -16,14 +16,14 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
-          <ion-list-header *ngIf="auth.getEmail()">{{auth.getEmail()}}</ion-list-header>
+          <ion-list-header *ngIf="auth.getEmail()"></ion-list-header>
           <ion-item (click)="logout()" *ngIf="auth.authenticated">
-            <ion-icon name="log-out" item-left></ion-icon>
+            <ion-icon  name="log-out" item-left></ion-icon>
             Log out
           </ion-item>
         </ion-list>
       </ion-content>
     </ion-menu>
     <ion-router-outlet main></ion-router-outlet>
-  </ion-split-pane>
+  <!-- </ion-split-pane> -->
 </ion-app>

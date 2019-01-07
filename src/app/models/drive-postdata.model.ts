@@ -1,11 +1,11 @@
 export interface DriveRequestModel {
     valueInputOption: string;
-    data: PostDataModel[]
+    data: PostDataModel[ ];
 
 }
 
 export interface PostDataModel {
     range: string;
     majorDimension: string;
-    values: any[]
+    values: any[];
 }

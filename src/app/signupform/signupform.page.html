@@ -5,72 +5,41 @@
 </ion-header>
 
 <ion-content padding-horizantal>
-    <!-- <ion-title>
-        <h4 class="title">Aadit Life Signup Form</h4>
-    </ion-title>
-    <p>
-        
-    </p> -->
+
     
-    <form (ngSubmit)="goToGoals(myForm.value)" [formGroup]="myForm">
+    <form (ngSubmit)="onSubmit(myForm.value)" [formGroup]="myForm">
         
         <ion-item-group>   
-            
+            <ion-item>
+                <ion-label  floating>First Name</ion-label>
+                <ion-input type="text" formControlName="firstname" name="entry.238150607" required ></ion-input>
+            </ion-item>
+
+
+            <ion-item>
+                <ion-label  floating>Last Name</ion-label>
+                <ion-input type="text" formControlName="lastname" name="entry.238150608" required ></ion-input>
+            </ion-item>
+
+
             <ion-item >
                 <ion-label floating>Email Address</ion-label>
                 <ion-input  type="email" formControlName="email" name="entry.1071171226" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required ></ion-input>
-                <!-- <div style="color: red; padding-top: 0.2rem" *ngIf="myForm.hasError('pattern', 'email')">
-                    </div>
-                <div style="color: red; padding-top: 0.2rem" *ngIf="myForm.hasError('required', 'email')">
-                    </div> -->
-            </ion-item>
-            <!-- <span *ngIf="myForm.errors">
-                <span [hidden]="!email.errors.required">
-                    <ion-label style="color: red; margin-left: 16px;"> Email is required </ion-label>
-                </span>
-                <span [hidden]="!email.errors.pattern">
-                    <ion-label style="color: red; margin-left: 16px;"> Please enter a valid email </ion-label>
-                </span>
-            </span> -->
-        
+            </ion-item>        
 
         
             <ion-item>
                 <ion-label  floating>Organization</ion-label>
                 <ion-input type="text" formControlName="organization"  name="entry.548802180"  required   ></ion-input>
-            </ion-item>
-            <!-- <span If="organization.errors">
-                <span [hidden]="!organization.errors.required">
-                    <ion-label style="color: red; margin-left: 16px;"> Organization is required </ion-label>
-                </span>
-            </span> -->
-        
+            </ion-item>      
 
         
-
             <ion-item>
                 <ion-label  floating>Mobile Number</ion-label>
                 <ion-input type="number" formControlName="contact" name="entry.1334960025" required ></ion-input>
             </ion-item>
-            <!-- <span If="contact.errors">
-                <span [hidden]="!contact.errors.required">
-                    <ion-label style="color: red; margin-left: 16px;"> Number is required </ion-label>
-                </span>
-            </span> -->
-       
+   
             
-            <ion-item>
-                <ion-label  floating>Full Name</ion-label>
-                <ion-input type="text" formControlName="name" name="entry.238150607" required ></ion-input>
-            </ion-item>
-            <!-- <span If="name.errors">
-                <span [hidden]="!name.errors.required">
-                    <ion-label style="color: red; margin-left: 16px;"> Name is required </ion-label>
-                </span>
-            </span> -->
-        <!-- </ion-item-group>
-
-        <ion-item-group padding > -->
             <ion-label padding floating>Gender</ion-label>
             <ion-row>
             <ion-col col-4 no-padding class="one">
@@ -87,33 +56,17 @@
             </ion-col>
             </ion-row>
             
-
-            <!-- <span If="gender.errors">
-                <span [hidden]="!gender.errors.required">
-                    <ion-label style="color: red; margin-left: 16px;"> Gender is required </ion-label>
-                </span>
-            </span> -->
         
             <ion-item lines="full">
                 <ion-label  floating>Birth Year(YYYY Format)</ion-label>
                 <ion-input formControlName="year" name="entry.1058758422" value min= "1940" max="2010" required ></ion-input>
             </ion-item>
             <ion-item lines="none"></ion-item>
-            <!-- <span If="year.errors">
-                <span [hidden]="!yame.errors.required">
-                    <ion-label style="color: red; margin-left: 16px;"> Year is required </ion-label>
-                </span>
-            </span> -->
         </ion-item-group>
 
             
         <ion-button [disabled]="!myForm.valid" type="submit" >Next</ion-button>
             
-            
-            <!-- <ion-item>
-                <button [disabled]="!myForm.form.valid" type="submit" ion-button block >Next</button>
-           </ion-item> -->
-        
         
     </form>
 

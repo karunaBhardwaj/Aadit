@@ -16,6 +16,9 @@ export class SignupPage implements OnInit {
     private router: Router
   ) { }
 
+  signupError: string;
+  form: FormGroup;
+
   ngOnInit() {
     this.form = this.fb.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
@@ -23,12 +26,9 @@ export class SignupPage implements OnInit {
     });
   }
 
-  signupError: string;
-  form: FormGroup;
-
   signup() {
-    let data = this.form.value;
-    let credentials = {
+    const data = this.form.value;
+    const credentials = {
       email: data.email,
       password: data.password
     };

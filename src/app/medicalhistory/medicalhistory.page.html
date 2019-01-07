@@ -6,18 +6,16 @@
 
 
 <ion-content padding>
-    <!-- <ion-toolbar >
-        <ion-title >Medical History</ion-title>
-    </ion-toolbar> -->
+
     
-    <form (ngSubmit)="goToDisclaimer(myForm.value)"  [formGroup]="myForm" >
+    <form (ngSubmit)="onSubmit(myForm.value)"  [formGroup]="myForm" >
         <ion-list lines="none">
             <ion-label  floating text-wrap>The last time I had a medical check up was *</ion-label>
             <ion-row>
             <ion-col col-4 no-padding class="one">
               <ion-item >
                 <ion-label text-wrap>Within the last six months.</ion-label>
-                <ion-radio formControlName="checkup" [checked]="this.checkup === 'With in last six months'"  data-item-id="833516134"  value="With in last six months" (ionSelect)="selectCheckup('With in last six months')" ></ion-radio>
+                <ion-radio formControlName="checkup" [checked]="this.checkup === 'With in last six months'"    value="With in last six months" (ionSelect)="selectCheckup('With in last six months')" ></ion-radio>
               </ion-item>
             </ion-col>
             </ion-row>
@@ -25,7 +23,7 @@
             <ion-col col-5 no-padding class="two">
               <ion-item>
                 <ion-label text-wrap >Between six and eighteen months ago.</ion-label>
-                <ion-radio [checked]="this.checkup === 'Between six and eighteen months ago.'" formControlName="checkup"  data-item-id="833516134" required value="Between six and eighteen months ago." (ionSelect)="selectCheckup('Between six and eighteen months ago.')"></ion-radio>
+                <ion-radio [checked]="this.checkup === 'Between six and eighteen months ago.'" formControlName="checkup"   required value="Between six and eighteen months ago." (ionSelect)="selectCheckup('Between six and eighteen months ago.')"></ion-radio>
               </ion-item>
             </ion-col>
             </ion-row>
@@ -33,7 +31,7 @@
             <ion-col col-5 no-padding class="two">
               <ion-item lines="full">
                 <ion-label text-wrap>More than eighteen months ago / never.</ion-label>
-                <ion-radio [checked]="this.checkup === 'More than eighteen months ago / never.'" formControlName="checkup"  data-item-id="833516134" required value="More than eighteen months ago / never." (ionSelect)="selectCheckup('More than eighteen months ago / never.')"></ion-radio>
+                <ion-radio [checked]="this.checkup === 'More than eighteen months ago / never.'" formControlName="checkup"   required value="More than eighteen months ago / never." (ionSelect)="selectCheckup('More than eighteen months ago / never.')"></ion-radio>
               </ion-item>
             </ion-col>
             </ion-row>

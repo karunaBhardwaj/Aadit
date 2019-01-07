@@ -14,20 +14,106 @@
 
     <form (ngSubmit)="onSubmit()" [formGroup]="form" >
 
-        <div *ngFor="let question of questions" class="form-row">
+        <ion-list lines="none">
+            <ion-label  floating text-wrap>The last time I had a medical check up was *</ion-label>
+            <ion-row>
+            <ion-col col-4 no-padding class="one">
+              <ion-item >
+                <ion-label text-wrap>Within the last six months.</ion-label>
+                <ion-radio formControlName="checkup" [checked]="this.checkup === 'With in last six months'"  data-item-id="833516134"  value="With in last six months" (ionSelect)="selectCheckup('With in last six months')" ></ion-radio>
+              </ion-item>
+            </ion-col>
+            </ion-row>
+            <ion-row>
+            <ion-col col-5 no-padding class="two">
+              <ion-item>
+                <ion-label text-wrap >Between six and eighteen months ago.</ion-label>
+                <ion-radio [checked]="this.checkup === 'Between six and eighteen months ago.'" formControlName="checkup"  data-item-id="833516134" required value="Between six and eighteen months ago." (ionSelect)="selectCheckup('Between six and eighteen months ago.')"></ion-radio>
+              </ion-item>
+            </ion-col>
+            </ion-row>
+            <ion-row>
+            <ion-col col-5 no-padding class="two">
+              <ion-item lines="full">
+                <ion-label text-wrap>More than eighteen months ago / never.</ion-label>
+                <ion-radio [checked]="this.checkup === 'More than eighteen months ago / never.'" formControlName="checkup"  data-item-id="833516134" required value="More than eighteen months ago / never." (ionSelect)="selectCheckup('More than eighteen months ago / never.')"></ion-radio>
+              </ion-item>
+            </ion-col>
+            </ion-row>
+        </ion-list>
 
-            <label [attr.for]="question.key">{{question.label}}</label>
+        <ion-item-group lines="none" >
+            <ion-label text-wrap> Please review the following questions : * </ion-label>
+            <p ><sub>Check the boxes that you will answer "yes" to. If you have checked any of the boxes (except the last one), 
+              you should check with a doctor before you start an exercise program.
+                </sub></p>
 
-            <div [ngSwitch]="question.type">
+            <ion-item>
+              <ion-label text-wrap><sub>I have been told I have a heart condition that requires me to take up only 
+                physical activity recommended by a doctor.</sub></ion-label>
+              <ion-checkbox formControlName="review"  required></ion-checkbox>
+            </ion-item>
 
-                <input *ngSwitchCase="'text'" [formControlName]="question.key" [id]="question.key" [type]="question.type">
+            <ion-item>
+              <ion-label text-wrap><sub>I have in the past felt a pain in my chest when I do 
+                physical activity / exercise.</sub></ion-label>
+              <ion-checkbox formControlName="review"  required></ion-checkbox>
+            </ion-item>
 
-                <select [id]="question.key" *ngSwitchCase="'select'" [formControlName]="question.key">
-                    <option *ngFor="let opt of question.options" [value]="opt">{{opt}}</option>
-                </select>
+            <ion-item>
+              <ion-label text-wrap><sub>In the past month I have had chest pain when not doing 
+                any physical activity..</sub></ion-label>
+              <ion-checkbox formControlName="review"  required></ion-checkbox>
+            </ion-item>
 
-            </div>
-        </div>
+            <ion-item>
+              <ion-label text-wrap><sub>I have in the past lost balance because I felt dizzy, or lost consciousness.
+                </sub></ion-label>
+              <ion-checkbox formControlName="review"  required></ion-checkbox>
+            </ion-item>
+
+            <ion-item>
+              <ion-label text-wrap><sub>I have a bone or joint problem that could be made worse with physical activity.
+                </sub></ion-label>
+              <ion-checkbox formControlName="review"  required></ion-checkbox>
+            </ion-item>
+
+            <ion-item>
+              <ion-label text-wrap><sub>I am taking medication for blood pressure or a heart condition.
+                </sub></ion-label>
+              <ion-checkbox formControlName="review"  required></ion-checkbox>
+            </ion-item>
+
+            <ion-item>
+              <ion-label text-wrap><sub>I am diabetic.
+                </sub></ion-label>
+              <ion-checkbox formControlName="review"  required></ion-checkbox>
+            </ion-item>
+
+            <ion-item>
+              <ion-label text-wrap><sub>I sometimes have difficulty breathing - especially in cold dry conditions.
+                </sub></ion-label>
+              <ion-checkbox formControlName="review"  required></ion-checkbox>
+            </ion-item>
+
+            <ion-item>
+              <ion-label text-wrap><sub>I am aware of some other reason why I should do physical activity.
+                </sub></ion-label>
+              <ion-checkbox formControlName="review"  required></ion-checkbox>
+            </ion-item>
+
+            <ion-item>
+              <ion-label text-wrap><sub>I am pregnant.
+                </sub></ion-label>
+              <ion-checkbox formControlName="review"  required></ion-checkbox>
+            </ion-item>
+
+            <ion-item>
+              <ion-label text-wrap><sub>None of the things listed above apply to me.
+                </sub></ion-label>
+              <ion-checkbox formControlName="review"  required></ion-checkbox>
+            </ion-item>
+        </ion-item-group>
 
         <div class="form-row">
             <button type="submit" [disabled]="!form.valid">Save</button>

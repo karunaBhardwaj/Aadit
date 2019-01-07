@@ -13,7 +13,26 @@ ion-scroll {
 ion-content ion-scroll {
     --background: url('../../assets/images/bg.jpg');
     }
-
+// .highcharts-container, .highcharts-container svg {
+//   width: auto !important;
+// }
+    
+#container {
+	// position: relative;
+    width: 320px;
+    height: 320px;
+}
+   
+#container2 {
+	// position: relative;
+    width: 320px;
+    height: 320px;
+}
+// #chart {
+//     display: table-cell;
+//     position:absolute;
+//     width:50%;
+// }
 // .ios, .md {
  
 //     page-home {

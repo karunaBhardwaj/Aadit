@@ -5,47 +5,31 @@
 </ion-header>
 
 <ion-content padding>
-    <!-- <ion-toolbar>
-        <h4 class="title">Motivation/ Current Activity/ Goals</h4>
-    </ion-toolbar>
-    <p>
 
-    </p> -->
-    <form (ngSubmit)="goToMedicalhistory()" [formGroup]="myForm">
+    <form (ngSubmit)="onSubmit(myForm.value)" [formGroup]="myForm">
           
       <ion-item-group>
-        <ion-label >The reason signup for the program is *</ion-label>
+        <ion-label >The reason  for the signup of program is *</ion-label>
         <ion-item lines="full">
         <ion-input  type="text" formControlName="reason" name="entry.2104508474"  required ></ion-input>
         </ion-item>
-        <!-- <span If="reason.errors">
-            <span [hidden]="!reason.errors.required">
-                <ion-label style="color: red; margin-left: 16px;"> This is a required question </ion-label>
-            </span>
-        </span> -->
-        
+   
       
         <ion-label > In six months, I will be delighted if *</ion-label>
         <ion-item lines="full">
-            <ion-input type="text" formControlName="reason2" name="entry.1373657342"  required ></ion-input>
+            <ion-input type="text" formControlName="reason2"   required ></ion-input>
         </ion-item>
-        <ion-item lines="none"></ion-item>
-        
+        <ion-item lines="none"></ion-item>        
       </ion-item-group>
-        <!-- <span If="reason.errors">
-            <span [hidden]="!reason.errors.required">
-                <ion-label style="color: red; margin-left: 16px;"> This is a required question </ion-label>
-            </span>
-        </span> -->
-        <p></p>
 
-        <ion-item-group >
+
+      <ion-item-group >
         <ion-label  floating text-wrap>My current frequency of physical activity is *</ion-label>
         <ion-row>
         <ion-col col-4 no-padding class="one">
           <ion-item lines="none">
             <ion-label text-wrap>Not Regular- less than once a week</ion-label>
-            <ion-radio [checked]="this.activity === 'Notregular'" formControlName ="activity" data-item-id="70111244" required value="NotRegular" (ionSelect)="selectFrequency('Notregular')"></ion-radio>
+            <ion-radio [checked]="this.activity === 'Notregular'" formControlName ="activity"  required value="NotRegular" (ionSelect)="selectFrequency('Notregular')"></ion-radio>
           </ion-item>
         </ion-col>
         </ion-row>
@@ -53,7 +37,7 @@
         <ion-col col-5 no-padding class="two">
           <ion-item lines="none">
             <ion-label text-wrap >Somewhat Regular-between one and three times a week.</ion-label>
-            <ion-radio [checked]="this.activity === 'Somewhat regular'" formControlName ="activity" data-item-id="70111244" required value="Somewhat regular" (ionSelect)="selectFrequency('Somewhat regular')"></ion-radio>
+            <ion-radio [checked]="this.activity === 'Somewhat regular'" formControlName ="activity"  required value="Somewhat regular" (ionSelect)="selectFrequency('Somewhat regular')"></ion-radio>
           </ion-item>
         </ion-col>
         </ion-row>
@@ -61,30 +45,20 @@
         <ion-col col-5 no-padding class="two">
           <ion-item >
             <ion-label text-wrap>Regular-three or more times a week.</ion-label>
-            <ion-radio [checked]="this.activity === 'Regular'" formControlName ="activity" data-item-id="70111244" required value="Regular" (ionSelect)="selectFrequency('Regular')"></ion-radio>
+            <ion-radio [checked]="this.activity === 'Regular'" formControlName ="activity"  required value="Regular" (ionSelect)="selectFrequency('Regular')"></ion-radio>
           </ion-item>
         </ion-col>
         </ion-row>
         </ion-item-group>
-        <!-- <span If="activity.errors">
-            <span [hidden]="!activity.errors.required">
-                <ion-label style="color: red; margin-left: 16px;"> Gender is required </ion-label>
-            </span>
-        </span> -->
+     
 
         <ion-item-group>
         <ion-label text-wrap stacked> Briefly describe what you currently do for physical activity *</ion-label>
         <ion-item lines="full">
-          <ion-input type="text" formControlName="reason3" name="entry.1797622617"  required ></ion-input>
+          <ion-input type="text" formControlName="reason3"  required ></ion-input>
         </ion-item>
         <ion-item lines="none"></ion-item>
-        </ion-item-group>
-        <!-- <span If="reason.errors">
-            <span [hidden]="!reason.errors.required">
-                <ion-label style="color: red; margin-left: 16px;"> This is a required question </ion-label>
-            </span>
-        </span> -->
-      
+      </ion-item-group>    
 
     
 

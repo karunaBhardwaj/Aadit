@@ -1,4 +1,4 @@
-export class SheetModel{
-    title:string;
-    data:any;
+export class SheetModel {
+    title: string;
+    data: any;
 }

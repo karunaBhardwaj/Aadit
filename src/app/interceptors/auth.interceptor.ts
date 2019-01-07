@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { GoogleDriveService } from "../services/google-drive.service";
+import { Injectable } from '@angular/core';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { GoogleDriveService } from '../services/google-drive.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

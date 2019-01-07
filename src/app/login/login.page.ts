@@ -34,13 +34,13 @@ export class LoginPage implements OnInit {
   }
 
   login() {
-    let data = this.loginForm.value;
+    const data = this.loginForm.value;
 
     if (!data.email) {
       return;
     }
 
-    let credentials = {
+    const credentials = {
       email: data.email,
       password: data.password
     };

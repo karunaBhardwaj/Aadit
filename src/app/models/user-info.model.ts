@@ -3,7 +3,8 @@ export class UserInfoModel {
 }
 
 export class UserProfileModel {
-    constructor(public email: string, public lastName?: string, public firstName?: string, public fullName?: string, public picture?: string) { }
+    constructor(public email: string, public lastName?: string, public firstName?: string,
+        public fullName?: string, public picture?: string) { }
 }
 
 export class TokenModel {
