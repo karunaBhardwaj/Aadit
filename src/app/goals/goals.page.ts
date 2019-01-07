@@ -21,7 +21,6 @@ export class GoalsPage implements OnInit {
       reason2: new FormControl('', [Validators.required]),
       activity: new FormControl('', [Validators.required]),
       reason3: new FormControl('', [Validators.required])
-      
     });
 
   }

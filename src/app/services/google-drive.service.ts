@@ -59,10 +59,6 @@ export class GoogleDriveService {
       if (goalsValue[i].length !== goalsColumnLen || goalsValue[i][1].length === 0) {
         return false;
       }
-    // for (const value of goalsValue[1]) {
-    //   if (value.length === 0) {
-    //     return false;
-    //   }
     }
     return true;
   }
@@ -81,10 +77,6 @@ export class GoogleDriveService {
       if (medicalValue[i].length !== medicalColumnLen || medicalValue[i][1].length === 0) {
         return false;
       }
-    // for (const value of medicalValue[1]) {
-    //   if (value.length === 0) {
-    //     return false;
-    //   }
     }
     return true;
   }

@@ -42,76 +42,75 @@
             <p ><sub>Check the boxes that you will answer "yes" to. If you have checked any of the boxes (except the last one), 
               you should check with a doctor before you start an exercise program.
                 </sub></p>
-
             <ion-item>
               <ion-label text-wrap><sub>I have been told I have a heart condition that requires me to take up only 
                 physical activity recommended by a doctor.</sub></ion-label>
-              <ion-checkbox formControlName="review"  required></ion-checkbox>
+              <ion-checkbox checkbox="false" formControlName="rev1" (ionChange)="datachanged($event)"  ></ion-checkbox>
             </ion-item>
 
             <ion-item>
               <ion-label text-wrap><sub>I have in the past felt a pain in my chest when I do 
                 physical activity / exercise.</sub></ion-label>
-              <ion-checkbox formControlName="review"  required></ion-checkbox>
+              <ion-checkbox checked="false" formControlName="rev2"  (ionChange)="datachanged($event)" ></ion-checkbox>
             </ion-item>
 
             <ion-item>
               <ion-label text-wrap><sub>In the past month I have had chest pain when not doing 
                 any physical activity..</sub></ion-label>
-              <ion-checkbox formControlName="review"  required></ion-checkbox>
+              <ion-checkbox checked="false" formControlName="rev3"  (ionChange)="datachanged($event)" ></ion-checkbox>
             </ion-item>
 
             <ion-item>
               <ion-label text-wrap><sub>I have in the past lost balance because I felt dizzy, or lost consciousness.
                 </sub></ion-label>
-              <ion-checkbox formControlName="review"  required></ion-checkbox>
+              <ion-checkbox checked="false" formControlName="rev4" ></ion-checkbox>
             </ion-item>
 
             <ion-item>
               <ion-label text-wrap><sub>I have a bone or joint problem that could be made worse with physical activity.
                 </sub></ion-label>
-              <ion-checkbox formControlName="review"  required></ion-checkbox>
+              <ion-checkbox checked="false" formControlName="rev5"></ion-checkbox>
             </ion-item>
 
             <ion-item>
               <ion-label text-wrap><sub>I am taking medication for blood pressure or a heart condition.
                 </sub></ion-label>
-              <ion-checkbox formControlName="review"  required></ion-checkbox>
+              <ion-checkbox checked="false" formControlName="rev6" ></ion-checkbox>
             </ion-item>
 
             <ion-item>
               <ion-label text-wrap><sub>I am diabetic.
                 </sub></ion-label>
-              <ion-checkbox formControlName="review"  required></ion-checkbox>
+              <ion-checkbox checked="false" formControlName="rev7"></ion-checkbox>
             </ion-item>
 
             <ion-item>
               <ion-label text-wrap><sub>I sometimes have difficulty breathing - especially in cold dry conditions.
                 </sub></ion-label>
-              <ion-checkbox formControlName="review"  required></ion-checkbox>
+              <ion-checkbox checked ="false" formControlName="rev8" ></ion-checkbox>
             </ion-item>
 
             <ion-item>
               <ion-label text-wrap><sub>I am aware of some other reason why I should do physical activity.
                 </sub></ion-label>
-              <ion-checkbox formControlName="review"  required></ion-checkbox>
+              <ion-checkbox checked="false" formControlName="rev9"></ion-checkbox>
             </ion-item>
 
             <ion-item>
               <ion-label text-wrap><sub>I am pregnant.
                 </sub></ion-label>
-              <ion-checkbox formControlName="review"  required></ion-checkbox>
+              <ion-checkbox checked="false" formControlName="rev10"></ion-checkbox>
             </ion-item>
 
             <ion-item>
               <ion-label text-wrap><sub>None of the things listed above apply to me.
                 </sub></ion-label>
-              <ion-checkbox formControlName="review"  required></ion-checkbox>
+              <ion-checkbox checked="false" formControlName="rev11" ></ion-checkbox>
             </ion-item>
         </ion-item-group>
 
 
-        <ion-button  [disabled]="!myForm.valid" type="submit" >Next</ion-button>
+        <ion-button  [disabled]="!myForm.valid" type="submit" >Submit</ion-button>
     </form>
     
 
