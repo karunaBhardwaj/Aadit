@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MenuController, ModalController } from '@ionic/angular';
 import { GoogleDriveService } from '../services/google-drive.service';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -28,10 +27,15 @@ export class HomePage {
       sheetData => {
         this.googleDriveService.saveAllSheetData(sheetData['valueRanges']);
         // console.log('this.isProfileSetupComplete()', this.googleDriveService.isProfileSetupComplete());
-        if (this.googleDriveService.isProfileSetupComplete() === false) {this.router.navigateByUrl('/signupform');
-      } else if (this.googleDriveService.isGoalSetupComplete() === false) {this.router.navigateByUrl('/goals');
-      } else if (this.googleDriveService.isMedicalSetupComplete() === false) {this.router.navigateByUrl('/medicalhistory');
-      } else { this.router.navigateByUrl('/dashboard'); }
+        if (this.googleDriveService.isProfileSetupComplete() === false) {alert('Signupform is not updated');
+        this.router.navigateByUrl('/signupform');
+      } else if (this.googleDriveService.isGoalSetupComplete() === false) {alert('Goals setup is not updated');
+      this.router.navigateByUrl('/goals');
+      } else if (this.googleDriveService.isMedicalSetupComplete() === false) {alert('Medical history is not updated');
+      this.router.navigateByUrl('/medicalhistory');
+      } else if (this.googleDriveService.isTestSetupComplete() === false) {alert('Test data is not updated');
+      } else {alert('Profile setup is completed');
+        this.router.navigateByUrl('/workout'); }
       },
       err => {
         console.error(err);

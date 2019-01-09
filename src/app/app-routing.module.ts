@@ -11,11 +11,13 @@ const routes: Routes = [
     loadChildren: './list/list.module#ListPageModule'
   },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
-  { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },  { path: 'signupform', loadChildren: './signupform/signupform.module#SignupformPageModule' },
+  { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
+  { path: 'signupform', loadChildren: './signupform/signupform.module#SignupformPageModule' },
   { path: 'goals', loadChildren: './goals/goals.module#GoalsPageModule' },
   { path: 'medicalhistory', loadChildren: './medicalhistory/medicalhistory.module#MedicalhistoryPageModule' },
   { path: 'disclaimer', loadChildren: './disclaimer/disclaimer.module#DisclaimerPageModule' },
   { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardPageModule' },
+  { path: 'workout', loadChildren: './workout/workout.module#WorkoutPageModule' }
 
   // {
   //   path: '',

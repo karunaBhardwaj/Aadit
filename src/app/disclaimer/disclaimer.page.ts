@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { GoogleDriveService } from 'src/app/services/google-drive.service';
+import { SheetTabsTitleConst } from '../constants/sheet.constant';
+import { DriveRequestModel } from '../models/drive-postdata.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-disclaimer',
@@ -11,11 +15,11 @@ export class DisclaimerPage implements OnInit {
   myForm: FormGroup;
 
 
-  constructor() { }
+  constructor(private router: Router, private googleDriveService: GoogleDriveService) { }
 
   ngOnInit() {
     this.myForm = new FormGroup({
-      grantPermission: new FormControl('', [Validators.required])
+      grantPermission: new FormControl(false, [Validators.required])
     });
 
   }
@@ -23,9 +27,35 @@ export class DisclaimerPage implements OnInit {
     return this.myForm.value['grantPermission'];
   }
 
+  onSubmit() {
+    const postData: DriveRequestModel = this.getParsedPostData(this.myForm.value);
 
-  Submit() {
-    console.log(this.grantPermission);
+    this.googleDriveService.setAllSheetData(this.googleDriveService.getSheetId(), postData).subscribe();
+    alert('profile setup completed');
+    this.router.navigateByUrl('/workout');
+    }
+
+  private getParsedPostData(formData): DriveRequestModel {
+    console.log(formData);
+    const values = [];
+
+    Object.values(formData).forEach(value => {
+      values.push(value);
+    });
+
+    const postData: DriveRequestModel = {
+      'valueInputOption': 'USER_ENTERED',
+      'data': [{
+        'range': `${SheetTabsTitleConst.MEDICAL_HISTORY}!B14`,
+        'majorDimension': 'COLUMNS',
+        'values': [values]
+      }]
+    };
+
+    console.log('postData', postData);
+    return postData;
 
   }
+
 }
+

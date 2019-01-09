@@ -19,11 +19,10 @@ export class AppService {
         parsedUrl += `ranges=${title}&`;
       });
     } else {
-      parsedUrl += `/values/${sheetTitle}`;
+      parsedUrl += `/values/${sheetTitle}?`;
     }
 
-    // parsedUrl = this.appendApiKey(parsedUrl);
-
+    parsedUrl = this.appendApiKey(parsedUrl);
     return parsedUrl;
   }
 
@@ -36,7 +35,6 @@ export class AppService {
     } else {
       parsedUrl += '/values/';
     }
-
     return parsedUrl;
   }
 

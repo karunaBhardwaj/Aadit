@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content padding>
-  <form (ngSubmit)="Submit()" [formGroup]="myForm">
+  <form (ngSubmit)="onSubmit(myForm.value)" [formGroup]="myForm">
 
       <p><sub>
           Aadit Life recommends that you consult with your physician before beginning any exercise program.
@@ -28,7 +28,7 @@
         
         <ion-item>
           <ion-label  >I Agree</ion-label>
-          <ion-checkbox  formControlName="grantPermission"  required>I Agree</ion-checkbox>
+          <ion-checkbox checked="false" formControlName="grantPermission"  required>I Agree</ion-checkbox>
         </ion-item>
       </ion-item-group>
 

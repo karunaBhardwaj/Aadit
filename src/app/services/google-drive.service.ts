@@ -81,6 +81,28 @@ export class GoogleDriveService {
     return true;
   }
 
+    public isTestSetupComplete(): boolean {
+    const testData = this.getLocalSheetTabData(SheetTabsTitleConst.TEST_DATA);
+    const testValue = testData['data']['values'] || [];
+
+    if (testValue.length < 2) {
+      return false;
+    }
+
+    const testColumnLen = testValue[0].length;
+
+    // for (let i = 1; i < testValue.length; i++) {
+    //   if (testValue[i].length !== testColumnLen || testValue[i][1].length === 0) {
+    //     return false;
+    //   }
+    for (const value of testValue[1]) {
+      if (value.length === 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   public getAllSheetDataObj(): SheetModel[] {
     return this.allSheetData;
   }

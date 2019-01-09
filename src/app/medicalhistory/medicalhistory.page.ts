@@ -12,7 +12,6 @@ import { DriveRequestModel } from '../models/drive-postdata.model';
 export class MedicalhistoryPage implements OnInit {
   myForm: FormGroup;
   checkup_value: string;
-  result: string;
   constructor(private router: Router, private googleDriveService: GoogleDriveService) { }
 
   ngOnInit() {
@@ -47,7 +46,7 @@ export class MedicalhistoryPage implements OnInit {
 
     this.googleDriveService.setAllSheetData(this.googleDriveService.getSheetId(), postData).subscribe();
 
-    this.router.navigateByUrl('/dashboard');
+    this.router.navigateByUrl('/disclaimer');
   }
 
   private getParsedPostData(formData): DriveRequestModel {

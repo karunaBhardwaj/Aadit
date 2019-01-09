@@ -5,6 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class EndpointService {
   public readonly googleApi = 'https://sheets.googleapis.com/v4/spreadsheets/';
-  public readonly apiKey = 'AIzaSyAH_W_WMeJSyxFIX1hDJRcrLzV3gPnC9N0';
+  public readonly apiKey = 'AIzaSyDhrD_jc40DRSgxzwpw_BVJ80B8ZgzlAso';
 
 }
