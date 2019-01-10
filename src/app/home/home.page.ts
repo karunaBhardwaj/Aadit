@@ -27,15 +27,15 @@ export class HomePage {
       sheetData => {
         this.googleDriveService.saveAllSheetData(sheetData['valueRanges']);
         // console.log('this.isProfileSetupComplete()', this.googleDriveService.isProfileSetupComplete());
-        if (this.googleDriveService.isProfileSetupComplete() === false) {alert('Signupform is not updated');
+        if (this.googleDriveService.isProfileSetupComplete() === false) {console.log('Signup form is not updated');
         this.router.navigateByUrl('/signupform');
-      } else if (this.googleDriveService.isGoalSetupComplete() === false) {alert('Goals setup is not updated');
+      } else if (this.googleDriveService.isGoalSetupComplete() === false) {console.log('Goals setup is not updated');
       this.router.navigateByUrl('/goals');
-      } else if (this.googleDriveService.isMedicalSetupComplete() === false) {alert('Medical history is not updated');
+      } else if (this.googleDriveService.isMedicalSetupComplete() === false) {console.log('Medical history is not updated');
       this.router.navigateByUrl('/medicalhistory');
-      } else if (this.googleDriveService.isTestSetupComplete() === false) {alert('Test data is not updated');
-      } else {alert('Profile setup is completed');
-        this.router.navigateByUrl('/workout'); }
+      } else if (this.googleDriveService.isTestSetupComplete() === false) {console.log('Test data is not updated');
+      } else {console.log('Profile setup is completed');
+      this.router.navigateByUrl('/workout'); }
       },
       err => {
         console.error(err);
