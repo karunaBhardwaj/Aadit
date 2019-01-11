@@ -13,25 +13,33 @@ export class WorkoutPage implements OnInit {
 
   constructor( private appservice: AppService,
     private router: Router, private googleDriveService: GoogleDriveService) { }
-    async fetchTodayWorkout() {
-      let Data: string[] = [] ;
-      const Url = this.appservice.getParsedGetDataUrl(this.googleDriveService.getSheetId(), SheetTabsTitleConst.WORKOUT);
-      await fetch(Url).then(function(response) {return response.json(); }).then(function(myJson) {
-      const value = myJson['values'] ;
-      let list: string[] = [];
 
+    fetchTodayWorkout() {
+      const Url = this.appservice.getParsedGetDataUrl(this.googleDriveService.getSheetId(), SheetTabsTitleConst.WORKOUT);
+      const Info = fetch(Url).then(function(response) {return response.json(); }).then(function(myJson) {
+      const value = myJson['values'] ;
+      let List: string[] = [] ;
       value.forEach(element => {
-        for ( let i = 0; i < 10; i++) {
-        if (new Date().toLocaleDateString() === element[i]) { list = element; } }
+        for ( let i = 0; i < value.length ; i++) {
+        if (new Date().toLocaleDateString() === element[i]) { List = element; } }
         });
-      return list;
-      }).then(function(x) { Data = x; });
-    console.log(Data);
-    return Data;
+      return List;
+      });
+      return Info;
     }
-  ngOnInit() {
+
+  async ngOnInit() {
     // const workData = this.googleDriveService.getLocalSheetTabData(SheetTabsTitleConst.WORKOUT);
     // console.log(workData.data);
-    this.fetchTodayWorkout();
+    let Data: string[];
+    await this.fetchTodayWorkout().then(function (x) { Data = x; });
+    document.getElementById('date').innerHTML = Data[0];
+    document.getElementById('workout_type').innerHTML = Data[0];
+    document.getElementById('activity_time').innerHTML = Data[0];
+    document.getElementById('activity_speed').innerHTML = Data[0];
+    document.getElementById('recovery_time').innerHTML = Data[0];
+    document.getElementById('recovery_speed').innerHTML = Data[0];
+    document.getElementById('repeats').innerHTML = Data[0];
+    document.getElementById('duration').innerHTML = Data[0];
   }
 }
