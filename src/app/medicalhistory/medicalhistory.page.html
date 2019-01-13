@@ -9,7 +9,6 @@
 
     
     <form (ngSubmit)="onSubmit(myForm.value)"  [formGroup]="myForm" >
-        <ion-list lines="none">
             <ion-label  floating text-wrap>The last time I had a medical check up was *</ion-label>
             <ion-row>
             <ion-col col-4 no-padding class="one">
@@ -35,7 +34,7 @@
               </ion-item>
             </ion-col>
             </ion-row>
-        </ion-list>
+
 
         <ion-item-group lines="none" >
             <ion-label text-wrap> Please review the following questions : * </ion-label>

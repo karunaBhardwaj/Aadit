@@ -34,12 +34,12 @@ export class WorkoutPage implements OnInit {
     let Data: string[];
     await this.fetchTodayWorkout().then(function (x) { Data = x; });
     document.getElementById('date').innerHTML = Data[0];
-    document.getElementById('workout_type').innerHTML = Data[0];
-    document.getElementById('activity_time').innerHTML = Data[0];
-    document.getElementById('activity_speed').innerHTML = Data[0];
-    document.getElementById('recovery_time').innerHTML = Data[0];
-    document.getElementById('recovery_speed').innerHTML = Data[0];
-    document.getElementById('repeats').innerHTML = Data[0];
-    document.getElementById('duration').innerHTML = Data[0];
+    document.getElementById('workout_type').innerHTML = Data[1];
+    document.getElementById('activity_time').innerHTML = Data[2];
+    document.getElementById('activity_speed').innerHTML = Data[3];
+    document.getElementById('recovery_time').innerHTML = Data[4];
+    document.getElementById('recovery_speed').innerHTML = Data[5];
+    document.getElementById('repeats').innerHTML = Data[6];
+    document.getElementById('duration').innerHTML = Data[7];
   }
 }

@@ -9,29 +9,49 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-    <div><label>Item ID: </label></div>
-
-    <TABLE >
-      <TD>
-        <TR>Date</TR>
-        <TR>Workout Type</TR>
-        <TR>Activity Time-Minutes</TR>
-        <TR>Activity Speed-Kmph</TR>
-        <TR>Recovery Time-Minutes</TR>
-        <TR>Recovery Speed</TR>
-        <TR># of Repeats</TR>
-        <TR>Total Duration</TR>
-      </TD>
-      <TD>
-        <TR id = "date"></TR>
-        <TR id = "workout_type"></TR>
-        <TR id = "activity_time"></TR>
-        <TR id = "activity_speed"></TR>
-        <TR id = "recovery_time"></TR>
-        <TR id = "recovery_speed"></TR>
-        <TR id = "repeats"></TR>
-        <TR id = "duration"></TR>
-      </TD>
-    </TABLE>
+<ion-content>
+<div class="container">
+	<table>
+		<thead>
+			<!-- <tr>
+				<th>Column 1</th>
+				<th>Column 2</th>
+			</tr> -->
+		</thead>
+		<tbody>
+			<tr>
+        <td >Date</td>
+        <td id = "date"></td>
+			</tr>
+			<tr>
+        <td>Workout Type</td>
+        <td id ="workout_type"></td>
+			</tr>
+			<tr>
+        <td>Activity Time - Minutes</td>
+        <td id = "activity_time"></td>
+			</tr>
+			<tr>
+        <td>Activity Speed -Kmph</td>
+        <td id = "activity_speed"></td>
+			</tr>
+			<tr>
+        <td>Recovery Time - Minutes</td>
+        <td id = "recovery_time"></td>
+      </tr>
+      <tr>
+          <td>Recovery Speed - Kmph</td>
+          <td id = "recovery_speed"></td>
+      </tr>
+      <tr>
+        <td># of repeats</td>
+        <td id = "repeats"></td>
+      </tr>
+      <tr>
+        <td>Duration - Minutes</td>
+        <td id = "duration"></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 </ion-content>
