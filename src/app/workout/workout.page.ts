@@ -32,6 +32,16 @@ export class WorkoutPage implements OnInit {
     // const workData = this.googleDriveService.getLocalSheetTabData(SheetTabsTitleConst.WORKOUT);
     // console.log(workData.data);
     let Data: string[];
+    const weekdays = new Array(7);
+    weekdays[0] = 'Sunday';
+    weekdays[1] = 'Monday';
+    weekdays[2] = 'Tuesday';
+    weekdays[3] = 'Wednesday';
+    weekdays[4] = 'Thursday';
+    weekdays[5] = 'Friday';
+    weekdays[6] = 'Saturday';
+    const date = new Date();
+    const Day = date.getDay();
     await this.fetchTodayWorkout().then(function (x) { Data = x; });
     document.getElementById('date').innerHTML = Data[0];
     document.getElementById('workout_type').innerHTML = Data[1];
@@ -41,5 +51,6 @@ export class WorkoutPage implements OnInit {
     document.getElementById('recovery_speed').innerHTML = Data[5];
     document.getElementById('repeats').innerHTML = Data[6];
     document.getElementById('duration').innerHTML = Data[7];
+    document.getElementById('Day').innerHTML = weekdays[Day];
   }
 }

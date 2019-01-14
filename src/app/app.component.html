@@ -15,11 +15,12 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
-          <ion-list-header *ngIf="auth.getEmail()"></ion-list-header>
+          <ion-list-header *ngIf="auth.getEmail()">
           <ion-item (click)="logout()" *ngIf="auth.authenticated">
             <ion-icon  name="log-out" item-left></ion-icon>
             Log out
           </ion-item>
+        </ion-list-header>
       </ion-content>
     </ion-menu>
     <ion-router-outlet main></ion-router-outlet>
