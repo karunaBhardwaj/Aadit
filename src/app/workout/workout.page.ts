@@ -27,6 +27,12 @@ export class WorkoutPage implements OnInit {
       });
       return Info;
     }
+    goToWorkoutLog() {
+      this.router.navigateByUrl('/workoutlog');
+    }
+    goToFoodLog() {
+      this.router.navigateByUrl('/foodlog');
+    }
 
   async ngOnInit() {
     // const workData = this.googleDriveService.getLocalSheetTabData(SheetTabsTitleConst.WORKOUT);

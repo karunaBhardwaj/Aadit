@@ -17,13 +17,23 @@ export class AppComponent implements OnInit {
   public appPages = [
     {
       title: 'Home',
-      url: '/home',
-      icon: 'home'
+      url: '/home'
     },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
+      title : 'Dashboard',
+      url : '/dashboard'
+    },
+    {
+      title : 'Workout',
+      url : '/workout'
+    },
+    {
+      title : 'Contact US',
+      url : '/contactus'
+    },
+    {
+      title : 'About US',
+      url : '/aboutus'
     }
   ];
 
@@ -44,20 +54,20 @@ export class AppComponent implements OnInit {
 
     console.log('userInfo', this.appService.getUserInfo());
 
-    this.auth.afAuth.authState
-      .subscribe(
-        user => {
-          if (this.appService.getUserInfo()) {
-            this.router.navigate(['/home']);
-          } else {
-            this.router.navigate(['/login']);
-          }
-        },
-        () => {
-          this.router.navigate(['/login']);
-        }
-      );
-    // this.router.navigate(['/medicalhistory']);
+    // this.auth.afAuth.authState
+    //   .subscribe(
+    //     user => {
+    //       if (this.appService.getUserInfo()) {
+    //         this.router.navigate(['/home']);
+    //       } else {
+    //         this.router.navigate(['/login']);
+    //       }
+    //     },
+    //     () => {
+    //       this.router.navigate(['/login']);
+    //     }
+    //   );
+    this.router.navigate(['/workoutlog']);
   }
 
   logout() {

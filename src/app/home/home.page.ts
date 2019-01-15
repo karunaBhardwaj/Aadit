@@ -33,9 +33,8 @@ export class HomePage {
       this.router.navigateByUrl('/goals');
       } else if (this.googleDriveService.isMedicalSetupComplete() === false) {console.log('Medical history is not updated');
       this.router.navigateByUrl('/medicalhistory');
-      } else if (this.googleDriveService.isTestSetupComplete() === false) {console.log('Test data is not updated');
-      } else {console.log('Profile setup is completed');
-      this.router.navigateByUrl('/workout'); }
+      } else {
+      this.router.navigateByUrl('/thankyou'); }
       },
       err => {
         console.error(err);

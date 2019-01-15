@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>workoutlog</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form (ngSubmit)="onSave(myForm.value)" [formGroup]="myForm">
+   
+    <label  floating>Workout Type</label>
+    <input type="text" formControlName="workout_type" required >
+
+    <ion-label  floating>Feedback</ion-label>
+      
+    <!-- <input type="text" formControlName="feedback" required > -->
+    <ion-button ion-fab><ion-icon name="logo-facebook"></ion-icon></ion-button>
+    <ion-button ion-fab><ion-icon name="logo-twitter"></ion-icon></ion-button>
+    <ion-button ion-fab><ion-icon name="logo-vimeo"></ion-icon></ion-button>
+    <ion-button ion-fab><ion-icon name="logo-googleplus"></ion-icon></ion-button>
+  
+    <ion-label floating>Comment</ion-label>
+    <input  type="text" formControlName="comment" style="height:200px"required >
+
+    <ion-button [disabled]="!myForm.valid" type="submit" >Save</ion-button> 
+  </form>
+
+</ion-content>

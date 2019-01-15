@@ -17,7 +17,12 @@ const routes: Routes = [
   { path: 'medicalhistory', loadChildren: './medicalhistory/medicalhistory.module#MedicalhistoryPageModule' },
   { path: 'disclaimer', loadChildren: './disclaimer/disclaimer.module#DisclaimerPageModule' },
   { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardPageModule' },
-  { path: 'workout', loadChildren: './workout/workout.module#WorkoutPageModule' }
+  { path: 'workout', loadChildren: './workout/workout.module#WorkoutPageModule' },  { path: 'thankyou', loadChildren: './thankyou/thankyou.module#ThankyouPageModule' },
+  { path: 'contactus', loadChildren: './contactus/contactus.module#ContactusPageModule' },
+  { path: 'workoutlog', loadChildren: './workoutlog/workoutlog.module#WorkoutlogPageModule' },
+  { path: 'foodlog', loadChildren: './foodlog/foodlog.module#FoodlogPageModule' },
+  { path: 'aboutus', loadChildren: './aboutus/aboutus.module#AboutusPageModule' }
+
 
   // {
   //   path: '',
