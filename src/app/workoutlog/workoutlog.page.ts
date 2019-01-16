@@ -17,17 +17,16 @@ export class WorkoutlogPage implements OnInit {
 
   ngOnInit() {
     this.myForm = new FormGroup({
-      date: new FormControl(new Date().toLocaleDateString(), [Validators.required, Validators.minLength(2)]),
+      date: new FormControl(new Date().toLocaleDateString(), [Validators.required]),
       workout_type: new FormControl('', [Validators.required]),
-      feedback: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      comment: new FormControl('', [Validators.required])
+      feedback: new FormControl('', [Validators.required]),
+      comment: new FormControl('', [Validators.required, Validators.minLength(2)])
     });
-      console.log(this.googleDriveService.getLocalSheetTabData(SheetTabsTitleConst.SIGN_UP));
+     console.log(this.googleDriveService.getLocalSheetTabData(SheetTabsTitleConst.WORKOUT_LOG));
   }
   onSave( ) {
 
     const postData: DriveRequestModel = this.getParsedPostData(this.myForm.value);
-
     this.googleDriveService.setAllSheetData(this.googleDriveService.getSheetId(), postData).subscribe();
 
     // this.router.navigateByUrl('/goals');

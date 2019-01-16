@@ -54,20 +54,20 @@ export class AppComponent implements OnInit {
 
     console.log('userInfo', this.appService.getUserInfo());
 
-    // this.auth.afAuth.authState
-    //   .subscribe(
-    //     user => {
-    //       if (this.appService.getUserInfo()) {
-    //         this.router.navigate(['/home']);
-    //       } else {
-    //         this.router.navigate(['/login']);
-    //       }
-    //     },
-    //     () => {
-    //       this.router.navigate(['/login']);
-    //     }
-    //   );
-    this.router.navigate(['/workoutlog']);
+    this.auth.afAuth.authState
+      .subscribe(
+        user => {
+          if (this.appService.getUserInfo()) {
+            this.router.navigate(['/home']);
+          } else {
+            this.router.navigate(['/login']);
+          }
+        },
+        () => {
+          this.router.navigate(['/login']);
+        }
+      );
+    // this.router.navigate(['/workoutlog']);
   }
 
   logout() {
