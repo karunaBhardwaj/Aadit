@@ -1,9 +1,24 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>foodlog</ion-title>
+    <ion-title>workoutlog</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <form (ngSubmit)="onSave(myForm.value)" [formGroup]="myForm">
+   
+
+    <ion-label  floating>TIME</ion-label> 
+    <input type="text" formControlName="time" required >
+    <!-- <ion-button ion-fab><ion-icon name="logo-facebook"></ion-icon></ion-button>
+    <ion-button ion-fab><ion-icon name="logo-twitter"></ion-icon></ion-button>
+    <ion-button ion-fab><ion-icon name="logo-vimeo"></ion-icon></ion-button>
+    <ion-button ion-fab><ion-icon name="logo-googleplus"></ion-icon></ion-button>
+   -->
+    <ion-label floating>Meal Details</ion-label>
+    <textarea  type="text" formControlName="details" style="height:200px"required ></textarea>
+
+    <ion-button [disabled]="!myForm.valid" type="submit" >Save</ion-button> 
+  </form>
 
 </ion-content>

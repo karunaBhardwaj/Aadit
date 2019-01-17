@@ -33,9 +33,9 @@ export class AppService {
     if (!sheetTitle) {
       parsedUrl += `/values:batchUpdate`;
     } else {
-      parsedUrl += '/values/';
+      parsedUrl += `/values/`;
     }
-    return parsedUrl;
+    return parsedUrl ;
   }
 
   public getUrlWithSheetId(sheetId: string) {

@@ -12,24 +12,33 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class WorkoutlogPage implements OnInit {
   myForm: FormGroup;
+
   constructor(private router: Router,
     private googleDriveService: GoogleDriveService) { }
+
+  feedback_value: string;
 
   ngOnInit() {
     this.myForm = new FormGroup({
       date: new FormControl(new Date().toLocaleDateString(), [Validators.required]),
       workout_type: new FormControl('', [Validators.required]),
-      feedback: new FormControl('', [Validators.required]),
+      feedback: new FormControl('',  [Validators.required]),
       comment: new FormControl('', [Validators.required, Validators.minLength(2)])
     });
      console.log(this.googleDriveService.getLocalSheetTabData(SheetTabsTitleConst.WORKOUT_LOG));
   }
-  onSave( ) {
+  addExpression(feedback) {
+    this.feedback_value = '';
+    this.feedback_value = feedback;
+  }
+  get feedback(): string {
+    return this.myForm.value['feedback'] = this.feedback_value;
+  }
+  onSubmit( ) {
 
     const postData: DriveRequestModel = this.getParsedPostData(this.myForm.value);
     this.googleDriveService.setAllSheetData(this.googleDriveService.getSheetId(), postData).subscribe();
-
-    // this.router.navigateByUrl('/goals');
+    this.router.navigateByUrl('/workout');
   }
   private getParsedPostData(formData): DriveRequestModel {
 
@@ -43,7 +52,7 @@ export class WorkoutlogPage implements OnInit {
     const postData: DriveRequestModel = {
       'valueInputOption': 'USER_ENTERED',
       'data': [{
-        'range': `${SheetTabsTitleConst.WORKOUT_LOG}!A2:D2`,
+        'range': `${SheetTabsTitleConst.WORKOUT_LOG}!A2:D6`,
         'majorDimension': 'ROWS',
         'values': [values]
       }]

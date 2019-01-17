@@ -143,7 +143,7 @@ export class GoogleDriveService {
   }
 
   public setSheetTabData(sheetId: string, postData: any, tab?: string): Observable<any> {
-    const url = this.appService.getParsedPostDataUrl(sheetId);
+    const url = this.appService.getParsedPostDataUrl(sheetId, tab);
     return this.http.post(url, postData);
   }
 

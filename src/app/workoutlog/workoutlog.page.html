@@ -5,22 +5,35 @@
 </ion-header>
 
 <ion-content padding>
-  <form (ngSubmit)="onSave(myForm.value)" [formGroup]="myForm">
+  <form (ngSubmit)="onSubmit(myForm.value)" [formGroup]="myForm">
    
     <label  floating>Workout Type</label>
     <input type="text" formControlName="workout_type" required >
 
     <ion-label  floating>Feedback</ion-label> 
-    <textarea type="text" formControlName="feedback" required ></textarea>
-    <!-- <ion-button ion-fab><ion-icon name="logo-facebook"></ion-icon></ion-button>
-    <ion-button ion-fab><ion-icon name="logo-twitter"></ion-icon></ion-button>
-    <ion-button ion-fab><ion-icon name="logo-vimeo"></ion-icon></ion-button>
-    <ion-button ion-fab><ion-icon name="logo-googleplus"></ion-icon></ion-button>
-   -->
-    <ion-label floating>Comment</ion-label>
-    <input  type="text" formControlName="comment" style="height:200px"required >
+    <!-- <textarea type="text" formControlName="feedback" required ></textarea> -->
+
+    <ion-row>
+      <ion-fab-button  mini >
+      <ion-radio class='h' formControlName="feedback" [checked]="this.feedback === 'Happy'" value="Happy"  (ionSelect)="addExpression('Happy')"></ion-radio>
+    </ion-fab-button>
+
+    <ion-fab-button mini>
+      <ion-radio formControlName="feedback" [checked]="this.feedback === 'Neutral'" value="Neutral"  (ionSelect)="addExpression('Neutral')"></ion-radio>
+    </ion-fab-button>
+
+    <ion-fab-button mini>
+      <ion-radio formControlName="feedback" [checked]="this.feedback === 'Unhappy'" value="Unhappy"  (ionSelect)="addExpression('Unhappy')"></ion-radio>
+    </ion-fab-button>
+    </ion-row>
+  
+    <!-- <div>It looks like you're feeling <span id="result">happy</span> today..</div> -->
+
+    <label >Comment</label>
+    <textarea  type="text" formControlName="comment" style="height:200px"required ></textarea>
 
     <ion-button [disabled]="!myForm.valid" type="submit" >Save</ion-button> 
   </form>
+
 
 </ion-content>
