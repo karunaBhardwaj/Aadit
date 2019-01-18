@@ -12,6 +12,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class FoodlogPage implements OnInit {
   myForm: FormGroup;
+  foodData = this.googleDriveService.getLocalSheetTabData(SheetTabsTitleConst.WORKOUT_LOG);
+  foodVal = (this.foodData.data.values.length) + 1;
 
   constructor(private router: Router,
     private googleDriveService: GoogleDriveService) { }
@@ -43,7 +45,7 @@ export class FoodlogPage implements OnInit {
     const postData: DriveRequestModel = {
       'valueInputOption': 'USER_ENTERED',
       'data': [{
-        'range': `${SheetTabsTitleConst.FOOD_LOG}!A2:C2`,
+        'range': `${SheetTabsTitleConst.FOOD_LOG}!A${this.foodVal}:C${this.foodVal}`,
         'majorDimension': 'ROWS',
         'values': [values]
       }]

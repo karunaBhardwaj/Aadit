@@ -12,6 +12,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class WorkoutlogPage implements OnInit {
   myForm: FormGroup;
+  workData = this.googleDriveService.getLocalSheetTabData(SheetTabsTitleConst.WORKOUT_LOG);
+  workVal = (this.workData.data.values.length) + 1;
 
   constructor(private router: Router,
     private googleDriveService: GoogleDriveService) { }
@@ -42,7 +44,7 @@ export class WorkoutlogPage implements OnInit {
   }
   private getParsedPostData(formData): DriveRequestModel {
 
-    console.log(formData);
+    // console.log(formData);
     const values = [];
 
     Object.values(formData).forEach(value => {
@@ -52,7 +54,7 @@ export class WorkoutlogPage implements OnInit {
     const postData: DriveRequestModel = {
       'valueInputOption': 'USER_ENTERED',
       'data': [{
-        'range': `${SheetTabsTitleConst.WORKOUT_LOG}!A2:D6`,
+        'range': `${SheetTabsTitleConst.WORKOUT_LOG}!A${this.workVal}:D${this.workVal}`,
         'majorDimension': 'ROWS',
         'values': [values]
       }]

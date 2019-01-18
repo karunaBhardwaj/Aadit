@@ -35,8 +35,6 @@ export class WorkoutPage implements OnInit {
     }
 
   async ngOnInit() {
-    // const workData = this.googleDriveService.getLocalSheetTabData(SheetTabsTitleConst.WORKOUT);
-    // console.log(workData.data);
     let Data: string[];
     const weekdays = new Array(7);
     weekdays[0] = 'Sunday';

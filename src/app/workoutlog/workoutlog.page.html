@@ -1,10 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>workoutlog</ion-title>
+    <ion-title>Workout Log</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+    
   <form (ngSubmit)="onSubmit(myForm.value)" [formGroup]="myForm">
    
     <label  floating>Workout Type</label>
@@ -12,9 +13,8 @@
 
     <ion-label  floating>Feedback</ion-label> 
     <!-- <textarea type="text" formControlName="feedback" required ></textarea> -->
-
     <ion-row>
-      <ion-fab-button  mini >
+    <ion-fab-button feedback mini >
       <ion-radio class='h' formControlName="feedback" [checked]="this.feedback === 'Happy'" value="Happy"  (ionSelect)="addExpression('Happy')"></ion-radio>
     </ion-fab-button>
 
