@@ -9,13 +9,13 @@
   <form (ngSubmit)="onSubmit(myForm.value)" [formGroup]="myForm">
    
     <label  floating>Workout Type</label>
-    <input type="text" formControlName="workout_type" required >
+    <label id ="type"></label>
+    <!-- <input type="text" formControlName="workout_type" required > -->
 
     <ion-label  floating>Feedback</ion-label> 
-    <!-- <textarea type="text" formControlName="feedback" required ></textarea> -->
     <ion-row>
     <ion-fab-button feedback mini >
-      <ion-radio class='h' formControlName="feedback" [checked]="this.feedback === 'Happy'" value="Happy"  (ionSelect)="addExpression('Happy')"></ion-radio>
+      <ion-radio formControlName="feedback" [checked]="this.feedback === 'Happy'" value="Happy"  (ionSelect)="addExpression('Happy')"></ion-radio>
     </ion-fab-button>
 
     <ion-fab-button mini>
@@ -28,10 +28,10 @@
     </ion-row>
   
     <!-- <div>It looks like you're feeling <span id="result">happy</span> today..</div> -->
-
+    <div id="div1" class="hide">
     <label >Comment</label>
-    <textarea  type="text" formControlName="comment" style="height:200px"required ></textarea>
-
+    <textarea id="comment" type="text" formControlName="comment" style="height:200px" ></textarea>
+    </div>
     <ion-button [disabled]="!myForm.valid" type="submit" >Save</ion-button> 
   </form>
 

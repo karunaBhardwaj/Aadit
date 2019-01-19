@@ -3,14 +3,12 @@ import { Router } from '@angular/router';
 import { GoogleDriveService } from 'src/app/services/google-drive.service';
 import { SheetTabsTitleConst } from '../constants/sheet.constant';
 import { AppService} from '../services/app.service';
-
 @Component({
   selector: 'app-workout',
   templateUrl: './workout.page.html',
   styleUrls: ['./workout.page.scss'],
 })
 export class WorkoutPage implements OnInit {
-
   constructor( private appservice: AppService,
     private router: Router, private googleDriveService: GoogleDriveService) { }
 
