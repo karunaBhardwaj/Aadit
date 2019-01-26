@@ -5,27 +5,33 @@
 </ion-header>
 
 <ion-content padding>
+    <!-- <link href="//code.ionicframework.com/nightly/css/ionic.css" rel="stylesheet">
+    <script src="//code.ionicframework.com/nightly/js/ionic.bundle.js"></script> -->
     
   <form (ngSubmit)="onSubmit(myForm.value)" [formGroup]="myForm">
    
     <label  floating>Workout Type</label>
     <label id ="type"></label>
-    <!-- <input type="text" formControlName="workout_type" required > -->
+    <input type="text" formControlName="workout_type" required >
 
     <ion-label  floating>Feedback</ion-label> 
-    <ion-row>
-    <ion-fab-button feedback mini >
-      <ion-radio formControlName="feedback" [checked]="this.feedback === 'Happy'" value="Happy"  (ionSelect)="addExpression('Happy')"></ion-radio>
-    </ion-fab-button>
+    <div>
+    <div  class="radio-wrapper">
+    <ion-radio class="radio" formControlName="feedback" [checked]="this.feedback === 'Happy'" value="Happy"  (ionSelect)="addExpression('Happy')"></ion-radio>
+    <label></label>
+    </div>
 
-    <ion-fab-button mini>
-      <ion-radio formControlName="feedback" [checked]="this.feedback === 'Neutral'" value="Neutral"  (ionSelect)="addExpression('Neutral')"></ion-radio>
-    </ion-fab-button>
+    <div  class="radio-wrapper">
+      <ion-radio class="radio" formControlName="feedback" [checked]="this.feedback === 'Neutral'" value="Neutral"  (ionSelect)="addExpression('Neutral')"></ion-radio>
+      <label></label>
+    </div>
 
-    <ion-fab-button mini>
-      <ion-radio formControlName="feedback" [checked]="this.feedback === 'Unhappy'" value="Unhappy"  (ionSelect)="addExpression('Unhappy')"></ion-radio>
-    </ion-fab-button>
-    </ion-row>
+    <div  class="radio-wrapper">
+      <ion-radio class="radio" formControlName="feedback" [checked]="this.feedback === 'Unhappy'" value="Unhappy"  (ionSelect)="addExpression('Unhappy')"></ion-radio>
+      <label></label>
+    </div>
+    </div>
+    
   
     <!-- <div>It looks like you're feeling <span id="result">happy</span> today..</div> -->
     <div id="div1" class="hide">

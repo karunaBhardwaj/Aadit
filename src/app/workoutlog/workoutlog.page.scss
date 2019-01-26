@@ -9,20 +9,48 @@ input[type=text], select, textarea {
     resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
   }
   
-  /* Style the submit button with a specific background color etc */
-  input[type=submit] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+  // /* Style the submit button with a specific background color etc */
+  // input[type=submit] {
+  //   background-color: #4CAF50;
+  //   color: white;
+  //   padding: 12px 20px;
+  //   border: none;
+  //   border-radius: 4px;
+  //   cursor: pointer;
+  // }
   
-   /* When moving the mouse over the submit button, add a darker green color */
-  input[type=submit]:hover {
-    background-color: #45a049;
-  }
+  //  /* When moving the mouse over the submit button, add a darker green color */
+  // input[type=submit]:hover {
+  //   background-color: #45a049;
+  // }
+
   .hide {
     display: none;
+  }
+
+  .radio-icon { visibility: visible!important;}
+
+  .radio-wrapper {
+      display: inline-flex;
+      padding: 0 5px;
+      .item-radio {
+          border: medium none;
+          width: 24px;
+          .radio-icon {
+            padding: 0;
+          }
+          .radio-icon:before{
+              content: "\263A";
+              border:1px solid black;
+              width: 24px;
+              height: 24px;
+              border-radius: 50%;
+              overflow:hidden;
+          }
+      }
+      .item-radio input:checked + .radio-content .radio-icon:before{
+        color: #fff;
+        background-color: red;
+        content: "\263A";
+      }
   }

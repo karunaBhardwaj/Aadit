@@ -6,6 +6,7 @@ import {  Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AppService } from '../services/app.service';
+import $ from 'jquery';
 
 @Component({
   selector: 'app-workoutlog',
@@ -15,15 +16,33 @@ import { AppService } from '../services/app.service';
 
 export class WorkoutlogPage implements OnInit {
   myForm: FormGroup;
+  Data = this.appservice.getUserInfo();
   workData = this.googleDriveService.getLocalSheetTabData(SheetTabsTitleConst.WORKOUT_LOG);
   workVal = (this.workData.data.values.length) + 1;
-
   constructor(private router: Router,
     private appservice: AppService,
     private http: HttpClient,
     private googleDriveService: GoogleDriveService) { }
 
   feedback_value: string;
+  // fetchTodayWorkout() {
+  //   const Url = this.appservice.getParsedGetDataUrl(this.googleDriveService.getSheetId(), SheetTabsTitleConst.WORKOUT);
+  //   const Info = fetch(Url).then(function(response) {return response.json(); }).then(function(myJson) {
+  //   const value = myJson['values'] ;
+  //   let List: string[] = [] ;
+  //   value.forEach(element => {
+  //     for ( let i = 0; i < value.length ; i++) {
+  //     if (new Date().toLocaleDateString() === element[i]) { List = element; } }
+  //     });
+  //   return List;
+  //   });
+  //   return Info;
+  // }
+  get workout_type(): string {
+    // let Type_Data: string[];
+    // this.fetchTodayWorkout().then(function (x) { Type_Data = x; });
+    return this.myForm.value['workout_type'] ;
+  }
 
   addExpression(feedback) {
     this.feedback_value = '';
@@ -36,14 +55,39 @@ export class WorkoutlogPage implements OnInit {
     return this.myForm.value['feedback'] = this.feedback_value;
   }
 
-  async ngOnInit() {
-    let Data: string[];
-    await this.fetchTodayWorkout().then(function (x) { Data = x; });
-    document.getElementById('type').innerHTML = 'hi';
+  get comment(): string {
+    return this.myForm.value['comment'];
+  }
+  Mail() {
+    if (this.feedback_value === 'Happy') {
+      console.log('No need to send mail');
+    } else {
+      $.ajax('http://localhost:3030/sendMail', {
+        method: 'POST',
+        contentType: 'application/json',
+        processData: false,
+        data: JSON.stringify({
+            from: this.Data.profile.email,
+            to: 'abhilash.vadlamudi@wissen.com' ,
+            subject: 'Workout Feedback',
+            message: `Date : ${new Date().toLocaleDateString()}<br/>
+                      Workout Type: ${this.workout_type}<br/>
+                      Feedback: ${this.feedback}<br/>
+                      Comment:  ${this.comment}`
+        })
+    })
+    .then(
+        function success(userInfo) {
+            console.log('Mail has been sent successfully');
+        }
+    );
+    }
+  }
 
+  ngOnInit() {
     this.myForm = new FormGroup({
       date: new FormControl(new Date().toLocaleDateString(), [Validators.required]),
-      workout_type: new FormControl('Data[1]', [Validators.required]),
+      workout_type: new FormControl(''),
       feedback: new FormControl('',  [Validators.required]),
       comment: new FormControl('')
     });
@@ -55,6 +99,7 @@ export class WorkoutlogPage implements OnInit {
 
     const postData: DriveRequestModel = this.getParsedPostData(this.myForm.value);
     this.googleDriveService.setAllSheetData(this.googleDriveService.getSheetId(), postData).subscribe();
+    this.Mail();
     this.router.navigateByUrl('/workout');
   }
 
@@ -73,20 +118,6 @@ export class WorkoutlogPage implements OnInit {
     };
     console.log('postData', postData);
     return postData;
-  }
-
-  fetchTodayWorkout() {
-    const Url = this.appservice.getParsedGetDataUrl(this.googleDriveService.getSheetId(), SheetTabsTitleConst.WORKOUT);
-    const Info = fetch(Url).then(function(response) {return response.json(); }).then(function(myJson) {
-    const value = myJson['values'] ;
-    let List: string[] = [] ;
-    value.forEach(element => {
-      for ( let i = 0; i < value.length ; i++) {
-      if (new Date().toLocaleDateString() === element[i]) { List = element; } }
-      });
-    return List;
-    });
-    return Info;
   }
 
 }
