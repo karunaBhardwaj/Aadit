@@ -34,6 +34,14 @@ export class AppComponent implements OnInit {
     {
       title : 'About US',
       url : '/aboutus'
+    },
+    {
+      title : 'Workout log',
+      url : '/workoutlog'
+    },
+    {
+      title : 'Food Log',
+      url : '/foodlog'
     }
   ];
 

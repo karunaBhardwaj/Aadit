@@ -1,22 +1,33 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>workoutlog</ion-title>
-  </ion-toolbar>
-</ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+       Food Log
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
 
 <ion-content padding>
   <form (ngSubmit)="onSave(myForm.value)" [formGroup]="myForm">
-   
+     
+  <div>
+    <ion-label>Date</ion-label>
+    <ion-datetime formControlName="date" display-format="DD/MMMM/YYYY " picker-format="DD MMMM YYYY" placeholder="Select a Date"></ion-datetime>
+  </div>
 
-    <ion-label  floating>TIME</ion-label> 
-    <input type="text" formControlName="time" required >
-    <!-- <ion-button ion-fab><ion-icon name="logo-facebook"></ion-icon></ion-button>
-    <ion-button ion-fab><ion-icon name="logo-twitter"></ion-icon></ion-button>
-    <ion-button ion-fab><ion-icon name="logo-vimeo"></ion-icon></ion-button>
-    <ion-button ion-fab><ion-icon name="logo-googleplus"></ion-icon></ion-button>
-   -->
+  <ion-label  floating>Meal Time</ion-label> 
+    <ion-select formControlName="food" placeholder="Select One">
+      <ion-select-option value="Breakfast">Breakfast</ion-select-option>
+      <ion-select-option value="Lunch">Lunch</ion-select-option>
+      <ion-select-option value="Dinner">Dinner</ion-select-option>
+    </ion-select>
+
+    <div>
     <ion-label floating>Meal Details</ion-label>
     <textarea  type="text" formControlName="details" style="height:200px"required ></textarea>
+    </div>
 
     <ion-button [disabled]="!myForm.valid" type="submit" >Save</ion-button> 
   </form>

@@ -17,24 +17,25 @@ export class FoodlogPage implements OnInit {
 
   constructor(private router: Router,
     private googleDriveService: GoogleDriveService) { }
+    food_value: string;
 
   ngOnInit() {
     this.myForm = new FormGroup({
-      date: new FormControl(new Date().toLocaleDateString(), [Validators.required]),
-     time : new FormControl('', [Validators.required]),
+      date: new FormControl('', [Validators.required]),
+      time : new FormControl(new Date().toLocaleTimeString(), [Validators.required]),
+      food : new FormControl('', [Validators.required]),
       details: new FormControl('', [Validators.required, , Validators.minLength(2)])
     });
      console.log(this.googleDriveService.getLocalSheetTabData(SheetTabsTitleConst.FOOD_LOG));
-  }
-  onSave( ) {
+    }
 
+  onSave( ) {
     const postData: DriveRequestModel = this.getParsedPostData(this.myForm.value);
     this.googleDriveService.setAllSheetData(this.googleDriveService.getSheetId(), postData).subscribe();
     this.router.navigateByUrl('/workout');
-
   }
-  private getParsedPostData(formData): DriveRequestModel {
 
+  private getParsedPostData(formData): DriveRequestModel {
     console.log(formData);
     const values = [];
 
@@ -45,7 +46,7 @@ export class FoodlogPage implements OnInit {
     const postData: DriveRequestModel = {
       'valueInputOption': 'USER_ENTERED',
       'data': [{
-        'range': `${SheetTabsTitleConst.FOOD_LOG}!A${this.foodVal}:C${this.foodVal}`,
+        'range': `${SheetTabsTitleConst.FOOD_LOG}!A${this.foodVal}:D${this.foodVal}`,
         'majorDimension': 'ROWS',
         'values': [values]
       }]

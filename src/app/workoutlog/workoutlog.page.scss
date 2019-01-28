@@ -32,25 +32,34 @@ input[type=text], select, textarea {
 
   .radio-wrapper {
       display: inline-flex;
-      padding: 0 5px;
-      .item-radio {
-          border: medium none;
-          width: 24px;
-          .radio-icon {
-            padding: 0;
-          }
-          .radio-icon:before{
-              content: "\263A";
-              border:1px solid black;
-              width: 24px;
-              height: 24px;
-              border-radius: 50%;
-              overflow:hidden;
-          }
-      }
-      .item-radio input:checked + .radio-content .radio-icon:before{
-        color: #fff;
-        background-color: red;
-        content: "\263A";
-      }
+      padding: 0 2px;
+      // .item-radio {
+      //     border: medium none;
+      //     width: 24px;
+      //     .radio-icon {
+      //       padding: 0;
+      //     }
+      //     .radio-icon:before{
+      //         content: "\263A";
+      //         border:1px solid black;
+      //         width: 24px;
+      //         height: 24px;
+      //         border-radius: 50%;
+      //         overflow:hidden;
+      //     }
+      // }
+      // .item-radio input:checked + .radio-content .radio-icon:before{
+      //   color: #fff;
+      //   background-color: red;
+      //   content: "\263A";
+      // }
+  }
+
+  .em {
+    // content: '';
+    // border: 10px solid yellow ;
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
   }
