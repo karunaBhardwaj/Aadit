@@ -3,7 +3,11 @@ import * as Highcharts from 'highcharts';
 import More from 'highcharts/highcharts-more';
 import HCSoldGauge from 'highcharts/modules/solid-gauge';
 import HC_exporting from 'highcharts/modules/exporting';
-
+import {theme} from './theme';
+import { GoogleDriveService } from 'src/app/services/google-drive.service';
+import { SheetTabsTitleConst } from '../constants/sheet.constant';
+import { AppService} from '../services/app.service';
+import * as moment from 'moment';
 HC_exporting(Highcharts);
 More(Highcharts);
 HCSoldGauge(Highcharts);
@@ -14,96 +18,71 @@ HCSoldGauge(Highcharts);
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
-    theme   =  {
-        colors: ['#7cb5ec', '#f7a35c', '#90ee7e', '#7798BF', '#aaeeee', '#ff0066',
-            '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
-        chart: {
-            backgroundColor: null,
-            style: {
-                fontFamily: 'Dosis, sans-serif'
-            }
-        },
-        title: {
-            style: {
-                fontSize: '14px',
-                fontWeight: 'bold',
-                textTransform: 'uppercase'
-            }
-        },
-        tooltip: {
-            borderWidth: 0,
-            backgroundColor: 'rgba(219,219,216,0.8)',
-            shadow: false
-        },
-        legend: {
-            itemStyle: {
-                fontWeight: 'bold',
-                fontSize: '12px'
-            }
-        },
-        xAxis: {
-            gridLineWidth: 1,
-            labels: {
-                style: {
-                    fontSize: '10px'
-                }
-            }
-        },
-        yAxis: {
-            minorTickInterval: 'auto',
-            title: {
-                style: {
-                    textTransform: 'uppercase'
-                }
-            },
-            labels: {
-                style: {
-                    fontSize: '10px'
-                }
-            }
-        },
-        plotOptions: {
-            candlestick: {
-                lineColor: '#404048'
-            }
-        },
 
+  constructor(private appservice: AppService, private googleDriveService: GoogleDriveService) { }
+  async chart1() {
 
-        // General
-        background2: '#F0F0EA'
+// Load data from sheets
+    let Data: string[];
 
-    };
-
-  constructor() { }
-  chart1() {
+    const Url = this.appservice.getParsedGetDataUrl(this.googleDriveService.getSheetId(), SheetTabsTitleConst.TEST_DATA);
+    const Info = fetch(Url).then(function(response) {return response.json(); }).then(function(myJson) {
+    const value = myJson['values'] ;
+    const List: string[] = [] ;
+    value.forEach(element => {
+        for ( let i = 0; i < value.length ; i++) {
+        if ( moment(element[i], 'M/D/YYYY', true).isValid() === true) { List.push(element[1] ); } }
+        });
+    return List;
+    });
+    await Info.then(function (x) { Data = x; });
+    const Weights = Data.map(Number);
+    console.log(Weights);
 
 // Apply the theme
-    Highcharts.setOptions( this.theme );
-
+Highcharts.setOptions(theme);
+    // Draw Chart
     Highcharts.chart('container', {
       chart: {
         type: 'column'
       },
       title: {
-        text: 'Weight chart'
+        text: 'Weight chart',
+        style: {
+            color: 'black'
+        }
       },
       subtitle: {
-        text: 'on daily basis'
+        text: 'on daily basis',
+        style: {
+            color: 'black'
+        }
       },
       xAxis: {
         type: 'datetime',
         // dateTimeLabelFormats: {
         //     day: '%e %b'
         // }
+        labels: {
+            style: {
+                color: 'black'
+            }
+        }
       },
       yAxis: {
         min: 50,
         title: {
           text: 'Weight',
-          align: 'high'
+          align: 'high',
+          style: {
+              color: 'black'
+          }
         },
         labels: {
-          overflow: 'justify'
+          overflow: 'justify',
+          style: {
+              color: 'black'
+          }
         }
       },
       tooltip: {
@@ -134,41 +113,27 @@ export class DashboardPage implements OnInit {
       series: [{
         type: 'column',
         name: 'Present weight',
-        data: [59.9, 59, 58, 57, 56, 58, 59, 56, 54, 56, 54],
+        data: Weights,
         pointStart: Date.UTC(2018, 5, 1),
         pointInterval: 24 * 3600 * 1000 // one day
     },
     {
     type: 'column',
     name: 'Goal',
-    data: [59, 58, 57, 56, 55, 55, 55, 55, 55, 55, 56],
+    data: [59, 59, 59, 59],
     pointStart: Date.UTC(2018, 5, 1),
     pointInterval: 24 * 3600 * 1000 // one day
     }]
   });
 
 }
-chart2() {
-    if (!this.theme) {
-        Highcharts.setOptions({
-            chart: {
-                backgroundColor: 'black'
-            },
-            colors: ['#F62366', '#9DFF02', '#0CCDD6'],
-            title: {
-                style: {
-                    color: 'silver'
-                }
-            },
-            tooltip: {
-                style: {
-                    color: 'silver'
-                }
-            }
-        });
-    }
-    function renderIcons() {
 
+// Activity Chart
+chart2() {
+    // apply theme
+    Highcharts.setOptions(theme);
+
+    function renderIcons() {
     // Weight icon
     if (!this.series[0].icon) {
         this.series[0].icon = this.renderer.path(['M', -8, 0, 'L', 8, 0, 'M', 0, -8, 'L', 8, 0, 0, 8])
@@ -228,9 +193,7 @@ chart2() {
     );
     }
 
-
-    // Highcharts.setOptions(Highcharts.theme);
-
+// Draw Chart
     Highcharts.chart('container2', {
 
         chart: {
