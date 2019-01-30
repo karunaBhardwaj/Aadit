@@ -7,6 +7,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AppService } from '../services/app.service';
 import $ from 'jquery';
+import {EndpointService} from '../services/endpoint.service';
 
 @Component({
   selector: 'app-workoutlog',
@@ -21,6 +22,7 @@ export class WorkoutlogPage implements OnInit {
   workVal = (this.workData.data.values.length) + 1;
   constructor(private router: Router,
     private appservice: AppService,
+    private sgservice: EndpointService,
     private http: HttpClient,
     private googleDriveService: GoogleDriveService) { }
 
@@ -58,31 +60,84 @@ export class WorkoutlogPage implements OnInit {
   get comment(): string {
     return this.myForm.value['comment'];
   }
+
+
   Mail() {
     if (this.feedback_value === 'Happy') {
       console.log('No need to send mail');
     } else {
-      $.ajax('http://localhost:3030/sendMail', {
-        method: 'POST',
-        contentType: 'application/json',
-        processData: false,
-        data: JSON.stringify({
-            from: this.Data.profile.email,
-            to: 'abhilash.vadlamudi@wissen.com' ,
-            subject: 'Workout Feedback',
-            message: `Date : ${new Date().toLocaleDateString()}<br/>
+      $.ajax(this.sgservice.sendgridApi, {
+      async: true,
+      crossDomain: true,
+      method: 'POST',
+      headers: {
+        'authorization': `Bearer ${this.sgservice.sgApiKey}`,
+        'content-type': 'application/json'
+      },
+      processData: false,
+      data: JSON.stringify({
+        'personalizations': [
+          {
+            'to': [
+              {
+                'email': 'abhilash.vadlamudi@wissen.com',
+                'name': `Aadit Life`
+              }
+            ],
+            'subject': 'Workout Feedback !!'
+          }
+        ],
+        'from': {
+          'email': `${this.Data.profile.email}`,
+          'name': `${this.Data.profile.fullName}`
+        },
+        'reply_to': {
+          'email': 'aaditlife.test@gmail.com',
+          'name': 'Aadit Life'
+        },
+        'content': [
+          {
+            'type': 'text/html',
+            'value': `Date : ${new Date().toLocaleDateString()}<br/>
                       Workout Type: ${this.workout_type}<br/>
                       Feedback: ${this.feedback}<br/>
                       Comment:  ${this.comment}`
-        })
-    })
-    .then(
-        function success(userInfo) {
-            console.log('Mail has been sent successfully');
-        }
-    );
+          }
+        ]
+      })
+  })
+  .then(
+      function success(mail) {
+          console.log('Mail has been sent successfully');
+      }
+  );
     }
   }
+  // Mail() {
+  //   if (this.feedback_value === 'Happy') {
+  //     console.log('No need to send mail');
+  //   } else {
+  //     $.ajax('http://localhost:3030/sendMail', {
+  //       method: 'POST',
+  //       contentType: 'application/json',
+  //       processData: false,
+  //       data: JSON.stringify({
+  //           from: this.Data.profile.email,
+  //           to: 'abhilash.vadlamudi@wissen.com' ,
+  //           subject: 'Workout Feedback',
+  //           message: `Date : ${new Date().toLocaleDateString()}<br/>
+  //                     Workout Type: ${this.workout_type}<br/>
+  //                     Feedback: ${this.feedback}<br/>
+  //                     Comment:  ${this.comment}`
+  //       })
+  //   })
+  //   .then(
+  //       function success(userInfo) {
+  //           console.log('Mail has been sent successfully');
+  //       }
+  //   );
+  //   }
+  // }
 
   ngOnInit() {
     this.myForm = new FormGroup({
