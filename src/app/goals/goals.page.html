@@ -15,7 +15,7 @@
         </ion-item>
         <div class="validation-errors">
             <ng-container *ngFor="let validation of validation_messages.reason" >
-            <div class="error-message" *ngIf="myForm.get('reason').hasError(validation.type) && (myForm.get('reason').dirty || myForm.get('reason').touched)">
+            <div class="error-message" *ngIf="myForm.get('reason').hasError(validation.type) && ( myForm.get('reason').touched)">
                 {{ validation.message }}
             </div>
             </ng-container>
@@ -29,7 +29,7 @@
         </ion-item>
         <div class="validation-errors">
             <ng-container *ngFor="let validation of validation_messages.reason2" >
-            <div class="error-message" *ngIf="myForm.get('reason2').hasError(validation.type) && (myForm.get('reason2').dirty || myForm.get('reason2').touched)">
+            <div class="error-message" *ngIf="myForm.get('reason2').hasError(validation.type) && (myForm.get('reason2').touched)">
                 {{ validation.message }}
             </div>
             </ng-container>
@@ -65,7 +65,7 @@
           </ion-item>
           <div class="validation-errors">
               <ng-container *ngFor="let validation of validation_messages.activity" >
-              <div class="error-message" *ngIf="myForm.get('activity').hasError(validation.type) && (myForm.get('activity').dirty || myForm.get('activity').touched)">
+              <div class="error-message" *ngIf="myForm.get('activity').hasError(validation.type) && (myForm.get('activity').touched)">
                   {{ validation.message }}
               </div>
               </ng-container>
@@ -83,7 +83,7 @@
         </ion-item>
         <div class="validation-errors">
             <ng-container *ngFor="let validation of validation_messages.reason3" >
-            <div class="error-message" *ngIf="myForm.get('reason3').hasError(validation.type) && (myForm.get('reason3').dirty || myForm.get('reason3').touched)">
+            <div class="error-message" *ngIf="myForm.get('reason3').hasError(validation.type) && ( myForm.get('reason3').touched)">
                 {{ validation.message }}
             </div>
             </ng-container>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-
+import {FormstatusService} from './services/formstatus.service';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -51,7 +51,8 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     private router: Router,
     private auth: AuthService,
-    private appService: AppService
+    private appService: AppService,
+    private formstatusservice: FormstatusService
   ) {
     this.initializeApp();
   }
@@ -66,7 +67,8 @@ export class AppComponent implements OnInit {
       .subscribe(
         user => {
           if (this.appService.getUserInfo()) {
-            this.router.navigate(['/home']);
+            // this.router.navigate(['/home']);
+            this.formstatusservice.checkForInitialSetup();
           } else {
             this.router.navigate(['/login']);
           }

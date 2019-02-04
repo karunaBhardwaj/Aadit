@@ -58,7 +58,7 @@ export class LoginPage implements OnInit {
 
   loginWithGoogle() {
     this.auth.signInWithGoogle().then(
-        () => this.router.navigate(['/home']),
+        () =>
         error => console.log(error.message)
       );
   }

@@ -16,7 +16,7 @@
             </ion-item>
             <div class="validation-errors">
                 <ng-container *ngFor="let validation of validation_messages.firstname" >
-                <div class="error-message" *ngIf="myForm.get('firstname').hasError(validation.type) && (myForm.get('firstname').dirty || myForm.get('firstname').touched)">
+                <div class="error-message" *ngIf="myForm.get('firstname').hasError(validation.type) && (myForm.get('firstname').touched)">
                     {{ validation.message }}
                 </div>
                 </ng-container>
@@ -29,7 +29,7 @@
             </ion-item>
             <div class="validation-errors">
                 <ng-container *ngFor="let validation of validation_messages.lastname" >
-                <div class="error-message" *ngIf="myForm.get('lastname').hasError(validation.type) && (myForm.get('lastname').dirty || myForm.get('lastname').touched)">
+                <div class="error-message" *ngIf="myForm.get('lastname').hasError(validation.type) && (myForm.get('lastname').touched)">
                     {{ validation.message }}
                 </div>
                 </ng-container>
@@ -43,7 +43,7 @@
             </ion-item>      
             <div class="validation-errors">
                 <ng-container *ngFor="let validation of validation_messages.email" >
-                <div class="error-message" *ngIf="myForm.get('email').hasError(validation.type) && (myForm.get('email').dirty || myForm.get('email').touched)">
+                <div class="error-message" *ngIf="myForm.get('email').hasError(validation.type) && (myForm.get('email').touched)">
                     {{ validation.message }}
                 </div>
                 </ng-container>
@@ -56,7 +56,7 @@
             </ion-item>    
             <div class="validation-errors">
                 <ng-container *ngFor="let validation of validation_messages.organization" >
-                <div class="error-message" *ngIf="myForm.get('organization').hasError(validation.type) && (myForm.get('organization').dirty || myForm.get('organization').touched)">
+                <div class="error-message" *ngIf="myForm.get('organization').hasError(validation.type) && (myForm.get('organization').touched)">
                     {{ validation.message }}
                 </div>
                 </ng-container>
@@ -69,7 +69,7 @@
             </ion-item>
             <div class="validation-errors">
                 <ng-container *ngFor="let validation of validation_messages.contact" >
-                <div class="error-message" *ngIf="myForm.get('contact').hasError(validation.type) && (myForm.get('contact').dirty || myForm.get('contact').touched)">
+                <div class="error-message" *ngIf="myForm.get('contact').hasError(validation.type) && (myForm.get('contact').touched)">
                     {{ validation.message }}
                 </div>
                 </ng-container>
@@ -94,7 +94,7 @@
             </ion-col>
             <div class="validation-errors">
                 <ng-container *ngFor="let validation of validation_messages.gender" >
-                <div class="error-message" *ngIf="myForm.get('gender').hasError(validation.type) && (myForm.get('gender').dirty || myForm.get('gender').touched)">
+                <div class="error-message" *ngIf="myForm.get('gender').hasError(validation.type) && (myForm.get('gender').touched)">
                     {{ validation.message }}
                 </div>
                 </ng-container>
@@ -109,7 +109,7 @@
             </ion-item>
             <div class="validation-errors">
                 <ng-container *ngFor="let validation of validation_messages.year" >
-                <div class="error-message" *ngIf="myForm.get('year').hasError(validation.type) && (myForm.get('year').dirty || myForm.get('year').touched)">
+                <div class="error-message" *ngIf="myForm.get('year').hasError(validation.type) && (myForm.get('year').touched)">
                     {{ validation.message }}
                 </div>
                 </ng-container>

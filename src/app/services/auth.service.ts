@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
-
+import {FormstatusService} from './formstatus.service';
 
 import AuthProvider = firebase.auth.AuthProvider;
 import { GoogleDriveService } from './google-drive.service';
@@ -20,7 +20,8 @@ export class AuthService {
     private afDb: AngularFireDatabase,
     private googleDriveService: GoogleDriveService,
     private router: Router,
-    private dbService: DbqueryService
+    private dbService: DbqueryService,
+    public formstatusservice: FormstatusService
   ) {
     afAuth.authState.subscribe(user => {
       this.user = user;
@@ -88,8 +89,9 @@ export class AuthService {
       if (data.additionalUserInfo.isNewUser) {
         // return this.setUpNewUser(data);
       }
-      this.router.navigate(['/home']);
-    });
+      // this.router.navigate(['/home']);
+      this.formstatusservice.checkForInitialSetup();
+      });
 
   }
 
