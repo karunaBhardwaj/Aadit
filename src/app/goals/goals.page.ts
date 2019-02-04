@@ -13,14 +13,32 @@ export class GoalsPage implements OnInit {
 
   myForm: FormGroup;
   activity_level: string;
+  validation_messages = {
+    'reason': [
+    { type: 'required', message: 'Enter a valid Reason.'},
+    { type: 'minlength', message: 'Enter a valid Reason.'},
+    ],
+    'reason2': [
+    { type: 'required', message: 'Enter a valid Reason.'},
+    { type: 'minlength', message: 'Enter a valid Reason .'},
+    ],
+    'activity': [
+      { type: 'required', message: 'Select a valid option.'},
+    ],
+    'reason3': [
+      { type: 'required', message: 'Enter a valid Reason.'},
+      { type: 'minlength', message: 'Enter a valid Reason .'},
+    ]
+
+    };
   constructor( private router: Router, private googleDriveService: GoogleDriveService) { }
 
   ngOnInit() {
     this.myForm = new FormGroup({
-      reason: new FormControl('', [Validators.required]),
-      reason2: new FormControl('', [Validators.required]),
+      reason: new FormControl('', [Validators.required, Validators.minLength(5)]),
+      reason2: new FormControl('', [Validators.required, Validators.minLength(5)]),
       activity: new FormControl('', [Validators.required]),
-      reason3: new FormControl('', [Validators.required])
+      reason3: new FormControl('', [Validators.required, Validators.minLength(5)])
     });
 
   }

@@ -11,14 +11,30 @@
       <ion-item-group>
         <ion-label >The reason  for the signup of program is *</ion-label>
         <ion-item lines="full">
-        <ion-input  type="text" formControlName="reason" name="entry.2104508474"  required ></ion-input>
+        <ion-input  type="text" formControlName="reason"  required ></ion-input>
         </ion-item>
+        <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.reason" >
+            <div class="error-message" *ngIf="myForm.get('reason').hasError(validation.type) && (myForm.get('reason').dirty || myForm.get('reason').touched)">
+                {{ validation.message }}
+            </div>
+            </ng-container>
+        </div>  
+
    
       
         <ion-label > In six months, I will be delighted if *</ion-label>
         <ion-item lines="full">
             <ion-input type="text" formControlName="reason2"   required ></ion-input>
         </ion-item>
+        <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.reason2" >
+            <div class="error-message" *ngIf="myForm.get('reason2').hasError(validation.type) && (myForm.get('reason2').dirty || myForm.get('reason2').touched)">
+                {{ validation.message }}
+            </div>
+            </ng-container>
+        </div>  
+
         <ion-item lines="none"></ion-item>        
       </ion-item-group>
 
@@ -47,6 +63,14 @@
             <ion-label text-wrap>Regular-three or more times a week.</ion-label>
             <ion-radio [checked]="this.activity === 'Regular'" formControlName ="activity"  required value="Regular" (ionSelect)="selectFrequency('Regular')"></ion-radio>
           </ion-item>
+          <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.activity" >
+              <div class="error-message" *ngIf="myForm.get('activity').hasError(validation.type) && (myForm.get('activity').dirty || myForm.get('activity').touched)">
+                  {{ validation.message }}
+              </div>
+              </ng-container>
+          </div>  
+
         </ion-col>
         </ion-row>
         </ion-item-group>
@@ -57,6 +81,14 @@
         <ion-item lines="full">
           <ion-input type="text" formControlName="reason3"  required ></ion-input>
         </ion-item>
+        <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.reason3" >
+            <div class="error-message" *ngIf="myForm.get('reason3').hasError(validation.type) && (myForm.get('reason3').dirty || myForm.get('reason3').touched)">
+                {{ validation.message }}
+            </div>
+            </ng-container>
+        </div>  
+
         <ion-item lines="none"></ion-item>
       </ion-item-group>    
 

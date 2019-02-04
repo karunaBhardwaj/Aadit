@@ -32,7 +32,7 @@ export class DisclaimerPage implements OnInit {
 
     this.googleDriveService.setAllSheetData(this.googleDriveService.getSheetId(), postData).subscribe();
     alert('profile setup completed');
-    this.router.navigateByUrl('/workout');
+    this.router.navigateByUrl('/thankyou');
     }
 
   private getParsedPostData(formData): DriveRequestModel {
