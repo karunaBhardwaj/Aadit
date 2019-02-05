@@ -51,12 +51,12 @@ export class SignupformPage implements OnInit {
     };
   constructor(private router: Router,
     private appservice: AppService,
-              private googleDriveService: GoogleDriveService
+    private googleDriveService: GoogleDriveService
     ) {
   }
 
   ngOnInit() {
-
+    console.log(this.googleDriveService.getLocalSheetTabData(SheetTabsTitleConst.SIGN_UP));
     this.myForm = new FormGroup({
       firstname: new FormControl(this.Data.profile.firstName, [Validators.required, Validators.minLength(2)]),
       lastname: new FormControl(this.Data.profile.lastName, [Validators.required, Validators.minLength(2)]),
@@ -66,7 +66,6 @@ export class SignupformPage implements OnInit {
       gender: new FormControl('', [Validators.required]),
       year: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(4)])
       });
-      console.log(this.googleDriveService.getLocalSheetTabData(SheetTabsTitleConst.SIGN_UP));
   }
   selectGender(gender) {
     this.sex = '';

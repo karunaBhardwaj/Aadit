@@ -34,6 +34,7 @@ export class GoalsPage implements OnInit {
   constructor( private router: Router, private googleDriveService: GoogleDriveService) { }
 
   ngOnInit() {
+    console.log(this.googleDriveService.getAllSheetData(SheetTabsTitleConst.GOALS));
     this.myForm = new FormGroup({
       reason: new FormControl('', [Validators.required, Validators.minLength(5)]),
       reason2: new FormControl('', [Validators.required, Validators.minLength(5)]),

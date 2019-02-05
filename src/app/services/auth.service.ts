@@ -89,8 +89,8 @@ export class AuthService {
       if (data.additionalUserInfo.isNewUser) {
         // return this.setUpNewUser(data);
       }
-      this.router.navigate(['/home']);
-      // this.formstatusservice.checkForInitialSetup();
+      // this.router.navigate(['/home']);
+      this.formstatusservice.checkForInitialSetup();
       });
 
   }
