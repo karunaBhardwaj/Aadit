@@ -26,6 +26,14 @@ export class DisclaimerPage implements OnInit {
   get grantPermission(): string {
     return this.myForm.value['grantPermission'];
   }
+  doRefresh(event) {
+    console.log('Begin async operation');
+    this.ngOnInit();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
 
   onSubmit() {
     const postData: DriveRequestModel = this.getParsedPostData(this.myForm.value);

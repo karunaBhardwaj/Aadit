@@ -27,6 +27,14 @@ export class WorkoutlogPage implements OnInit {
     private googleDriveService: GoogleDriveService) { }
 
   feedback_value: string;
+      doRefresh(event) {
+      console.log('Begin async operation');
+      this.ngOnInit();
+      setTimeout(() => {
+        console.log('Async operation has ended');
+        event.target.complete();
+      }, 2000);
+    }
   // fetchTodayWorkout() {
   //   const Url = this.appservice.getParsedGetDataUrl(this.googleDriveService.getSheetId(), SheetTabsTitleConst.WORKOUT);
   //   const Info = fetch(Url).then(function(response) {return response.json(); }).then(function(myJson) {

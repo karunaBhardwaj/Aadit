@@ -310,4 +310,12 @@ chart2() {
   ngOnInit() {
       this.ionViewDidLoad();
 }
+    doRefresh(event) {
+        console.log('Begin async operation');
+        this.ngOnInit();
+        setTimeout(() => {
+        console.log('Async operation has ended');
+        event.target.complete();
+        }, 2000);
+    }
 }

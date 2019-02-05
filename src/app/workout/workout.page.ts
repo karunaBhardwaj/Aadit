@@ -11,6 +11,14 @@ import { AppService} from '../services/app.service';
 export class WorkoutPage implements OnInit {
   constructor( private appservice: AppService,
     private router: Router, private googleDriveService: GoogleDriveService) { }
+    doRefresh(event) {
+      console.log('Begin async operation');
+      this.ngOnInit();
+      setTimeout(() => {
+        console.log('Async operation has ended');
+        event.target.complete();
+      }, 2000);
+    }
 
     fetchTodayWorkout() {
       const Url = this.appservice.getParsedGetDataUrl(this.googleDriveService.getSheetId(), SheetTabsTitleConst.WORKOUT);

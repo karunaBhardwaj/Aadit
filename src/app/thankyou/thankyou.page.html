@@ -10,6 +10,14 @@
 </ion-header>
 
 <ion-content padding>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content
+        pullingIcon="arrow-dropdown"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
       <link href='https://fonts.googleapis.com/css?family=Lato:300,400|Montserrat:700' rel='stylesheet' type='text/css'>
       <style>
         @import url(//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css);

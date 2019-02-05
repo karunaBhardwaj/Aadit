@@ -54,7 +54,14 @@ export class SignupformPage implements OnInit {
     private googleDriveService: GoogleDriveService
     ) {
   }
-
+  doRefresh(event) {
+    console.log('Begin async operation');
+    this.ngOnInit();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
   ngOnInit() {
     console.log(this.googleDriveService.getLocalSheetTabData(SheetTabsTitleConst.SIGN_UP));
     this.myForm = new FormGroup({

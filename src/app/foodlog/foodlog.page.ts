@@ -28,6 +28,14 @@ export class FoodlogPage implements OnInit {
     });
      console.log(this.googleDriveService.getLocalSheetTabData(SheetTabsTitleConst.FOOD_LOG));
     }
+    doRefresh(event) {
+      console.log('Begin async operation');
+      this.ngOnInit();
+      setTimeout(() => {
+        console.log('Async operation has ended');
+        event.target.complete();
+      }, 2000);
+    }
 
   onSave( ) {
     const postData: DriveRequestModel = this.getParsedPostData(this.myForm.value);
