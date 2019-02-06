@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { GoogleDriveService } from './google-drive.service';
 import { Router } from '@angular/router';
 
@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
     providedIn: 'root'
   })
 export class FormstatusService {
-    constructor(private googleDriveService: GoogleDriveService,private router: Router) {}
+    constructor(private googleDriveService: GoogleDriveService, private router: Router, private ngZone: NgZone) {}
 
     checkForInitialSetup() {
 
@@ -15,13 +15,13 @@ export class FormstatusService {
             this.googleDriveService.saveAllSheetData(sheetData['valueRanges']);
             // console.log('this.isProfileSetupComplete()', this.googleDriveService.isProfileSetupComplete());
             if (this.googleDriveService.isProfileSetupComplete() === false) {console.log('Signup form is not updated');
-            this.router.navigateByUrl('/signupform');
+            this.ngZone.run(() => this.router.navigateByUrl('/signupform')).then();
           } else if (this.googleDriveService.isGoalSetupComplete() === false) {console.log('Goals setup is not updated');
-          this.router.navigateByUrl('/goals');
+            this.ngZone.run(() => this.router.navigateByUrl('/goals')).then();
           } else if (this.googleDriveService.isMedicalSetupComplete() === false) {console.log('Medical history is not updated');
-          this.router.navigateByUrl('/medicalhistory');
+            this.ngZone.run(() => this.router.navigateByUrl('/medicalhistory')).then();
           } else {
-          this.router.navigateByUrl('/thankyou'); }
+            this.ngZone.run(() => this.router.navigateByUrl('/thankyou')).then(); }
           },
           err => {
             console.error(err);

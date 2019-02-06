@@ -32,14 +32,7 @@ export class GoalsPage implements OnInit {
 
     };
   constructor( private router: Router, private googleDriveService: GoogleDriveService) { }
-  doRefresh(event) {
-    console.log('Begin async operation');
-    this.ngOnInit();
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      event.target.complete();
-    }, 2000);
-  }
+
   ngOnInit() {
     console.log(this.googleDriveService.getAllSheetData(SheetTabsTitleConst.GOALS));
     this.myForm = new FormGroup({
