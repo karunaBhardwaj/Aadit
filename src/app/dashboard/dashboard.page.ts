@@ -226,22 +226,22 @@ chart2() {
           startAngle: 0,
           endAngle: 360,
           background: [{
-            outerRadius: '100%',
-            innerRadius: '76%',
+            outerRadius: '112%',
+            innerRadius: '88%',
             backgroundColor: (Highcharts as any).Color(Highcharts.getOptions().colors[0]).setOpacity(0.3).get(),
             borderWidth: 0
           },
          {
             // Track for Fat
-            outerRadius: '75%',
-            innerRadius: '51%',
+            outerRadius: '87%',
+            innerRadius: '63%',
             backgroundColor: (Highcharts as any).Color(Highcharts.getOptions().colors[1]).setOpacity(0.3).get(),
             borderWidth: 0
           },
          {
             // Track for BMI
-                outerRadius: '50%',
-                innerRadius: '26%',
+                outerRadius: '62%',
+                innerRadius: '38%',
                 backgroundColor: (Highcharts as any).Color(Highcharts.getOptions().colors[2]).setOpacity(0.3).get(),
                 borderWidth: 0
             }]
@@ -276,8 +276,8 @@ chart2() {
             name: 'Weight',
             data: [{
             color: Highcharts.getOptions().colors[0],
-            radius: '100%',
-            innerRadius: '76%',
+            radius: '112%',
+            innerRadius: '88%',
             y: 80
             }]
         }, {
@@ -285,8 +285,8 @@ chart2() {
             name: 'Fat',
             data: [{
             color: Highcharts.getOptions().colors[1],
-            radius: '75%',
-            innerRadius: '51%',
+            radius: '87%',
+            innerRadius: '63%',
             y: 65
             }]
         }, {
@@ -294,8 +294,8 @@ chart2() {
             name: 'BMI',
             data: [{
             color: Highcharts.getOptions().colors[2],
-            radius: '50%',
-            innerRadius: '26%',
+            radius: '62%',
+            innerRadius: '38%',
             y: 50
             }]
         }]

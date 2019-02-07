@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { AppService } from '../services/app.service';
 import $ from 'jquery';
 import {EndpointService} from '../services/endpoint.service';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-workoutlog',
   templateUrl: './workoutlog.page.html',
@@ -18,40 +18,43 @@ import {EndpointService} from '../services/endpoint.service';
 export class WorkoutlogPage implements OnInit {
   myForm: FormGroup;
   Data = this.appservice.getUserInfo();
-  workData = this.googleDriveService.getLocalSheetTabData(SheetTabsTitleConst.WORKOUT_LOG);
-  workVal = (this.workData.data.values.length) + 1;
+  workVal;
+  feedback_value: string;
+
   constructor(private router: Router,
     private appservice: AppService,
     private sgservice: EndpointService,
     private http: HttpClient,
     private googleDriveService: GoogleDriveService) { }
 
-  feedback_value: string;
-      doRefresh(event) {
-      console.log('Begin async operation');
-      this.ngOnInit();
-      setTimeout(() => {
-        console.log('Async operation has ended');
-        event.target.complete();
-      }, 2000);
-    }
-  // fetchTodayWorkout() {
-  //   const Url = this.appservice.getParsedGetDataUrl(this.googleDriveService.getSheetId(), SheetTabsTitleConst.WORKOUT);
-  //   const Info = fetch(Url).then(function(response) {return response.json(); }).then(function(myJson) {
-  //   const value = myJson['values'] ;
-  //   let List: string[] = [] ;
-  //   value.forEach(element => {
-  //     for ( let i = 0; i < value.length ; i++) {
-  //     if (new Date().toLocaleDateString() === element[i]) { List = element; } }
-  //     });
-  //   return List;
-  //   });
-  //   return Info;
-  // }
-  get workout_type(): string {
-    // let Type_Data: string[];
-    // this.fetchTodayWorkout().then(function (x) { Type_Data = x; });
-    return this.myForm.value['workout_type'] ;
+  doRefresh(event) {
+    console.log('Begin async operation');
+    this.ngOnInit();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
+  fetchWorkLog() {
+    const Url = this.appservice.getParsedGetDataUrl(this.googleDriveService.getSheetId(), SheetTabsTitleConst.WORKOUT_LOG);
+    const Info = fetch(Url).then(function(response) {return response.json(); }).then(function(myJson) {
+    const value = myJson['values'] ;
+    let List = 1 ;
+    value.forEach(element => {
+      for ( let i = 0; i < value.length ; i++) {
+      if (moment(element[i], 'M/D/YYYY', true).isValid() === true ) { List = List + 1; } }
+      });
+    return List;
+    });
+    return Info;
+  }
+
+  async ionViewWillEnter () {
+    let Type_Data: number;
+    await this.fetchWorkLog().then(function (x) { Type_Data = x; });
+    console.log(Type_Data);
+    this.workVal = Type_Data + 1;
+
   }
 
   addExpression(feedback) {
@@ -60,6 +63,10 @@ export class WorkoutlogPage implements OnInit {
     if (this.feedback_value === 'Happy') {
       document.getElementById('div1').style.display = 'none';
     } else { document.getElementById('div1').style.display = 'block'; }
+  }
+
+  get workout_type(): string {
+    return this.myForm.value['workout_type'] ;
   }
   get feedback(): string {
     return this.myForm.value['feedback'] = this.feedback_value;
@@ -121,31 +128,6 @@ export class WorkoutlogPage implements OnInit {
   );
     }
   }
-  // Mail() {
-  //   if (this.feedback_value === 'Happy') {
-  //     console.log('No need to send mail');
-  //   } else {
-  //     $.ajax('http://localhost:3030/sendMail', {
-  //       method: 'POST',
-  //       contentType: 'application/json',
-  //       processData: false,
-  //       data: JSON.stringify({
-  //           from: this.Data.profile.email,
-  //           to: 'abhilash.vadlamudi@wissen.com' ,
-  //           subject: 'Workout Feedback',
-  //           message: `Date : ${new Date().toLocaleDateString()}<br/>
-  //                     Workout Type: ${this.workout_type}<br/>
-  //                     Feedback: ${this.feedback}<br/>
-  //                     Comment:  ${this.comment}`
-  //       })
-  //   })
-  //   .then(
-  //       function success(userInfo) {
-  //           console.log('Mail has been sent successfully');
-  //       }
-  //   );
-  //   }
-  // }
 
   ngOnInit() {
     this.myForm = new FormGroup({
@@ -157,9 +139,7 @@ export class WorkoutlogPage implements OnInit {
     console.log(this.googleDriveService.getLocalSheetTabData(SheetTabsTitleConst.WORKOUT_LOG));
   }
 
-
   onSubmit( ) {
-
     const postData: DriveRequestModel = this.getParsedPostData(this.myForm.value);
     this.googleDriveService.setAllSheetData(this.googleDriveService.getSheetId(), postData).subscribe();
     this.Mail();
