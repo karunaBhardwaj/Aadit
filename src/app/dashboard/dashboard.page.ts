@@ -22,16 +22,30 @@ export class DashboardPage implements OnInit {
   constructor(private appservice: AppService, private googleDriveService: GoogleDriveService) { }
 
 // Activity Chart
-chart() {
-    const foodData = this.googleDriveService.getLocalSheetTabData(SheetTabsTitleConst.TEST_DATA);
-    console.log(foodData);
-    const foodVal = (foodData.data.values);
-    console.log(foodVal[0][1]);
+async chart() {
+  const Url = this.appservice.getParsedGetDataUrl(this.googleDriveService.getSheetId(), SheetTabsTitleConst.TEST_DATA);
+  const Info = fetch(Url).then(function(response) {return response.json(); }).then(function(myJson) {
+  const value = myJson['values'] ;
+  console.log(value);
+  return value;
+  });
+  let Data = [];
+  await Info.then(function (x) { Data = (x); });
+  const weights = [+Data[4][1], +Data[3][1], +Data[2][1]];
+  const weightTarget = +Data[9][1];
+  const fat = [+Data[4][2].slice(0, -1), +Data[3][2].slice(0, -1), +Data[2][2].slice(0, -1)];
+  const fatTarget = +Data[9][2].slice(0, -1);
+  const bmi = [+Data[4][4], +Data[3][4], +Data[2][4]];
+  const bmiTarget = +Data[9][4];
+  const bodyage = [+Data[4][3], +Data[3][3], +Data[2][3]];
+  const Month1 = moment(Data[4][0], 'M/D/YYYY');
+  const Month2 = moment(Data[3][0], 'M/D/YYYY');
+  const Month3 = moment(Data[2][0], 'M/D/YYYY');
     // apply theme
     Highcharts.setOptions(theme);
 
     function renderIcons() {
-    // Jan icon
+    // Month 1 Icon
     if (!this.series[0].icon) {
         this.series[0].icon = this.renderer.path(['M', -8, 0, 'L', 8, 0, 'M', 0, -8, 'L', 8, 0, 0, 8])
             .attr({
@@ -49,7 +63,7 @@ chart() {
             (this.series[0].points[0].shapeArgs.r - this.series[0].points[0].shapeArgs.innerR) / 2
     );
 
-    // Feb icon
+    // Month 2 Icon
     if (!this.series[1].icon) {
         this.series[1].icon = this.renderer.path(
             ['M', -8, 0, 'L', 8, 0, 'M', 0, -8, 'L', 8, 0, 0, 8,
@@ -70,7 +84,7 @@ chart() {
             (this.series[1].points[0].shapeArgs.r - this.series[1].points[0].shapeArgs.innerR) / 2
     );
 
-    // March icon
+    // Month 3 icon
     if (!this.series[2].icon) {
         this.series[2].icon = this.renderer.path(['M', 0, 8, 'L', 0, -8, 'M', -8, 0, 'L', 0, -8, 8, 0])
             .attr({
@@ -101,7 +115,7 @@ chart() {
         }
         },
         title: {
-            text: 'Weight Chart',
+            text: `Weight Chart [ Target: ${weightTarget}Kg ]`,
             style: {
                 fontSize: '15px'
             }
@@ -119,7 +133,7 @@ chart() {
             };
         }
     },
-        pane: { // track for Jan
+        pane: { // track for Month 1
             startAngle: 0,
             endAngle: 360,
             background: [{
@@ -129,14 +143,14 @@ chart() {
             borderWidth: 0
           },
          {
-            // Track for Feb
+            // Track for Month 2
             outerRadius: '87%',
             innerRadius: '63%',
             backgroundColor: (Highcharts as any).Color(Highcharts.getOptions().colors[1]).setOpacity(0.3).get(),
             borderWidth: 0
           },
          {
-            // Track for March
+            // Track for Month 3
             outerRadius: '62%',
             innerRadius: '38%',
             backgroundColor: (Highcharts as any).Color(Highcharts.getOptions().colors[2]).setOpacity(0.3).get(),
@@ -170,32 +184,32 @@ chart() {
 
         series: [{
             type: 'solidgauge',
-            name: 'Jan',
+            name: Month1.format('MMM'),
             data: [{
             color: Highcharts.getOptions().colors[0],
             radius: '112%',
             innerRadius: '88%',
-            y: 59.8
+            y: weights[0]
             }],
             showInLegend: true
         }, {
             type: 'solidgauge',
-            name: 'Feb',
+            name: Month2.format('MMM'),
             data: [{
             color: Highcharts.getOptions().colors[1],
             radius: '87%',
             innerRadius: '63%',
-            y: 59.6
+            y: weights[1]
             }],
             showInLegend: true
         }, {
             type: 'solidgauge',
-            name: 'March',
+            name: Month3.format('MMM'),
             data: [{
             color: Highcharts.getOptions().colors[2],
             radius: '62%',
             innerRadius: '38%',
-            y: 59.2
+            y: weights[2]
             }],
             showInLegend: true
         }]
@@ -214,7 +228,7 @@ chart() {
         }
         },
         title: {
-            text: 'Fat Chart',
+            text: `Fat Chart [ Target: ${fatTarget}% ]`,
             style: {
                 fontSize: '15px'
             }
@@ -232,7 +246,7 @@ chart() {
             };
         }
     },
-        pane: { // track for Jan
+        pane: { // track for Month 1
             startAngle: 0,
             endAngle: 360,
             background: [{
@@ -242,14 +256,14 @@ chart() {
             borderWidth: 0
           },
          {
-            // Track for Feb
+            // Track for Month 2
             outerRadius: '87%',
             innerRadius: '63%',
             backgroundColor: (Highcharts as any).Color(Highcharts.getOptions().colors[1]).setOpacity(0.3).get(),
             borderWidth: 0
           },
          {
-            // Track for March
+            // Track for Month 3
             outerRadius: '62%',
             innerRadius: '38%',
             backgroundColor: (Highcharts as any).Color(Highcharts.getOptions().colors[2]).setOpacity(0.3).get(),
@@ -283,32 +297,32 @@ chart() {
 
         series: [{
             type: 'solidgauge',
-            name: 'Jan',
+            name: Month1.format('MMM'),
             data: [{
             color: Highcharts.getOptions().colors[0],
             radius: '112%',
             innerRadius: '88%',
-            y: 34.5
+            y: fat[0]
             }],
             showInLegend: true
         }, {
             type: 'solidgauge',
-            name: 'Feb',
+            name: Month2.format('MMM'),
             data: [{
             color: Highcharts.getOptions().colors[1],
             radius: '87%',
             innerRadius: '63%',
-            y: 34.2
+            y: fat[1]
             }],
             showInLegend: true
         }, {
             type: 'solidgauge',
-            name: 'March',
+            name: Month3.format('MMM'),
             data: [{
             color: Highcharts.getOptions().colors[2],
             radius: '62%',
             innerRadius: '38%',
-            y: 33.1
+            y: fat[2]
             }],
             showInLegend: true
         }]
@@ -326,7 +340,7 @@ chart() {
         }
         },
         title: {
-            text: 'BMI Chart',
+            text: `BMI Chart [ Target: ${bmiTarget} ]`,
             style: {
                 fontSize: '15px'
             }
@@ -344,7 +358,7 @@ chart() {
             };
         }
     },
-        pane: { // track for Jan
+        pane: { // track for Month 1
             startAngle: 0,
             endAngle: 360,
             background: [{
@@ -354,14 +368,14 @@ chart() {
             borderWidth: 0
           },
          {
-            // Track for Feb
+            // Track for Month 2
             outerRadius: '87%',
             innerRadius: '63%',
             backgroundColor: (Highcharts as any).Color(Highcharts.getOptions().colors[1]).setOpacity(0.3).get(),
             borderWidth: 0
           },
          {
-            // Track for March
+            // Track for Month 3
             outerRadius: '62%',
             innerRadius: '38%',
             backgroundColor: (Highcharts as any).Color(Highcharts.getOptions().colors[2]).setOpacity(0.3).get(),
@@ -395,32 +409,32 @@ chart() {
 
         series: [{
             type: 'solidgauge',
-            name: 'Jan',
+            name: Month1.format('MMM'),
             data: [{
             color: Highcharts.getOptions().colors[0],
             radius: '112%',
             innerRadius: '88%',
-            y: 24.3
+            y: bmi[0]
             }],
             showInLegend: true
         }, {
             type: 'solidgauge',
-            name: 'Feb',
+            name: Month2.format('MMM'),
             data: [{
             color: Highcharts.getOptions().colors[1],
             radius: '87%',
             innerRadius: '63%',
-            y: 24.5
+            y: bmi[1]
             }],
             showInLegend: true
         }, {
             type: 'solidgauge',
-            name: 'March',
+            name: Month3.format('MMM'),
             data: [{
             color: Highcharts.getOptions().colors[2],
             radius: '62%',
             innerRadius: '38%',
-            y: 24.3
+            y: bmi[2]
             }],
             showInLegend: true
         }]
@@ -438,7 +452,7 @@ chart() {
         }
         },
         title: {
-            text: 'Body Age Chart',
+            text: `Body Age Chart`,
             style: {
                 fontSize: '15px'
             }
@@ -456,7 +470,7 @@ chart() {
             };
         }
     },
-        pane: { // track for Jan
+        pane: { // track for Month 1
             startAngle: 0,
             endAngle: 360,
             background: [{
@@ -466,14 +480,14 @@ chart() {
             borderWidth: 0
           },
          {
-            // Track for Feb
+            // Track for Month 2
             outerRadius: '87%',
             innerRadius: '63%',
             backgroundColor: (Highcharts as any).Color(Highcharts.getOptions().colors[1]).setOpacity(0.3).get(),
             borderWidth: 0
           },
          {
-            // Track for March
+            // Track for Month 3
             outerRadius: '62%',
             innerRadius: '38%',
             backgroundColor: (Highcharts as any).Color(Highcharts.getOptions().colors[2]).setOpacity(0.3).get(),
@@ -507,32 +521,32 @@ chart() {
 
         series: [{
             type: 'solidgauge',
-            name: 'Jan',
+            name: Month1.format('MMM'),
             data: [{
             color: Highcharts.getOptions().colors[0],
             radius: '112%',
             innerRadius: '88%',
-            y: 48
+            y: bodyage[0]
             }],
             showInLegend: true
         }, {
             type: 'solidgauge',
-            name: 'Feb',
+            name: Month2.format('MMM'),
             data: [{
             color: Highcharts.getOptions().colors[1],
             radius: '87%',
             innerRadius: '63%',
-            y: 47
+            y: bodyage[1]
             }],
             showInLegend: true
         }, {
             type: 'solidgauge',
-            name: 'March',
+            name: Month3.format('MMM'),
             data: [{
             color: Highcharts.getOptions().colors[2],
             radius: '62%',
             innerRadius: '38%',
-            y: 46
+            y: bodyage[2]
             }],
             showInLegend: true
         }]
@@ -541,10 +555,10 @@ chart() {
     }
 
     ionViewWillEnter() {
-    this.chart();
+      this.chart();
     }
     ngOnInit() {
-    //   this.chart();
+      // this.chart();
     }
     doRefresh(event) {
         console.log('Begin async operation');
