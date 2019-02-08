@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
-import $ from 'jquery';
+import * as $ from 'jquery';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AppService } from '../services/app.service';
 import {EndpointService} from '../services/endpoint.service';

@@ -6,7 +6,7 @@ import {  Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AppService } from '../services/app.service';
-import $ from 'jquery';
+import * as $ from 'jquery';
 import {EndpointService} from '../services/endpoint.service';
 import * as moment from 'moment';
 @Component({

@@ -10,25 +10,38 @@
 </ion-header>
 
 <ion-content>
-    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content
-          pullingIcon="arrow-dropdown"
-          pullingText="Pull to refresh"
-          refreshingSpinner="circles"
-          refreshingText="Refreshing...">
-        </ion-refresher-content>
-      </ion-refresher>
-<ion-card>
-  <ion-card-content>
-  <div id="container"  ></div>
-</ion-card-content>
-</ion-card>
-<!-- <div id="container"  ></div>
-<div id="container2" ></div> -->
+  
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
 
-<ion-card>
-  <ion-card-content>
-    <div id="container2" ></div>
-  </ion-card-content>
-</ion-card>
+  <ion-card>
+    <ion-card-content>
+      <div id="container1"  ></div>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-content>
+      <div id="container2" ></div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <div id="container3" ></div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <div id="container4" ></div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
