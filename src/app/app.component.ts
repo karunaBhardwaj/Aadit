@@ -68,7 +68,7 @@ public allPages = [
     private auth: AuthService,
     private appService: AppService,
     private formstatusservice: FormstatusService
-  ) {
+      ) {
     this.initializeApp();
   }
   initializeApp() {

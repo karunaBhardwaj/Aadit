@@ -10,13 +10,7 @@ export class ThankyouPage implements OnInit {
 
   constructor(    private menuCtrl: MenuController,
     ) { }
-
-  ionViewWillEnter() {
-
-    this.menuCtrl.enable(true);
-  }
   ngOnInit() {
-    this.ionViewWillEnter();
   }
   doRefresh(event) {
     console.log('Begin async operation');
