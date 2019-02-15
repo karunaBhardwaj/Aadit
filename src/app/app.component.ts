@@ -16,24 +16,12 @@ import { AppService } from './services/app.service';
 export class AppComponent implements OnInit {
   public appPages = [
     {
-      title: 'Home',
-      url: '/home'
-    },
-    {
-      title : 'Dashboard',
-      url : '/dashboard'
-    },
-    {
-      title : 'Workout',
-      url : '/workout'
+      title : 'About US',
+      url : '/aboutus'
     },
     {
       title : 'Contact US',
       url : '/contactus'
-    },
-    {
-      title : 'About US',
-      url : '/aboutus'
     },
     {
       title : 'Workout log',
@@ -44,6 +32,33 @@ export class AppComponent implements OnInit {
       url : '/foodlog'
     }
   ];
+
+public allPages = [
+  {
+    title: 'Dashboard',
+    url: '/dashboard'
+  },
+  {
+    title : 'Workout',
+    url : '/workout'
+  },
+  {
+    title : 'Contact US',
+    url : '/contactus'
+  },
+  {
+    title : 'About US',
+    url : '/aboutus'
+  },
+  {
+    title : 'Workout log',
+    url : '/workoutlog'
+  },
+  {
+    title : 'Food Log',
+    url : '/foodlog'
+  }
+];
 
   constructor(
     private platform: Platform,
@@ -68,6 +83,7 @@ export class AppComponent implements OnInit {
         user => {
           if (this.appService.getUserInfo()) {
             // this.router.navigate(['/home']);
+            this.formstatusservice.checkmenustatus();
             this.formstatusservice.checkForInitialSetup();
           } else {
             this.router.navigate(['/login']);

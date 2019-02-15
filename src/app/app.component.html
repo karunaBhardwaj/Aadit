@@ -1,6 +1,6 @@
 <ion-app>
   <ion-split-pane>
-    <ion-menu>
+    <ion-menu menu-id="menu1">
       <ion-header>
         <ion-toolbar>
           <ion-title>Menu</ion-title>
@@ -23,6 +23,30 @@
         </ion-list-header>
       </ion-content>
     </ion-menu>
+
+    <ion-menu  menu-id="menu2">
+      <ion-header>
+          <ion-toolbar>
+            <ion-title>Menu2</ion-title>
+          </ion-toolbar>
+        </ion-header>
+      <ion-content>
+        <ion-menu-toggle auto-hide="true" *ngFor="let p of allPages">
+          <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+            <!-- <ion-icon slot="start" [name]="p.icon"></ion-icon> -->
+            <ion-label>
+              {{p.title}}
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-list-header *ngIf="auth.getEmail()">
+        <ion-item (click)="logout()" *ngIf="auth.authenticated">
+          <ion-icon  name="log-out" item-left></ion-icon>
+          Log out
+        </ion-item>
+      </ion-list-header>
+    </ion-content>
+  </ion-menu>
     <ion-router-outlet main></ion-router-outlet>
   </ion-split-pane>
 </ion-app>

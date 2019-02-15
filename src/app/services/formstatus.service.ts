@@ -1,12 +1,14 @@
 import { Injectable, NgZone } from '@angular/core';
 import { GoogleDriveService } from './google-drive.service';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Injectable({
     providedIn: 'root'
   })
 export class FormstatusService {
-    constructor(private googleDriveService: GoogleDriveService, private router: Router, private ngZone: NgZone) {}
+    constructor(private googleDriveService: GoogleDriveService, private router: Router,private menuCtrl: MenuController,
+       private ngZone: NgZone) {}
 
     checkForInitialSetup() {
 
@@ -28,4 +30,17 @@ export class FormstatusService {
           }
         );
       }
+
+    checkmenustatus() {
+      this.googleDriveService.getAllSheetData(this.googleDriveService.getSheetId()).subscribe(
+          sheetData => {
+            this.googleDriveService.saveAllSheetData(sheetData['valueRanges']);
+        if (this.googleDriveService.isTestSetupComplete() === false) { console.log('Data Unavailable Show Menu-1'); this.menuCtrl.enable(true, 'menu1');
+      } else {console.log('Data available Show Menu-2'); this.menuCtrl.enable(true, 'menu2'); }
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
 }
