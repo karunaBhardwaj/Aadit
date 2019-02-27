@@ -90,6 +90,7 @@ export class AuthService {
         // return this.setUpNewUser(data);
       }
       // this.router.navigate(['/home']);
+      this.formstatusservice.checkmenustatus();
       this.formstatusservice.checkForInitialSetup();
       });
 

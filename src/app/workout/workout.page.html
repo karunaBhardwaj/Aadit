@@ -18,7 +18,19 @@
       refreshingText="Refreshing...">
     </ion-refresher-content>
   </ion-refresher>
-  <h1 align="center" id = "Day" ></h1>
+  <h3 align="center" id = "Day" ></h3>
+
+  <div align='center'>
+  <label >Select one option 
+    <ion-select [(ngModel)]="selectedOption" (ionChange)="SelectedValue(selectedOption)">
+       <ion-select-option value = "Long">Long Workout</ion-select-option>
+       <ion-select-option value = "Tempo">Tempo Workout</ion-select-option>
+       <ion-select-option value = "Interval">Interval workout</ion-select-option>
+       <ion-select-option value = "Speed">Speed workout</ion-select-option>
+    </ion-select>
+ </label>
+</div>
+
 <div class="container">
 	<table>
 		<thead>
@@ -28,10 +40,10 @@
 			</tr> -->
 		</thead>
 		<tbody>
-			<tr>
+			<!-- <tr>
         <td >Date</td>
         <td id = "date"></td>
-			</tr>
+			</tr> -->
 			<tr>
         <td>Workout Type</td>
         <td id ="workout_type"></td>
@@ -61,10 +73,12 @@
         <td id = "duration"></td>
 			</tr>
 		</tbody>
-	</table>
+  </table>
   </div>
+
   <div class = "logbutton">
     <ion-button (click)= "goToWorkoutLog()" >Workout Log</ion-button>
     <ion-button (click)= "goToFoodLog()"  >Food Log</ion-button>
   </div>
+
 </ion-content>

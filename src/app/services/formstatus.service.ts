@@ -35,7 +35,8 @@ export class FormstatusService {
       this.googleDriveService.getAllSheetData(this.googleDriveService.getSheetId()).subscribe(
           sheetData => {
             this.googleDriveService.saveAllSheetData(sheetData['valueRanges']);
-        if (this.googleDriveService.isTestSetupComplete() === false) { console.log('Data Unavailable Show Menu-1'); this.menuCtrl.enable(true, 'menu1');
+        if (this.googleDriveService.isTestSetupComplete() === false) {
+          console.log('Data Unavailable Show Menu-1'); this.menuCtrl.enable(true, 'menu1');
       } else {console.log('Data available Show Menu-2'); this.menuCtrl.enable(true, 'menu2'); }
       },
       err => {
