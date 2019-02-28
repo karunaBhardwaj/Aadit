@@ -21,17 +21,16 @@
   <h3 align="center" id = "Day" ></h3>
 
   <div align='center'>
-  <label >Select one option 
-    <ion-select [(ngModel)]="selectedOption" (ionChange)="SelectedValue(selectedOption)">
+    <ion-select [(ngModel)]="selectedOption" (ionChange)="SelectedValue(selectedOption)" placeholder = "Select an option">
        <ion-select-option value = "Long">Long Workout</ion-select-option>
        <ion-select-option value = "Tempo">Tempo Workout</ion-select-option>
        <ion-select-option value = "Interval">Interval workout</ion-select-option>
        <ion-select-option value = "Speed">Speed workout</ion-select-option>
-    </ion-select>
- </label>
+       <ion-select-option value = "Strengthex">Strength workout</ion-select-option>
+      </ion-select>
 </div>
 
-<div class="container">
+<div class="hide" id = "container">
 	<table>
 		<thead>
 			<!-- <tr>
@@ -75,6 +74,65 @@
 		</tbody>
   </table>
   </div>
+
+  <div class="hide" id = "Strengthex">
+    <table>
+      <thead>
+        <tr>
+          <th>Strength Exercise</th>
+          <th>Unit</th>
+          <th>Unit Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- <tr>
+          <td >Date</td>
+          <td id = "date"></td>
+        </tr> -->
+        <tr>
+          <td id="Excer1"></td>
+          <td id ="Excer1_unit"></td>
+          <td id ="Excer1_unitType"></td>
+        </tr>
+        <tr>
+          <td id ="Excer2"></td>
+          <td id = "Excer2_unit"></td>
+          <td id = "Excer2_unitType"></td>
+        </tr>
+        <tr>
+          <td id = "Excer3"></td>
+          <td id = "Excer3_unit"></td>
+          <td id=  "Excer3_unitType"></td>
+        </tr>
+        <tr>
+          <td id="Excer4"></td>
+          <td id ="Excer4_unit"></td>
+          <td id ="Excer4_unitType"></td>
+        </tr>
+        <tr>
+          <td id ="Excer5"></td>
+          <td id = "Excer5_unit"></td>
+          <td id = "Excer5_unitType"></td>
+        </tr>
+        <tr>
+          <td id = "Excer6"></td>
+          <td id = "Excer6_unit"></td>
+          <td id=  "Excer6_unitType"></td>
+        </tr>
+        <tr>
+          <td id ="Excer7"></td>
+          <td id = "Excer7_unit"></td>
+          <td id = "Excer7_unitType"></td>
+        </tr>
+        <tr>
+          <td id = "Excer8"></td>
+          <td id = "Excer8_unit"></td>
+          <td id=  "Excer8_unitType"></td>
+        </tr>
+
+      </tbody>
+    </table>
+    </div>
 
   <div class = "logbutton">
     <ion-button (click)= "goToWorkoutLog()" >Workout Log</ion-button>

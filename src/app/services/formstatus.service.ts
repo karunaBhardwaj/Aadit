@@ -23,7 +23,7 @@ export class FormstatusService {
           } else if (this.googleDriveService.isMedicalSetupComplete() === false) {console.log('Medical history is not updated');
             this.ngZone.run(() => this.router.navigateByUrl('/medicalhistory')).then();
           } else {
-            this.ngZone.run(() => this.router.navigateByUrl('/thankyou')).then(); }
+            this.ngZone.run(() => this.router.navigateByUrl('/workout')).then(); }
           },
           err => {
             console.error(err);
