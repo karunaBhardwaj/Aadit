@@ -18,6 +18,8 @@ import { EndpointService } from './services/endpoint.service';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 // import { UserProfileComponent } from './user-profile/user-profile.component';
 import { CommonModule } from '@angular/common';
+import 'angular2-navigate-with-data';
+
 
 @NgModule({
   declarations: [AppComponent],

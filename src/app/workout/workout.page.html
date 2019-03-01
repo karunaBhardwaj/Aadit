@@ -20,14 +20,15 @@
   </ion-refresher>
   <h3 align="center" id = "Day" ></h3>
 
-  <div align='center'>
-    <ion-select [(ngModel)]="selectedOption" (ionChange)="SelectedValue(selectedOption)" placeholder = "Select an option">
-       <ion-select-option value = "Long">Long Workout</ion-select-option>
-       <ion-select-option value = "Tempo">Tempo Workout</ion-select-option>
-       <ion-select-option value = "Interval">Interval workout</ion-select-option>
-       <ion-select-option value = "Speed">Speed workout</ion-select-option>
-       <ion-select-option value = "Strengthex">Strength workout</ion-select-option>
-      </ion-select>
+<div align='center'>
+  <ion-select [(ngModel)]="selectedOption" (ionChange)="SelectedValue(selectedOption)" placeholder = "Select an option">
+    <ion-select-option aria-selected="true" value = "Today">Today's Workout</ion-select-option>
+    <ion-select-option value = "Long">Long Workout</ion-select-option>
+    <ion-select-option value = "Tempo">Tempo Workout</ion-select-option>
+    <ion-select-option value = "Interval">Interval workout</ion-select-option>
+    <ion-select-option value = "Speed">Speed workout</ion-select-option>
+    <ion-select-option value = "Strengthex">Strength workout</ion-select-option>
+  </ion-select>
 </div>
 
 <div class="hide" id = "container">
@@ -39,10 +40,6 @@
 			</tr> -->
 		</thead>
 		<tbody>
-			<!-- <tr>
-        <td >Date</td>
-        <td id = "date"></td>
-			</tr> -->
 			<tr>
         <td>Workout Type</td>
         <td id ="workout_type"></td>

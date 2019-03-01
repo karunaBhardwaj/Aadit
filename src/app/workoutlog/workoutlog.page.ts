@@ -132,7 +132,7 @@ export class WorkoutlogPage implements OnInit {
   ngOnInit() {
     this.myForm = new FormGroup({
       date: new FormControl(new Date().toLocaleDateString(), [Validators.required]),
-      workout_type: new FormControl(''),
+      workout_type: new FormControl(this.router.getNavigatedData()),
       feedback: new FormControl('',  [Validators.required]),
       comment: new FormControl('')
     });
