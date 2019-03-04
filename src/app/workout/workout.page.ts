@@ -79,6 +79,7 @@ export class WorkoutPage implements OnInit {
       let Data: string[];
       if (selectedOption === 'Today') {
         if (this.weekDay === 'Strength') {
+          document.getElementById('container').style.display = 'none';
           document.getElementById('Strengthex').style.display = 'block';
           await this.fetchStrengthex().then(function(x) {Data = x; });
           document.getElementById('Excer1').innerHTML = Data[1][0];
@@ -106,6 +107,7 @@ export class WorkoutPage implements OnInit {
           document.getElementById('Excer8_unit').innerHTML = Data[8][1];
           document.getElementById('Excer8_unitType').innerHTML = Data[8][2];
         } else {
+          document.getElementById('Strengthex').style.display = 'none';
           document.getElementById('container').style.display = 'block';
           await this.fetchTodayWorkout(this.weekDay).then(function (x) { Data = x; });
           document.getElementById('workout_type').innerHTML = Data[1];
@@ -201,7 +203,6 @@ export class WorkoutPage implements OnInit {
       const Day = new Date().getDay();
       await this.fetchSchedule().then(function (x) { schedule = x;  });
       this.weekDay = schedule[Day];
-      this.selectedOption = 'Today';
       document.getElementById('Day').innerHTML = new Date().toDateString();
-  }
+    }
 }
