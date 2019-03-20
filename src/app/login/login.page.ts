@@ -57,10 +57,9 @@ export class LoginPage implements OnInit {
   }
 
   loginWithGoogle() {
-    this.auth.signInWithGoogle().then(
-        () =>
-        error => console.log(error.message)
-      );
+    this.auth.signInWithGoogle().catch(
+      error => console.log(error.message)
+    );
   }
 
 }
