@@ -24,6 +24,7 @@
     "@angular/platform-browser-dynamic": "~7.0.0",
     "@angular/router": "~7.0.0",
     "@ionic-native/core": "5.0.0-beta.21",
+    "@ionic-native/google-plus": "^5.4.0",
     "@ionic-native/splash-screen": "5.0.0-beta.21",
     "@ionic-native/status-bar": "5.0.0-beta.21",
     "@ionic/angular": "4.0.0-beta.16",
@@ -31,10 +32,11 @@
     "angularfire2": "^5.1.0",
     "canvasjs": "^1.8.1",
     "chart.js": "^2.7.3",
-    "cordova-android": "7.1.4",
+    "cordova-android": "^7.1.4",
     "cordova-plugin-device": "^2.0.2",
+    "cordova-plugin-googleplus": "7.0.1",
     "cordova-plugin-ionic-keyboard": "^2.1.3",
-    "cordova-plugin-ionic-webview": "^2.3.1",
+    "cordova-plugin-ionic-webview": "^4.0.1",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
     "cordova-plugin-whitelist": "^1.3.3",
@@ -50,7 +52,7 @@
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.10.0",
-    "@angular-devkit/build-angular": "^0.12.1",
+    "@angular-devkit/build-angular": "^0.13.6",
     "@angular-devkit/core": "~7.0.0",
     "@angular-devkit/schematics": "~7.0.0",
     "@angular/cli": "~7.0.0",
@@ -81,12 +83,16 @@
     "plugins": {
       "cordova-plugin-whitelist": {},
       "cordova-plugin-statusbar": {},
-      "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
+      "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-ionic-webview": {
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
-      "cordova-plugin-ionic-keyboard": {}
+      "cordova-plugin-device": {},
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.48119150430-87dj9t81g9h1erfkibhtr7vva07kov0j",
+        "PLAY_SERVICES_VERSION": "11.8.0"
+      }
     },
     "platforms": [
       "android"

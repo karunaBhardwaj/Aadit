@@ -27,7 +27,7 @@ private user: firebase.User;
         return next.handle(request).pipe(catchError(err => {
             if (err.status === 401) {
               this.auth.refresh();
-              console.log('request failed retry');
+              console.log('Last request failed retry');
               // return next.handle(request);
             } else if (err.status === 500) {
               err.statusText = 'Oops';

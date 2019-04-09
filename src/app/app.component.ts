@@ -73,9 +73,8 @@ public allPages = [
   }
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
+      // this.statusBar.styleDefault();
     });
-
     console.log('userInfo', this.appService.getUserInfo());
 
     this.auth.afAuth.authState

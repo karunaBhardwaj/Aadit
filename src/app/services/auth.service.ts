@@ -5,64 +5,96 @@ import * as firebase from 'firebase/app';
 import {FormstatusService} from './formstatus.service';
 import { auth } from 'firebase/app';
 import AuthProvider = firebase.auth.AuthProvider;
-import { GoogleDriveService } from './google-drive.service';
 import { UserProfileModel, UserInfoModel, TokenModel } from '../models/user-info.model';
 import { Router } from '@angular/router';
 import { DbqueryService } from './dbquery.service';
-declare var gapi: any;
-
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import * as $ from 'jquery';
+import { AppService } from './app.service';
+import { firebaseConfig } from '../../config';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private user: firebase.User;
-  private access_token;
+  private userToken;
+  private authToken;
   constructor(
     public afAuth: AngularFireAuth,
     private afDb: AngularFireDatabase,
-    private googleDriveService: GoogleDriveService,
+    private appservice: AppService,
     private router: Router,
     private dbService: DbqueryService,
-    public formstatusservice: FormstatusService
+    public formstatusservice: FormstatusService,
+    public googlePlus: GooglePlus
   ) {
-    this.initclient();
     afAuth.authState.subscribe(user => {
       this.user = user;
     });
   }
-  initclient() {
-    gapi.load('client', () => {
-      console.log('loaded client');
 
-      // It's OK to expose these credentials, they are client safe.
-      gapi.client.init({
-        apiKey: 'AIzaSyAPrA2TRP-YYhcVXnWWhbCfddHnu0kn_AA',
-        clientId: '48119150430-87dj9t81g9h1erfkibhtr7vva07kov0j.apps.googleusercontent.com',
-        discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
-        scope: 'https://www.googleapis.com/auth/spreadsheets'
-      });
-      // gapi.client.load('calendar', 'v3', () => console.log('loaded calendar'));
-    });
-  }
   get authenticated(): boolean {
     return this.user !== null;
   }
   async refresh() {
-    const googleAuth = gapi.auth2.getAuthInstance();
-    const newUser = googleAuth.currentUser.get().reloadAuthResponse(true);
-    Promise.resolve(newUser).then(function(value) {
+    const settings = {
+      'async': true,
+      'crossDomain': true,
+      'url': 'https://www.googleapis.com/oauth2/v4/token',
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'cache-control': 'no-cache',
+      },
+      'data': {
+        'grant_type': 'refresh_token',
+        'client_id': firebaseConfig.firbase.client_id,
+        'client_secret': firebaseConfig.firbase.client_secret,
+        'refresh_token': this.appservice.getUserInfo().token.refreshToken
+      }
+    };
+
+    await $.ajax(settings).done(function (response) {
+      console.log(response);
       const data = JSON.parse(localStorage.getItem('userInfo'));
-      data['token']['oAuthToken'] = value.access_token;
-      localStorage.setItem('userInfo', JSON.stringify(data));
-      console.log(value.access_token);
+        data['token']['oAuthToken'] = response.access_token;
+        localStorage.setItem('userInfo', JSON.stringify(data));
+        console.log(response.access_token);
     });
-    console.log(newUser);
   }
+
+  async generateToken(code) {
+    const settings = {
+      'async': true,
+      'crossDomain': true,
+      'url': 'https://www.googleapis.com/oauth2/v4/token',
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'cache-control': 'no-cache',
+      },
+      'data': {
+        'grant_type': 'authorization_code',
+        'code': code,
+        'client_id': firebaseConfig.firbase.client_id,
+        'client_secret': firebaseConfig.firbase.client_secret,
+        'redirect_uri': ''
+      }
+    };
+    let data;
+    await $.ajax(settings).done(function (response) {
+      console.log(response);
+      data = response;
+    });
+    this.userToken = await data;
+  }
+
   getEmail() {
     return this.user && this.user.email;
   }
   signOut(): Promise<void> {
     localStorage.clear();
+    this.googlePlus.logout();
     return this.afAuth.auth.signOut();
   }
   signInWithEmail(credentials) {
@@ -83,20 +115,18 @@ export class AuthService {
       });
   }
 
-  async signInWithGoogle() {
-    const googleAuth = gapi.auth2.getAuthInstance();
-    const googleUser = await googleAuth.signIn();
-  //   await googleAuth.grantOfflineAccess().then(function (response) {
-  //     const tok = response.code;
-  //     console.log(tok);
-  // });
-
-    const idToken = googleUser.getAuthResponse().id_token;
-    this.access_token = googleUser.getAuthResponse().access_token;
-    console.log(googleUser);
-
-    const credential = auth.GoogleAuthProvider.credential(idToken);
-
+  async signInWithGoogle(): Promise<void> {
+  await this.googlePlus.login({
+            'scopes': 'profile https://www.googleapis.com/auth/spreadsheets',
+            'webClientId': firebaseConfig.firbase.client_id,
+            'offline': true
+  }).then(res => {
+    this.authToken = res.serverAuthCode;
+  }).catch(err => {
+    console.error(err);
+  });
+  await this.generateToken(this.authToken);
+    const credential = auth.GoogleAuthProvider.credential(this.userToken.id_token);
 
     return this.afAuth.auth.signInAndRetrieveDataWithCredential(credential)
     .then(res => {
@@ -107,14 +137,12 @@ export class AuthService {
 
 
   public signInHandler(data): void {
-    // console.log('this.signInHandler', data);
-
     this.afDb.database.ref('profile').orderByChild('userId').equalTo
     (data['additionalUserInfo']['profile']['email']).on('child_added', (snapshot) => {
       const sheetId: string = snapshot.child('sheetId')['node_']['value_'];
 
-      const userInfo = new UserInfoModel(new TokenModel(this.access_token,
-      data['user']['refreshToken'], sheetId), new UserProfileModel(data['additionalUserInfo']['profile']['email'],
+      const userInfo = new UserInfoModel(new TokenModel(this.userToken.access_token,
+      this.userToken.refresh_token, sheetId), new UserProfileModel(data['additionalUserInfo']['profile']['email'],
       data['additionalUserInfo']['profile']['family_name'], data['additionalUserInfo']['profile']['given_name'],
       data['additionalUserInfo']['profile']['name'], data['additionalUserInfo']['profile']['picture']));
 
@@ -128,25 +156,6 @@ export class AuthService {
       this.formstatusservice.checkmenustatus();
       this.formstatusservice.checkForInitialSetup();
       });
-
   }
-
-
-
-  public oauthSignIn(provider: AuthProvider): any {
-    if (!(<any>window).cordova) {
-      return this.afAuth.auth.signInWithPopup(provider);
-    } else {
-      return this.afAuth.auth.signInWithRedirect(provider)
-        .then(() => {
-          return this.afAuth.auth.getRedirectResult().then(result => {
-            return this.signInHandler(result);
-          }).catch(function (error) {
-            console.error(error.message);
-          });
-        });
-    }
-  }
-
 
 }
