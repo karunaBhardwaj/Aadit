@@ -1,17 +1,15 @@
 <ion-header>
   <ion-toolbar >
-    <ion-title>Motivation/ Current Activity/ Goals</ion-title>
+    <ion-title>Current Activity/ Goals</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <div id="container">
     <form (ngSubmit)="onSubmit(myForm.value)" [formGroup]="myForm">
           
-      <ion-item-group>
-        <ion-label >The reason  for the signup of program is *</ion-label>
-        <ion-item lines="full">
-        <ion-input  type="text" formControlName="reason"  required ></ion-input>
-        </ion-item>
+        <label >The reason  for the signup of program is *</label>
+        <input  type="text" formControlName="reason" placeholder="enter a valid reason" required >
         <div class="validation-errors">
             <ng-container *ngFor="let validation of validation_messages.reason" >
             <div class="error-message" *ngIf="myForm.get('reason').hasError(validation.type) && ( myForm.get('reason').touched)">
@@ -20,10 +18,8 @@
             </ng-container>
         </div>  
       
-        <ion-label > In six months, I will be delighted if *</ion-label>
-        <ion-item lines="full">
-            <ion-input type="text" formControlName="reason2"   required ></ion-input>
-        </ion-item>
+        <label > In six months, I will be delighted if *</label>
+        <input type="text" formControlName="reason2" placeholder="enter your goal"  required >
         <div class="validation-errors">
             <ng-container *ngFor="let validation of validation_messages.reason2" >
             <div class="error-message" *ngIf="myForm.get('reason2').hasError(validation.type) && (myForm.get('reason2').touched)">
@@ -32,11 +28,6 @@
             </ng-container>
         </div>  
 
-        <ion-item lines="none"></ion-item>        
-      </ion-item-group>
-
-
-      <ion-item-group >
         <ion-label  floating text-wrap>My current frequency of physical activity is *</ion-label>
         <ion-row>
         <ion-col col-4 no-padding class="one">
@@ -56,7 +47,7 @@
         </ion-row>
         <ion-row>
         <ion-col col-5 no-padding class="two">
-          <ion-item >
+          <ion-item lines="none">
             <ion-label text-wrap>Regular-three or more times a week.</ion-label>
             <ion-radio [checked]="this.activity === 'Regular'" formControlName ="activity"  required value="Regular" (ionSelect)="selectFrequency('Regular')"></ion-radio>
           </ion-item>
@@ -70,14 +61,10 @@
 
         </ion-col>
         </ion-row>
-        </ion-item-group>
      
 
-        <ion-item-group>
-        <ion-label text-wrap stacked> Briefly describe what you currently do for physical activity *</ion-label>
-        <ion-item lines="full">
-          <ion-input type="text" formControlName="reason3"  required ></ion-input>
-        </ion-item>
+        <label text-wrap stacked> Briefly describe what you currently do for physical activity *</label>
+        <input type="text" formControlName="reason3" placeholder="your current physical activities" required >
         <div class="validation-errors">
             <ng-container *ngFor="let validation of validation_messages.reason3" >
             <div class="error-message" *ngIf="myForm.get('reason3').hasError(validation.type) && ( myForm.get('reason3').touched)">
@@ -86,14 +73,11 @@
             </ng-container>
         </div>  
 
-        <ion-item lines="none"></ion-item>
-      </ion-item-group>        
-
       <ion-button [disabled]="!myForm.valid" type="submit" >Submit</ion-button>
       
 
 
     </form>
 
-
+  </div>
 </ion-content>

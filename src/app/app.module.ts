@@ -20,6 +20,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { CommonModule } from '@angular/common';
 import 'angular2-navigate-with-data';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,6 +44,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
     EndpointService,
     GooglePlus,
     GoogleDriveService,
+    BackgroundMode,
     AngularFireAuth,
     {
       provide: HTTP_INTERCEPTORS,

@@ -6,6 +6,7 @@
 
 
 <ion-content padding>
+  <div id="container">
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
         <ion-refresher-content
           pullingIcon="arrow-dropdown"
@@ -17,10 +18,10 @@
 
     
     <form (ngSubmit)="onSubmit(myForm.value)"  [formGroup]="myForm" >
-            <ion-label  floating text-wrap>The last time I had a medical check up was *</ion-label>
+            <label  floating text-wrap>The last time I had a medical check up was *</label>
             <ion-row>
             <ion-col col-4 no-padding class="one">
-              <ion-item >
+              <ion-item lines="none">
                 <ion-label text-wrap>Within the last six months.</ion-label>
                 <ion-radio formControlName="checkup" [checked]="this.checkup === 'With in last six months'"    value="With in last six months" (ionSelect)="selectCheckup('With in last six months')" ></ion-radio>
               </ion-item>
@@ -28,7 +29,7 @@
             </ion-row>
             <ion-row>
             <ion-col col-5 no-padding class="two">
-              <ion-item>
+              <ion-item lines="none">
                 <ion-label text-wrap >Between six and eighteen months ago.</ion-label>
                 <ion-radio [checked]="this.checkup === 'Between six and eighteen months ago.'" formControlName="checkup"   required value="Between six and eighteen months ago." (ionSelect)="selectCheckup('Between six and eighteen months ago.')"></ion-radio>
               </ion-item>
@@ -36,7 +37,7 @@
             </ion-row>
             <ion-row>
             <ion-col col-5 no-padding class="two">
-              <ion-item lines="full">
+              <ion-item lines="none">
                 <ion-label text-wrap>More than eighteen months ago / never.</ion-label>
                 <ion-radio [checked]="this.checkup === 'More than eighteen months ago / never.'" formControlName="checkup"   required value="More than eighteen months ago / never." (ionSelect)="selectCheckup('More than eighteen months ago / never.')"></ion-radio>
               </ion-item>
@@ -120,5 +121,5 @@
         <ion-button  [disabled]="!myForm.valid" type="submit" >Submit</ion-button>
     </form>
     
-
+  </div>
 </ion-content>

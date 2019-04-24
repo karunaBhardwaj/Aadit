@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import {FormstatusService} from './services/formstatus.service';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { SheetTabsTitleConst } from './constants/sheet.constant';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router} from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { AppService } from './services/app.service';
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
 @Component({
   selector: 'app-root',
@@ -67,15 +66,18 @@ public allPages = [
     private router: Router,
     private auth: AuthService,
     private appService: AppService,
-    private formstatusservice: FormstatusService
+    private formstatusservice: FormstatusService,
+    private backgroundMode: BackgroundMode
       ) {
     this.initializeApp();
   }
   initializeApp() {
     this.platform.ready().then(() => {
+      this.backgroundMode.enable();
       // this.statusBar.styleDefault();
     });
     console.log('userInfo', this.appService.getUserInfo());
+    // setInterval(this.auth.refresh, 55 * 60 * 1000);
 
     this.auth.afAuth.authState
       .subscribe(

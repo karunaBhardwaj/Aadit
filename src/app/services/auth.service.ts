@@ -12,6 +12,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import * as $ from 'jquery';
 import { AppService } from './app.service';
 import { firebaseConfig } from '../../config';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -26,7 +27,7 @@ export class AuthService {
     private router: Router,
     private dbService: DbqueryService,
     public formstatusservice: FormstatusService,
-    public googlePlus: GooglePlus
+    public googlePlus: GooglePlus,
   ) {
     afAuth.authState.subscribe(user => {
       this.user = user;
@@ -50,7 +51,7 @@ export class AuthService {
         'grant_type': 'refresh_token',
         'client_id': firebaseConfig.firbase.client_id,
         'client_secret': firebaseConfig.firbase.client_secret,
-        'refresh_token': this.appservice.getUserInfo().token.refreshToken
+        'refresh_token': JSON.parse(localStorage.getItem('userInfo')).token.refreshToken
       }
     };
 

@@ -4,7 +4,6 @@ import { HomePage } from '../home/home.page';
 import { AuthService } from '../services/auth.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { MenuController } from '@ionic/angular';
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 @Component({
   selector: 'app-login',
@@ -15,14 +14,12 @@ export class LoginPage implements OnInit {
 
   loginForm: FormGroup;
   loginError: string;
-  private myClientId = '48119150430-87dj9t81g9h1erfkibhtr7vva07kov0j.apps.googleusercontent.com';
 
   constructor(
     private auth: AuthService,
     private fb: FormBuilder,
     private router: Router,
-    private menuCtrl: MenuController,
-    public googlePlus: GooglePlus
+    private menuCtrl: MenuController
   ) { }
 
   ngOnInit() {

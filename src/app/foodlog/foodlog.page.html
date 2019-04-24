@@ -22,10 +22,10 @@
      
   <div>
     <ion-label>Date</ion-label>
-    <ion-datetime formControlName="date" display-format="DD/MMMM/YYYY " picker-format="DD MMMM YYYY" placeholder="Select a Date"></ion-datetime>
+    <ion-datetime formControlName="date" display-format="DD/MMMM/YYYY " picker-format="DD MMMM YYYY"  [(ngModel)]="myDate"placeholder="Select a Date"></ion-datetime>
   </div>
 
-  <ion-label  floating>Meal Time</ion-label> 
+  <label  floating>Meal Time</label> 
     <ion-select formControlName="food" placeholder="Select One">
       <ion-select-option value="Breakfast">Breakfast</ion-select-option>
       <ion-select-option value="Lunch">Lunch</ion-select-option>

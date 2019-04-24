@@ -1,7 +1,7 @@
-import { Injectable, ɵConsole } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { switchMap, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { GoogleDriveService } from '../services/google-drive.service';
 import { AppService } from '../services/app.service';
 import { EndpointService } from '../services/endpoint.service';
@@ -27,7 +27,6 @@ private user: firebase.User;
         return next.handle(request).pipe(catchError(err => {
             if (err.status === 401) {
               this.auth.refresh();
-              console.log('Last request failed retry');
               // return next.handle(request);
             } else if (err.status === 500) {
               err.statusText = 'Oops';

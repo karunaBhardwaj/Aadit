@@ -14,6 +14,7 @@ import * as moment from 'moment';
 export class FoodlogPage implements OnInit {
   myForm: FormGroup;
   foodVal;
+  myDate: String = new Date().toISOString();
 
   constructor(private router: Router,
     private googleDriveService: GoogleDriveService,
@@ -59,7 +60,7 @@ export class FoodlogPage implements OnInit {
       }, 2000);
     }
 
-  onSave( ) {
+  onSave() {
     const postData: DriveRequestModel = this.getParsedPostData(this.myForm.value);
     this.googleDriveService.setAllSheetData(this.googleDriveService.getSheetId(), postData).subscribe();
     this.router.navigateByUrl('/workout');
