@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
 import 'angular2-navigate-with-data';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
-
+import { SentryIonicErrorHandler } from './errorhandler/error.handler';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -41,6 +41,7 @@ import { BackgroundMode } from '@ionic-native/background-mode/ngx';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {provide: ErrorHandler, useClass: SentryIonicErrorHandler},
     EndpointService,
     GooglePlus,
     GoogleDriveService,

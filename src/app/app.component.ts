@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router} from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { AppService } from './services/app.service';
-import { BackgroundMode } from '@ionic-native/background-mode/ngx';
+// import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
 @Component({
   selector: 'app-root',
@@ -67,22 +67,31 @@ public allPages = [
     private auth: AuthService,
     private appService: AppService,
     private formstatusservice: FormstatusService,
-    private backgroundMode: BackgroundMode
+    // private backgroundMode: BackgroundMode
       ) {
     this.initializeApp();
   }
-  initializeApp() {
+  async initializeApp() {
     this.platform.ready().then(() => {
-      this.backgroundMode.enable();
+      // this.backgroundMode.enable();
+      document.addEventListener('deviceready', function() {
+        const Sentry = cordova.require('sentry-cordova.Sentry');
+        Sentry.init({ dsn: 'https://370d5dd528164e71bd430ce3b0cef543@sentry.io/1444624'});
+      });
       // this.statusBar.styleDefault();
     });
     console.log('userInfo', this.appService.getUserInfo());
     // setInterval(this.auth.refresh, 55 * 60 * 1000);
 
-    this.auth.afAuth.authState
+    await this.auth.afAuth.authState
       .subscribe(
         user => {
           if (this.appService.getUserInfo()) {
+            const Sentry = cordova.require('sentry-cordova.Sentry');
+            Sentry.configureScope(function (scope) {
+              scope.setUser({email: JSON.parse(localStorage.getItem('userInfo')).profile.email,
+              username: JSON.parse(localStorage.getItem('userInfo')).profile.fullName});
+            });
             // this.router.navigate(['/home']);
             this.formstatusservice.checkmenustatus();
             this.formstatusservice.checkForInitialSetup();

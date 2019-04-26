@@ -12,6 +12,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import * as $ from 'jquery';
 import { AppService } from './app.service';
 import { firebaseConfig } from '../../config';
+import { LoadingController} from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,7 @@ export class AuthService {
     private dbService: DbqueryService,
     public formstatusservice: FormstatusService,
     public googlePlus: GooglePlus,
+    public loadingController: LoadingController
   ) {
     afAuth.authState.subscribe(user => {
       this.user = user;
@@ -94,8 +96,8 @@ export class AuthService {
     return this.user && this.user.email;
   }
   signOut(): Promise<void> {
-    localStorage.clear();
     this.googlePlus.logout();
+    localStorage.clear();
     return this.afAuth.auth.signOut();
   }
   signInWithEmail(credentials) {
@@ -117,6 +119,11 @@ export class AuthService {
   }
 
   async signInWithGoogle(): Promise<void> {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...'
+    });
+    this.presentLoading(loading);
+
   await this.googlePlus.login({
             'scopes': 'profile https://www.googleapis.com/auth/spreadsheets',
             'webClientId': firebaseConfig.firbase.client_id,
@@ -125,6 +132,7 @@ export class AuthService {
     this.authToken = res.serverAuthCode;
   }).catch(err => {
     console.error(err);
+    loading.dismiss();
   });
   await this.generateToken(this.authToken);
     const credential = auth.GoogleAuthProvider.credential(this.userToken.id_token);
@@ -133,6 +141,8 @@ export class AuthService {
     .then(res => {
         console.log('signInWithGoogle', res);
         this.signInHandler(res);
+        loading.dismiss();
+
     });
   }
 
@@ -157,6 +167,9 @@ export class AuthService {
       this.formstatusservice.checkmenustatus();
       this.formstatusservice.checkForInitialSetup();
       });
+  }
+  async presentLoading(loading) {
+    return await loading.present();
   }
 
 }
