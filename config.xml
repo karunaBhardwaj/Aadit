@@ -93,6 +93,6 @@
         <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
     </plugin>
     <plugin name="sentry-cordova" spec="^0.15.0" />
-    <engine name="android" spec="^7.1.4" />
     <engine name="ios" spec="4.5.5" />
+    <engine name="android" spec="7.1.4" />
 </widget>
