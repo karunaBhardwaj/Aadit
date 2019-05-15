@@ -13,6 +13,8 @@ import * as $ from 'jquery';
 import { AppService } from './app.service';
 import { firebaseConfig } from '../../config';
 import { LoadingController} from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +31,9 @@ export class AuthService {
     private dbService: DbqueryService,
     public formstatusservice: FormstatusService,
     public googlePlus: GooglePlus,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    public alertCntrl: AlertController,
+    public emailComposer: EmailComposer
   ) {
     afAuth.authState.subscribe(user => {
       this.user = user;
@@ -133,6 +137,7 @@ export class AuthService {
   }).catch(err => {
     console.error(err);
     loading.dismiss();
+    this.ErrorAlert(err);
   });
   await this.generateToken(this.authToken);
     const credential = auth.GoogleAuthProvider.credential(this.userToken.id_token);
@@ -143,7 +148,40 @@ export class AuthService {
         this.signInHandler(res);
         loading.dismiss();
 
+    }).catch(err => {
+      console.error(err);
+      loading.dismiss();
+      this.ErrorAlert(err);
     });
+  }
+
+  async ErrorAlert(err) {
+    const alert = await this.alertCntrl.create({
+      header: 'Error Occured',
+      message: `${err}
+                Do you want to contact admin?`,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Contact',
+          handler: () => {
+            console.log('Conatct clicked');
+            this.emailComposer.addAlias('gmail', 'com.google.android.gm');
+            this.emailComposer.open({
+              app: 'gmail',
+              to: 'aaditlife.test@gmail.com'
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 

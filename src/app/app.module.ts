@@ -22,6 +22,7 @@ import 'angular2-navigate-with-data';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 import { SentryIonicErrorHandler } from './errorhandler/error.handler';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -39,6 +40,7 @@ import { SentryIonicErrorHandler } from './errorhandler/error.handler';
   ],
   providers: [
     StatusBar,
+    EmailComposer,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide: ErrorHandler, useClass: SentryIonicErrorHandler},
