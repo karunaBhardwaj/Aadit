@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { GoogleDriveService } from 'src/app/services/google-drive.service';
-import { SheetTabsTitleConst } from '../constants/sheet.constant';
-import { DriveRequestModel } from '../models/drive-postdata.model';
+import * as $ from 'jquery';
 @Component({
   selector: 'app-medicalhistory',
   templateUrl: './medicalhistory.page.html',
@@ -12,7 +10,7 @@ import { DriveRequestModel } from '../models/drive-postdata.model';
 export class MedicalhistoryPage implements OnInit {
   myForm: FormGroup;
   checkup_value: string;
-  constructor(private router: Router, private googleDriveService: GoogleDriveService) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.myForm = new FormGroup({
@@ -49,34 +47,33 @@ export class MedicalhistoryPage implements OnInit {
       event.target.complete();
     }, 2000);
   }
-  onSubmit() {
-    const postData: DriveRequestModel = this.getParsedPostData(this.myForm.value);
-
-    this.googleDriveService.setAllSheetData(this.googleDriveService.getSheetId(), postData).subscribe();
-
-    this.router.navigateByUrl('/disclaimer');
-  }
-
-  private getParsedPostData(formData): DriveRequestModel {
-    console.log(formData);
+  async onSubmit() {
     const values = [];
-
-    Object.values(formData).forEach(value => {
+    Object.values(this.myForm.value).forEach(value => {
       values.push(value);
     });
 
-    const postData: DriveRequestModel = {
-      'valueInputOption': 'USER_ENTERED',
-      'data': [{
-        'range': `${SheetTabsTitleConst.MEDICAL_HISTORY}!B2:B13`,
-        'majorDimension': 'COLUMNS',
-        'values': [values]
-      }]
-    };
+    $.ajax('https://aadit-server.azurewebsites.net/bulkUpdateCell', {
+      method: 'POST',
+      contentType: 'application/json',
+      processData: false,
+      data: JSON.stringify({
+        'sheetid': '1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+        'worksheet': 3,
+        'minRow'   : 2,
+        'maxRow'   : 13,
+        'minCol'   : 2,
+        'maxCol'   : 2,
+        'value'	   : values
+    })
+  })
+  .then(
+      function success(mail) {
+          console.log('Data updated succesfully');
+      }
+  );
 
-    console.log('postData', postData);
-    return postData;
-
+    this.router.navigateByUrl('/disclaimer');
   }
 
 }

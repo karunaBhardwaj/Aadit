@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { GoogleDriveService } from 'src/app/services/google-drive.service';
-import { SheetTabsTitleConst } from '../constants/sheet.constant';
-import { DriveRequestModel } from '../models/drive-postdata.model';
+import * as $ from 'jquery';
 @Component({
   selector: 'app-goals',
   templateUrl: './goals.page.html',
@@ -31,10 +29,9 @@ export class GoalsPage implements OnInit {
     ]
 
     };
-  constructor( private router: Router, private googleDriveService: GoogleDriveService) { }
+  constructor( private router: Router) { }
 
   ngOnInit() {
-    console.log(this.googleDriveService.getAllSheetData(SheetTabsTitleConst.GOALS));
     this.myForm = new FormGroup({
       reason: new FormControl('', [Validators.required, Validators.minLength(5)]),
       reason2: new FormControl('', [Validators.required, Validators.minLength(5)]),
@@ -62,35 +59,29 @@ export class GoalsPage implements OnInit {
   }
 
   onSubmit() {
-    const postData: DriveRequestModel = this.getParsedPostData(this.myForm.value);
 
-    this.googleDriveService.setAllSheetData(this.googleDriveService.getSheetId(), postData).subscribe();
+    $.ajax('https://aadit-server.azurewebsites.net/bulkUpdateCell', {
+      method: 'POST',
+      contentType: 'application/json',
+      processData: false,
+      data: JSON.stringify({
+        'sheetid': '1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+        'worksheet': 2,
+        'minRow'   : 2,
+        'maxRow'   : 5,
+        'minCol'   : 2,
+        'maxCol'   : 2,
+        'value'	   : [this.reason, this.reason2, this.activity, this.reason3]
+    })
+  })
+  .then(
+      function success(mail) {
+          console.log('Data updated succesfully');
+      }
+  );
 
     this.router.navigateByUrl('/medicalhistory');
   }
-
-  private getParsedPostData(formData): DriveRequestModel {
-    console.log(formData);
-    const values = [];
-
-    Object.values(formData).forEach(value => {
-      values.push(value);
-    });
-
-    const postData: DriveRequestModel = {
-      'valueInputOption': 'USER_ENTERED',
-      'data': [{
-        'range': `${SheetTabsTitleConst.GOALS}!B2:B5`,
-        'majorDimension': 'COLUMNS',
-        'values': [values]
-      }]
-    };
-
-    console.log('postData', postData);
-    return postData;
-
-  }
-
 
 }
 

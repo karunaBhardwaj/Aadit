@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {  Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { GoogleDriveService } from 'src/app/services/google-drive.service';
-import { SheetTabsTitleConst } from '../constants/sheet.constant';
-import { DriveRequestModel } from '../models/drive-postdata.model';
 import { AppService } from '../services/app.service';
-
+import * as $ from 'jquery';
 
 
 @Component({
@@ -51,12 +48,10 @@ export class SignupformPage implements OnInit {
     };
   constructor(private router: Router,
     private appservice: AppService,
-    private googleDriveService: GoogleDriveService
     ) {
   }
 
   ngOnInit() {
-    console.log(this.googleDriveService.getLocalSheetTabData(SheetTabsTitleConst.SIGN_UP));
     this.myForm = new FormGroup({
       firstname: new FormControl(this.Data.profile.firstName, [Validators.required, Validators.minLength(2)]),
       lastname: new FormControl(this.Data.profile.lastName, [Validators.required, Validators.minLength(2)]),
@@ -96,36 +91,27 @@ export class SignupformPage implements OnInit {
 
 
   onSubmit( ) {
+      $.ajax('https://aadit-server.azurewebsites.net/bulkUpdateCell', {
+        method: 'POST',
+        contentType: 'application/json',
+        processData: false,
+        data: JSON.stringify({
+          'sheetid': '1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+          'worksheet': 1,
+          'minRow'   : 2,
+          'maxRow'   : 2,
+          'minCol'   : 1,
+          'maxCol'   : 7,
+          'value'	   : [this.firstname, this.lastname, this.email, this.organization, this.contact, this.gender, this.year]
+      })
+    })
+    .then(
+        function success(mail) {
+            console.log('Data updated succesfully');
+        }
+    );
 
-      const postData: DriveRequestModel = this.getParsedPostData(this.myForm.value);
-
-      this.googleDriveService.setAllSheetData(this.googleDriveService.getSheetId(), postData).subscribe();
 
       this.router.navigateByUrl('/goals');
     }
-
-    private getParsedPostData(formData): DriveRequestModel {
-
-      console.log(formData);
-      const values = [];
-
-      Object.values(formData).forEach(value => {
-        values.push(value);
-      });
-
-      const postData: DriveRequestModel = {
-        'valueInputOption': 'USER_ENTERED',
-        'data': [{
-          'range': `${SheetTabsTitleConst.SIGN_UP}!A2:G2`,
-          'majorDimension': 'ROWS',
-          'values': [values]
-        }]
-      };
-
-      console.log('postData', postData);
-      return postData;
-
-    }
-
-
 }

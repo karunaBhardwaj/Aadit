@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GoogleDriveService } from 'src/app/services/google-drive.service';
-import { SheetTabsTitleConst } from '../constants/sheet.constant';
-import { DriveRequestModel } from '../models/drive-postdata.model';
 import {  Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AppService } from '../services/app.service';
-import * as moment from 'moment';
+import * as $ from 'jquery';
 @Component({
   selector: 'app-foodlog',
   templateUrl: './foodlog.page.html',
@@ -16,41 +12,17 @@ export class FoodlogPage implements OnInit {
   foodVal;
   myDate: String = new Date().toISOString();
 
-  constructor(private router: Router,
-    private googleDriveService: GoogleDriveService,
-    private appservice: AppService) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.myForm = new FormGroup({
-      date: new FormControl('', [Validators.required]),
+      date: new FormControl(new Date().toLocaleDateString(), [Validators.required]),
       time : new FormControl(new Date().toLocaleTimeString(), [Validators.required]),
       food : new FormControl('', [Validators.required]),
       details: new FormControl('', [Validators.required, , Validators.minLength(2)])
     });
-     console.log(this.googleDriveService.getLocalSheetTabData(SheetTabsTitleConst.FOOD_LOG));
     }
 
-  fetchFoodLog() {
-      const Url = this.appservice.getParsedGetDataUrl(this.googleDriveService.getSheetId(), SheetTabsTitleConst.FOOD_LOG);
-      const Info = fetch(Url).then(function(response) {return response.json(); }).then(function(myJson) {
-      const value = myJson['values'] ;
-      let List = 1 ;
-      value.forEach(element => {
-        for ( let i = 0; i < value.length ; i++) {
-        if (moment(element[i], 'M/D/YYYY', true).isValid() === true ) { List = List + 1; } }
-        });
-      return List;
-      });
-      return Info;
-  }
-
-   async ionViewWillEnter () {
-      let Type_Data: number;
-      await this.fetchFoodLog().then(function (x) { Type_Data = x; });
-      console.log(Type_Data);
-      this.foodVal = Type_Data + 1;
-
-  }
     doRefresh(event) {
       console.log('Begin async operation');
       this.ngOnInit();
@@ -61,30 +33,31 @@ export class FoodlogPage implements OnInit {
     }
 
   onSave() {
-    const postData: DriveRequestModel = this.getParsedPostData(this.myForm.value);
-    this.googleDriveService.setAllSheetData(this.googleDriveService.getSheetId(), postData).subscribe();
+    const values = [];
+    Object.values(this.myForm.value).forEach(value => {
+      values.push(value);
+    });
+    $.ajax('https://aadit-server.azurewebsites.net/addRow', {
+      method: 'POST',
+      contentType: 'application/json',
+      processData: false,
+      data: JSON.stringify({
+        'sheetid': '1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+        'worksheet': 9,
+        'data' : {
+          'Date' : values[0],
+          'Time' : values[1],
+          'Meal Time'  : values[2],
+          'Meal Details' : values[3]
+        }
+    })
+  })
+  .then(
+      function success(mail) {
+          console.log('Data updated succesfully');
+      }
+  );
     this.router.navigateByUrl('/workout');
   }
 
-  private getParsedPostData(formData): DriveRequestModel {
-    console.log(formData);
-    const values = [];
-
-    Object.values(formData).forEach(value => {
-      values.push(value);
-    });
-
-    const postData: DriveRequestModel = {
-      'valueInputOption': 'USER_ENTERED',
-      'data': [{
-        'range': `${SheetTabsTitleConst.FOOD_LOG}!A${this.foodVal}:D${this.foodVal}`,
-        'majorDimension': 'ROWS',
-        'values': [values]
-      }]
-    };
-
-    console.log('postData', postData);
-    return postData;
-
-  }
 }
