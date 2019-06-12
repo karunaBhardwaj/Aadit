@@ -8,6 +8,7 @@ import { GoogleDriveService } from 'src/app/services/google-drive.service';
 import { SheetTabsTitleConst } from '../constants/sheet.constant';
 import { AppService} from '../services/app.service';
 import * as moment from 'moment';
+import * as $ from 'jquery';
 HC_exporting(Highcharts);
 More(Highcharts);
 HCSoldGauge(Highcharts);
@@ -18,29 +19,16 @@ HCSoldGauge(Highcharts);
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
+  testData;
+  testTarget;
 
   constructor(private appservice: AppService, private googleDriveService: GoogleDriveService) { }
 
 // Activity Chart
 async chart() {
-  const Url = this.appservice.getParsedGetDataUrl(this.googleDriveService.getSheetId(), SheetTabsTitleConst.TEST_DATA);
-  const Info = fetch(Url).then(function(response) {return response.json(); }).then(function(myJson) {
-  const value = myJson['values'] ;
-  console.log(value);
-  return value;
-  });
-  let Data = [];
-  await Info.then(function (x) { Data = (x); });
-  const weights = [+Data[4][1], +Data[3][1], +Data[2][1]];
-  const weightTarget = +Data[9][1];
-  const fat = [+Data[4][2].slice(0, -1), +Data[3][2].slice(0, -1), +Data[2][2].slice(0, -1)];
-  const fatTarget = +Data[9][2].slice(0, -1);
-  const bmi = [+Data[4][4], +Data[3][4], +Data[2][4]];
-  const bmiTarget = +Data[9][4];
-  const bodyage = [+Data[4][3], +Data[3][3], +Data[2][3]];
-  const Month1 = moment(Data[4][0], 'M/D/YYYY');
-  const Month2 = moment(Data[3][0], 'M/D/YYYY');
-  const Month3 = moment(Data[2][0], 'M/D/YYYY');
+  const Month1 = moment(this.testData[3][0], 'M/D/YYYY');
+  const Month2 = moment(this.testData[2][0], 'M/D/YYYY');
+  const Month3 = moment(this.testData[1][0], 'M/D/YYYY');
     // apply theme
     Highcharts.setOptions(theme);
 
@@ -115,7 +103,7 @@ async chart() {
         }
         },
         title: {
-            text: `Weight Chart [ Target: ${weightTarget}Kg ]`,
+            text: `Weight Chart [ Target: ${this.testTarget[0]}Kg ]`,
             style: {
                 fontSize: '15px'
             }
@@ -189,7 +177,7 @@ async chart() {
             color: Highcharts.getOptions().colors[0],
             radius: '112%',
             innerRadius: '88%',
-            y: weights[0]
+            y: this.testData[0][1]
             }],
             showInLegend: true
         }, {
@@ -199,7 +187,7 @@ async chart() {
             color: Highcharts.getOptions().colors[1],
             radius: '87%',
             innerRadius: '63%',
-            y: weights[1]
+            y: this.testData[1][1]
             }],
             showInLegend: true
         }, {
@@ -209,7 +197,7 @@ async chart() {
             color: Highcharts.getOptions().colors[2],
             radius: '62%',
             innerRadius: '38%',
-            y: weights[2]
+            y: this.testData[2][1]
             }],
             showInLegend: true
         }]
@@ -228,7 +216,7 @@ async chart() {
         }
         },
         title: {
-            text: `Fat Chart [ Target: ${fatTarget}% ]`,
+            text: `Fat Chart [ Target: ${this.testTarget[1]}% ]`,
             style: {
                 fontSize: '15px'
             }
@@ -302,7 +290,7 @@ async chart() {
             color: Highcharts.getOptions().colors[0],
             radius: '112%',
             innerRadius: '88%',
-            y: fat[0]
+            y: this.testData[0][2]
             }],
             showInLegend: true
         }, {
@@ -312,7 +300,7 @@ async chart() {
             color: Highcharts.getOptions().colors[1],
             radius: '87%',
             innerRadius: '63%',
-            y: fat[1]
+            y: this.testData[1][2]
             }],
             showInLegend: true
         }, {
@@ -322,7 +310,7 @@ async chart() {
             color: Highcharts.getOptions().colors[2],
             radius: '62%',
             innerRadius: '38%',
-            y: fat[2]
+            y: this.testData[2][2]
             }],
             showInLegend: true
         }]
@@ -340,7 +328,7 @@ async chart() {
         }
         },
         title: {
-            text: `BMI Chart [ Target: ${bmiTarget} ]`,
+            text: `BMI Chart [ Target: ${this.testTarget[3]} ]`,
             style: {
                 fontSize: '15px'
             }
@@ -414,7 +402,7 @@ async chart() {
             color: Highcharts.getOptions().colors[0],
             radius: '112%',
             innerRadius: '88%',
-            y: bmi[0]
+            y: this.testData[0][4]
             }],
             showInLegend: true
         }, {
@@ -424,7 +412,7 @@ async chart() {
             color: Highcharts.getOptions().colors[1],
             radius: '87%',
             innerRadius: '63%',
-            y: bmi[1]
+            y: this.testData[1][4]
             }],
             showInLegend: true
         }, {
@@ -434,7 +422,7 @@ async chart() {
             color: Highcharts.getOptions().colors[2],
             radius: '62%',
             innerRadius: '38%',
-            y: bmi[2]
+            y: this.testData[2][4]
             }],
             showInLegend: true
         }]
@@ -526,7 +514,7 @@ async chart() {
             color: Highcharts.getOptions().colors[0],
             radius: '112%',
             innerRadius: '88%',
-            y: bodyage[0]
+            y: this.testData[0][3]
             }],
             showInLegend: true
         }, {
@@ -536,7 +524,7 @@ async chart() {
             color: Highcharts.getOptions().colors[1],
             radius: '87%',
             innerRadius: '63%',
-            y: bodyage[1]
+            y: this.testData[1][3]
             }],
             showInLegend: true
         }, {
@@ -546,7 +534,7 @@ async chart() {
             color: Highcharts.getOptions().colors[2],
             radius: '62%',
             innerRadius: '38%',
-            y: bodyage[2]
+            y: this.testData[2][3]
             }],
             showInLegend: true
         }]
@@ -554,18 +542,70 @@ async chart() {
       });
     }
 
-    ionViewWillEnter() {
-      this.chart();
-    }
-    ngOnInit() {
-      // this.chart();
-    }
-    doRefresh(event) {
-        console.log('Begin async operation');
-        this.ionViewWillEnter();
-        setTimeout(() => {
-        console.log('Async operation has ended');
-        event.target.complete();
-        }, 2000);
+    // ionViewWillEnter() {
+    //   this.chart();
+    // }
+    async ngOnInit() {
+      let Data;
+      let target;
+      await $.ajax('https://aadit-server.azurewebsites.net/getRows', {
+        method: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        processData: false,
+        data: JSON.stringify({
+          'sheetid': '1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+          'worksheet': 4
+      })
+    })
+    .then(
+        function success(mail) {
+            Data = [[mail[0].date, +mail[0].weight, +mail[0].fat.slice(0, -1), +mail[0].bodyage, +mail[0].bmi],
+                    [mail[1].date, +mail[1].weight, +mail[1].fat.slice(0, -1), +mail[1].bodyage, +mail[1].bmi],
+                    [mail[2].date, +mail[2].weight, +mail[2].fat.slice(0, -1), +mail[2].bodyage, +mail[2].bmi],
+                    [mail[3].date, +mail[3].weight, +mail[3].fat.slice(0, -1), +mail[3].bodyage, +mail[3].bmi]];
+            // console.log('Schedule', Data);
+            // console.log('Schedule Data retrieved succesfully');
+        }
+    );
+    await $.ajax('https://aadit-server.azurewebsites.net/getCells', {
+      method: 'POST',
+      contentType: 'application/json',
+      dataType: 'json',
+      processData: false,
+      data: JSON.stringify({
+        'sheetid': '1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+        'worksheet': 4,
+        'options': {
+          'min-row' : 10,
+          'max-row' : 10,
+          'min-col' : 2,
+          'max-col' : 5
+        }
+    })
+  })
+  .then(
+      function success(mail) {
+          target = [+mail[0]['_value'], +mail[1]['_value'].slice(0, -1), +mail[2]['_value'], +mail[3]['_value']];
+          // console.log(target);
+          // console.log('Schedule Data retrieved succesfully');
+      }
+  );
+  this.testData = Data;
+  this.testTarget = target;
+  console.log('Test Data', this.testData);
+  console.log('Target data', this.testTarget);
+  this.chart();
+
+  }
+
+
+  doRefresh(event) {
+      console.log('Begin async operation');
+      this.ngOnInit();
+      setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+      }, 2000);
     }
 }
