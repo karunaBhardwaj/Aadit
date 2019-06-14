@@ -5,7 +5,6 @@ import HCSoldGauge from 'highcharts/modules/solid-gauge';
 import HC_exporting from 'highcharts/modules/exporting';
 import {theme} from './theme';
 import { GoogleDriveService } from 'src/app/services/google-drive.service';
-import { SheetTabsTitleConst } from '../constants/sheet.constant';
 import { AppService} from '../services/app.service';
 import * as moment from 'moment';
 import * as $ from 'jquery';
@@ -22,7 +21,7 @@ export class DashboardPage implements OnInit {
   testData;
   testTarget;
 
-  constructor(private appservice: AppService, private googleDriveService: GoogleDriveService) { }
+  constructor(private appservice: AppService) { }
 
 // Activity Chart
 async chart() {
@@ -554,7 +553,7 @@ async chart() {
         dataType: 'json',
         processData: false,
         data: JSON.stringify({
-          'sheetid': '1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+          'sheetid': `${this.appservice.getUserInfo().token.sheetId}`,
           'worksheet': 4
       })
     })
@@ -574,7 +573,7 @@ async chart() {
       dataType: 'json',
       processData: false,
       data: JSON.stringify({
-        'sheetid': '1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+        'sheetid': `${this.appservice.getUserInfo().token.sheetId}`,
         'worksheet': 4,
         'options': {
           'min-row' : 10,

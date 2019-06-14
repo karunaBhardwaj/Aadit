@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
+import { AppService } from '../services/app.service';
 @Component({
   selector: 'app-goals',
   templateUrl: './goals.page.html',
@@ -29,7 +30,7 @@ export class GoalsPage implements OnInit {
     ]
 
     };
-  constructor( private router: Router) { }
+  constructor( private router: Router, private appservice: AppService) { }
 
   ngOnInit() {
     this.myForm = new FormGroup({
@@ -65,7 +66,7 @@ export class GoalsPage implements OnInit {
       contentType: 'application/json',
       processData: false,
       data: JSON.stringify({
-        'sheetid': '1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+        'sheetid': `${this.appservice.getUserInfo().token.sheetId}`,
         'worksheet': 2,
         'minRow'   : 2,
         'maxRow'   : 5,

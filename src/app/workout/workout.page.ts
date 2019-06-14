@@ -1,6 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
+import { AppService } from '../services/app.service';
 @Component({
   selector: 'app-workout',
   templateUrl: './workout.page.html',
@@ -11,7 +12,7 @@ export class WorkoutPage implements OnInit {
   weekDay: string;
   WorkoutData;
   strngthExData;
-  constructor(private router: Router) { }
+  constructor(private router: Router, private appservice: AppService) { }
     doRefresh(event) {
       console.log('Begin async operation');
       this.ngOnInit();
@@ -30,7 +31,7 @@ export class WorkoutPage implements OnInit {
         dataType: 'json',
         processData: false,
         data: JSON.stringify({
-          'sheetid': '1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+          'sheetid': `${this.appservice.getUserInfo().token.sheetId}`,
           'worksheet': 7
       })
     })
@@ -63,7 +64,7 @@ export class WorkoutPage implements OnInit {
         dataType: 'json',
         processData: false,
         data: JSON.stringify({
-          'sheetid': '1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+          'sheetid': `${this.appservice.getUserInfo().token.sheetId}`,
           'worksheet': 8
       })
     })
@@ -218,7 +219,7 @@ export class WorkoutPage implements OnInit {
       dataType: 'json',
       processData: false,
       data: JSON.stringify({
-        'sheetid': '1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+        'sheetid': `${this.appservice.getUserInfo().token.sheetId}`,
         'worksheet': 6
     })
   })

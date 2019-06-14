@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {  Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as $ from 'jquery';
+import { AppService } from '../services/app.service';
 @Component({
   selector: 'app-foodlog',
   templateUrl: './foodlog.page.html',
@@ -12,7 +13,7 @@ export class FoodlogPage implements OnInit {
   foodVal;
   myDate: String = new Date().toISOString();
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private appservice: AppService) { }
 
   ngOnInit() {
     this.myForm = new FormGroup({
@@ -42,7 +43,7 @@ export class FoodlogPage implements OnInit {
       contentType: 'application/json',
       processData: false,
       data: JSON.stringify({
-        'sheetid': '1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+        'sheetid': `${this.appservice.getUserInfo().token.sheetId}`,
         'worksheet': 9,
         'data' : {
           'Date' : values[0],

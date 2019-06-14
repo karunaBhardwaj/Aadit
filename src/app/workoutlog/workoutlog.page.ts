@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {  Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { AppService } from '../services/app.service';
 import * as $ from 'jquery';
 @Component({
@@ -16,8 +15,7 @@ export class WorkoutlogPage implements OnInit {
   feedback_value: string;
 
   constructor(private router: Router,
-    private appservice: AppService,
-    private http: HttpClient) { }
+    private appservice: AppService) { }
 
   doRefresh(event) {
     console.log('Begin async operation');
@@ -97,7 +95,7 @@ export class WorkoutlogPage implements OnInit {
       contentType: 'application/json',
       processData: false,
       data: JSON.stringify({
-        'sheetid': '1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+        'sheetid': `${this.appservice.getUserInfo().token.sheetId}`,
         'worksheet': 10,
         'data' : {
           'Date' : values[0],

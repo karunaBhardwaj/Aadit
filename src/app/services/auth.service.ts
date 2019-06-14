@@ -7,9 +7,7 @@ import { auth } from 'firebase/app';
 import AuthProvider = firebase.auth.AuthProvider;
 import { UserProfileModel, UserInfoModel, TokenModel } from '../models/user-info.model';
 import { Router } from '@angular/router';
-import { DbqueryService } from './dbquery.service';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
-import { AppService } from './app.service';
 import { firebaseConfig } from '../../config';
 import { LoadingController} from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
@@ -25,9 +23,7 @@ export class AuthService {
   constructor(
     public afAuth: AngularFireAuth,
     private afDb: AngularFireDatabase,
-    private appservice: AppService,
     private router: Router,
-    private dbService: DbqueryService,
     public formstatusservice: FormstatusService,
     public googlePlus: GooglePlus,
     public loadingController: LoadingController,
