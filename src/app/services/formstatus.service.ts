@@ -1,47 +1,81 @@
 import { Injectable, NgZone } from '@angular/core';
-import { GoogleDriveService } from './google-drive.service';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
-
+import * as $ from 'jquery';
 @Injectable({
     providedIn: 'root'
   })
 export class FormstatusService {
-    constructor(private googleDriveService: GoogleDriveService, private router: Router,private menuCtrl: MenuController,
-       private ngZone: NgZone) {}
+    constructor( private router: Router, private menuCtrl: MenuController) {}
 
-    checkForInitialSetup() {
-
-        this.googleDriveService.getAllSheetData(this.googleDriveService.getSheetId()).subscribe(
-          sheetData => {
-            this.googleDriveService.saveAllSheetData(sheetData['valueRanges']);
-            // console.log('this.isProfileSetupComplete()', this.googleDriveService.isProfileSetupComplete());
-            if (this.googleDriveService.isProfileSetupComplete() === false) {console.log('Signup form is not updated');
-            this.ngZone.run(() => this.router.navigateByUrl('/signupform')).then();
-          } else if (this.googleDriveService.isGoalSetupComplete() === false) {console.log('Goals setup is not updated');
-            this.ngZone.run(() => this.router.navigateByUrl('/goals')).then();
-          } else if (this.googleDriveService.isMedicalSetupComplete() === false) {console.log('Medical history is not updated');
-            this.ngZone.run(() => this.router.navigateByUrl('/medicalhistory')).then();
-          } else {
-            this.ngZone.run(() => this.router.navigateByUrl('/workout')).then(); }
-          },
-          err => {
-            console.error(err);
+    async checkForInitialSetup() {
+      const pages = [3, 4];
+      let ProfileData;
+      let TestData;
+      // Profile Data
+      await $.ajax('https://aadit-server.azurewebsites.net/getCells', {
+        method: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        processData: false,
+        data: JSON.stringify({
+          sheetid: '1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+          worksheet: 3,
+          options: {
+            'min-row': 2,
+            'max-row': 2,
+            'min-col': 2,
+            'max-col': 2,
+            'return-empty': true
           }
-        );
-      }
+        })
+      }).then(function success(mail) {
+        if (mail[0]['_value'] === '') {
+          console.log('no data ');
+          return ProfileData = false;
+        } else {
+          console.log('data present');
+          return ProfileData = true;
+        }
+      });
+      // Test Data
+      await $.ajax('https://aadit-server.azurewebsites.net/getCells', {
+        method: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        processData: false,
+        data: JSON.stringify({
+          sheetid: '1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+          worksheet: 4,
+          options: {
+            'min-row': 2,
+            'max-row': 2,
+            'min-col': 2,
+            'max-col': 2,
+            'return-empty': true
+          }
+        })
+      }).then(function success(mail) {
+        if (mail[0]['_value'] === '') {
+          console.log('no data ');
+          return TestData = false;
+        } else {
+          console.log('data present');
+          return TestData = true;
+        }
+      });
 
-    checkmenustatus() {
-      this.googleDriveService.getAllSheetData(this.googleDriveService.getSheetId()).subscribe(
-          sheetData => {
-            this.googleDriveService.saveAllSheetData(sheetData['valueRanges']);
-        if (this.googleDriveService.isTestSetupComplete() === false) {
-          console.log('Data Unavailable Show Menu-1'); this.menuCtrl.enable(true, 'menu1');
-      } else {console.log('Data available Show Menu-2'); this.menuCtrl.enable(true, 'menu2'); }
-      },
-      err => {
-        console.error(err);
+      if (ProfileData === false && TestData === false) {
+        console.log('Profile not updated');
+        this.router.navigateByUrl('/signupform');
+        this.menuCtrl.enable(true, 'menu1');
+      } else if (ProfileData === true && TestData === false) {
+        this.router.navigateByUrl('/workout');
+        this.menuCtrl.enable(true, 'menu1');
+      } else {
+        this.router.navigateByUrl('/workout');
+        this.menuCtrl.enable(true, 'menu2');
       }
-    );
+    }
   }
-}
+

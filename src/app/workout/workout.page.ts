@@ -212,6 +212,7 @@ export class WorkoutPage implements OnInit {
     }
 
   async ngOnInit() {
+    document.getElementById('Day').innerHTML = new Date().toDateString();
     let schedule: string[];
     await $.ajax('https://aadit-server.azurewebsites.net/getRows', {
       method: 'POST',
@@ -234,6 +235,6 @@ export class WorkoutPage implements OnInit {
       this.weekDay = schedule[Day];
       await this.fetchTodayWorkout();
       await this.fetchStrengthex();
-      document.getElementById('Day').innerHTML = new Date().toDateString();
+
     }
 }

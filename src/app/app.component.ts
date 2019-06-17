@@ -93,7 +93,6 @@ public allPages = [
               username: JSON.parse(localStorage.getItem('userInfo')).profile.fullName});
             });
             // this.router.navigate(['/home']);
-            this.formstatusservice.checkmenustatus();
             this.formstatusservice.checkForInitialSetup();
           } else {
             this.router.navigate(['/login']);
