@@ -577,10 +577,12 @@ async chart() {
                 label: {
                     connectorAllowed: false
                 },
-                pointStart: 100
+                // pointStart: 100
             }
         },
-
+        credits: {
+          enabled: false
+        },
         series: [{
             type: 'line',
             name: `${this.CardioData[0][0]}`,
@@ -616,39 +618,16 @@ async chart() {
     });
     }
 
-    async ionViewWillEnter() {
+    ionViewWillEnter() {
       // this.chart();
-      let Data;
-      await $.ajax('https://aadit-server.azurewebsites.net/getRows', {
-        method: 'POST',
-        contentType: 'application/json',
-        dataType: 'json',
-        processData: false,
-        data: JSON.stringify({
-          'sheetid': `${this.appservice.getUserInfo().token.sheetId}`,
-          'worksheet': 5
-      })
-    })
-    .then(
-        function success(mail) {
-            Data = [[mail[0].date.slice(1, -1), +mail[0]['_cokwr'], +mail[0]['_cpzh4'], +mail[0]['_cre1l'],
-            +mail[0]['_chk2m'], +mail[0]['_ciyn3'], +mail[0]['_ckd7g'], +mail[0]['_clrrx']],
-                    [mail[1].date.slice(1, -1), +mail[1]['_cokwr'], +mail[1]['_cpzh4'], +mail[1]['_cre1l'],
-                    +mail[1]['_chk2m'], +mail[1]['_ciyn3'], +mail[1]['_ckd7g'], +mail[1]['_clrrx']],
-                    [mail[2].date.slice(1, -1), +mail[2]['_cokwr'], +mail[2]['_cpzh4'], +mail[2]['_cre1l'],
-                    +mail[2]['_chk2m'], +mail[2]['_ciyn3'], +mail[2]['_ckd7g'], +mail[2]['_clrrx']]]
-            // console.log('Schedule', Data);
-            // console.log('Schedule Data retrieved succesfully');
-        }
-    );
-    this.CardioData = Data;
-    console.log('Cardio Data', this.CardioData);
     }
 
 
     async ngOnInit() {
       let Data;
       let target;
+      let cardioData;
+
     await $.ajax('https://aadit-server.azurewebsites.net/getCells', {
       method: 'POST',
       contentType: 'application/json',
@@ -676,11 +655,35 @@ async chart() {
           // console.log('Target Data retrieved succesfully');
       }
   );
-  this.testData = Data;
-  this.testTarget = target;
-  console.log('Test Data', this.testData);
-  console.log('Target data', this.testTarget);
-  this.chart();
+      await $.ajax('https://aadit-server.azurewebsites.net/getRows', {
+        method: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        processData: false,
+        data: JSON.stringify({
+          'sheetid': `${this.appservice.getUserInfo().token.sheetId}`,
+          'worksheet': 5
+      })
+    })
+    .then(
+        function success(mail) {
+            cardioData = [[mail[0].date.slice(1, -1), +mail[0]['_cokwr'], +mail[0]['_cpzh4'], +mail[0]['_cre1l'],
+            +mail[0]['_chk2m'], +mail[0]['_ciyn3'], +mail[0]['_ckd7g'], +mail[0]['_clrrx']],
+                    [mail[1].date.slice(1, -1), +mail[1]['_cokwr'], +mail[1]['_cpzh4'], +mail[1]['_cre1l'],
+                    +mail[1]['_chk2m'], +mail[1]['_ciyn3'], +mail[1]['_ckd7g'], +mail[1]['_clrrx']],
+                    [mail[2].date.slice(1, -1), +mail[2]['_cokwr'], +mail[2]['_cpzh4'], +mail[2]['_cre1l'],
+                    +mail[2]['_chk2m'], +mail[2]['_ciyn3'], +mail[2]['_ckd7g'], +mail[2]['_clrrx']]]
+            // console.log('Schedule', Data);
+            // console.log('Schedule Data retrieved succesfully');
+        }
+    );
+    this.CardioData = cardioData;
+    console.log('Cardio Data', this.CardioData);
+    this.testData = Data;
+    this.testTarget = target;
+    console.log('Test Data', this.testData);
+    console.log('Target data', this.testTarget);
+    this.chart();
   }
 
 
