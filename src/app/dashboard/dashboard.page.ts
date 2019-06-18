@@ -20,14 +20,15 @@ HCSoldGauge(Highcharts);
 export class DashboardPage implements OnInit {
   testData;
   testTarget;
+  CardioData;
 
   constructor(private appservice: AppService) { }
 
 // Activity Chart
 async chart() {
-  const Month1 = moment(this.testData[3][0], 'M/D/YYYY');
-  const Month2 = moment(this.testData[2][0], 'M/D/YYYY');
-  const Month3 = moment(this.testData[1][0], 'M/D/YYYY');
+  const Month1 = moment(this.testData[2][0], 'M/D/YYYY');
+  const Month2 = moment(this.testData[1][0], 'M/D/YYYY');
+  const Month3 = moment(this.testData[0][0], 'M/D/YYYY');
     // apply theme
     Highcharts.setOptions(theme);
 
@@ -539,14 +540,85 @@ async chart() {
         }]
 
       });
+
+
+      // Draw Cardiovascular profile
+
+      Highcharts.chart('container5', {
+        chart: {
+          type: 'line',
+          height: '100%',
+        //   events: {
+        //     render: renderIcons
+        // }
+        },
+
+        title: {
+            text: 'Cardiovascular Profile'
+        },
+
+        // subtitle: {
+        //     text: 'Source: thesolarfoundation.com'
+        // },
+
+        yAxis: {
+            title: {
+                text: 'Heart Rate (BPM)'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+        },
+
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false
+                },
+                pointStart: 100
+            }
+        },
+
+        series: [{
+            type: 'line',
+            name: `${this.CardioData[0][0]}`,
+            data: [this.CardioData[0][1], this.CardioData[0][2], this.CardioData[0][3], this.CardioData[0][4],
+            this.CardioData[0][5], this.CardioData[0][6], this.CardioData[0][7]]
+        }, {
+            type: 'line',
+            name: `${this.CardioData[1][0]}`,
+            data: [this.CardioData[1][1], this.CardioData[1][2], this.CardioData[1][3], this.CardioData[1][4],
+            this.CardioData[1][5], this.CardioData[1][6], this.CardioData[1][7]]
+        }, {
+            type: 'line',
+            name: `${this.CardioData[2][0]}`,
+            data: [this.CardioData[2][1], this.CardioData[2][2], this.CardioData[2][3], this.CardioData[2][4],
+            this.CardioData[2][5], this.CardioData[2][6], this.CardioData[2][7]]
+        }],
+
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500
+                },
+                chartOptions: {
+                    legend: {
+                        layout: 'horizontal',
+                        align: 'center',
+                        verticalAlign: 'bottom'
+                    }
+                }
+            }]
+        }
+
+    });
     }
 
-    // ionViewWillEnter() {
-    //   this.chart();
-    // }
-    async ngOnInit() {
+    async ionViewWillEnter() {
+      // this.chart();
       let Data;
-      let target;
       await $.ajax('https://aadit-server.azurewebsites.net/getRows', {
         method: 'POST',
         contentType: 'application/json',
@@ -554,19 +626,29 @@ async chart() {
         processData: false,
         data: JSON.stringify({
           'sheetid': `${this.appservice.getUserInfo().token.sheetId}`,
-          'worksheet': 4
+          'worksheet': 5
       })
     })
     .then(
         function success(mail) {
-            Data = [[mail[0].date, +mail[0].weight, +mail[0].fat.slice(0, -1), +mail[0].bodyage, +mail[0].bmi],
-                    [mail[1].date, +mail[1].weight, +mail[1].fat.slice(0, -1), +mail[1].bodyage, +mail[1].bmi],
-                    [mail[2].date, +mail[2].weight, +mail[2].fat.slice(0, -1), +mail[2].bodyage, +mail[2].bmi],
-                    [mail[3].date, +mail[3].weight, +mail[3].fat.slice(0, -1), +mail[3].bodyage, +mail[3].bmi]];
+            Data = [[mail[0].date.slice(1, -1), +mail[0]['_cokwr'], +mail[0]['_cpzh4'], +mail[0]['_cre1l'],
+            +mail[0]['_chk2m'], +mail[0]['_ciyn3'], +mail[0]['_ckd7g'], +mail[0]['_clrrx']],
+                    [mail[1].date.slice(1, -1), +mail[1]['_cokwr'], +mail[1]['_cpzh4'], +mail[1]['_cre1l'],
+                    +mail[1]['_chk2m'], +mail[1]['_ciyn3'], +mail[1]['_ckd7g'], +mail[1]['_clrrx']],
+                    [mail[2].date.slice(1, -1), +mail[2]['_cokwr'], +mail[2]['_cpzh4'], +mail[2]['_cre1l'],
+                    +mail[2]['_chk2m'], +mail[2]['_ciyn3'], +mail[2]['_ckd7g'], +mail[2]['_clrrx']]]
             // console.log('Schedule', Data);
             // console.log('Schedule Data retrieved succesfully');
         }
     );
+    this.CardioData = Data;
+    console.log('Cardio Data', this.CardioData);
+    }
+
+
+    async ngOnInit() {
+      let Data;
+      let target;
     await $.ajax('https://aadit-server.azurewebsites.net/getCells', {
       method: 'POST',
       contentType: 'application/json',
@@ -576,18 +658,22 @@ async chart() {
         'sheetid': `${this.appservice.getUserInfo().token.sheetId}`,
         'worksheet': 4,
         'options': {
-          'min-row' : 10,
+          'min-row' : 2,
           'max-row' : 10,
-          'min-col' : 2,
+          'min-col' : 1,
           'max-col' : 5
         }
     })
   })
   .then(
-      function success(mail) {
-          target = [+mail[0]['_value'], +mail[1]['_value'].slice(0, -1), +mail[2]['_value'], +mail[3]['_value']];
+      function success(data) {
+          Data = [[data[5]['_value'].slice(1, -1), +data[6]['_value'], +data[7]['_value'].slice(0, -1), +data[8]['_value'], +data[9]['_value']],
+                  [data[10]['_value'].slice(1, -1), +data[11]['_value'], +data[12]['_value'].slice(0, -1), +data[13]['_value'], +data[14]['_value']],
+                  [data[15]['_value'].slice(1, -1), +data[16]['_value'], +data[17]['_value'].slice(0, -1), +data[18]['_value'], +data[19]['_value']]];
+          target = [+data[21]['_value'], +data[22]['_value'].slice(0, -1), +data[23]['_value'], +data[24]['_value']];
+
           // console.log(target);
-          // console.log('Schedule Data retrieved succesfully');
+          // console.log('Target Data retrieved succesfully');
       }
   );
   this.testData = Data;
@@ -595,7 +681,6 @@ async chart() {
   console.log('Test Data', this.testData);
   console.log('Target data', this.testTarget);
   this.chart();
-
   }
 
 

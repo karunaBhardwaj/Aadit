@@ -108,7 +108,7 @@ export class AuthService {
     });
     this.presentLoading(loading);
     await this.googlePlus.login({
-              'scopes': 'profile https://www.googleapis.com/auth/spreadsheets',
+              'scopes': 'profile',
               'webClientId': firebaseConfig.firbase.client_id
     }).then(res => {
       console.log(res);
@@ -131,13 +131,12 @@ export class AuthService {
 
 
   public signInHandler(data): void {
-    console.log('step-1');
     console.log('this.signInHandler', data);
 
     this.afDb.database.ref('profile').orderByChild('userId').equalTo
     (data['additionalUserInfo']['profile']['email']).on('child_added', (snapshot) => {
       const sheetId: string = snapshot.child('sheetId')['node_']['value_'];
-      console.log('procees1');
+      console.log('procees');
       const userInfo = new UserInfoModel(new TokenModel(this.authToken,
       data['user']['refreshToken'], sheetId), new UserProfileModel(data['additionalUserInfo']['profile']['email'],
       data['additionalUserInfo']['profile']['family_name'], data['additionalUserInfo']['profile']['given_name'],
