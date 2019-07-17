@@ -12,6 +12,7 @@ import { firebaseConfig } from '../../config';
 import { LoadingController} from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
+import { DbqueryService } from './dbquery.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,7 @@ export class AuthService {
     public googlePlus: GooglePlus,
     public loadingController: LoadingController,
     public alertCntrl: AlertController,
+    private dbService: DbqueryService,
     public emailComposer: EmailComposer
   ) {
     afAuth.authState.subscribe(user => {
@@ -108,7 +110,7 @@ export class AuthService {
     });
     this.presentLoading(loading);
     await this.googlePlus.login({
-              'scopes': 'profile',
+              'scopes': 'profile https://www.googleapis.com/auth/spreadsheets',
               'webClientId': firebaseConfig.firbase.client_id
     }).then(res => {
       console.log(res);
@@ -130,28 +132,28 @@ export class AuthService {
     }
 
 
-  public signInHandler(data): void {
-    console.log('this.signInHandler', data);
+    public signInHandler(data): void {
+      console.log('this.signInHandler', data);
 
-    this.afDb.database.ref('profile').orderByChild('userId').equalTo
-    (data['additionalUserInfo']['profile']['email']).on('child_added', (snapshot) => {
-      const sheetId: string = snapshot.child('sheetId')['node_']['value_'];
-      console.log('procees');
-      const userInfo = new UserInfoModel(new TokenModel(this.authToken,
-      data['user']['refreshToken'], sheetId), new UserProfileModel(data['additionalUserInfo']['profile']['email'],
-      data['additionalUserInfo']['profile']['family_name'], data['additionalUserInfo']['profile']['given_name'],
-      data['additionalUserInfo']['profile']['name'], data['additionalUserInfo']['profile']['picture']));
+      this.afDb.database.ref('profile').orderByChild('userId').equalTo
+      (data['additionalUserInfo']['profile']['email']).on('child_added', (snapshot) => {
+        const sheetId: string = snapshot.child('sheetId')['node_']['value_'];
+        console.log(sheetId);
+        const userInfo = new UserInfoModel(new TokenModel(this.authToken,
+        data['user']['refreshToken'], sheetId), new UserProfileModel(data['additionalUserInfo']['profile']['email'],
+        data['additionalUserInfo']['profile']['family_name'], data['additionalUserInfo']['profile']['given_name'],
+        data['additionalUserInfo']['profile']['name'], data['additionalUserInfo']['profile']['picture']));
 
-      console.log('userInfo', userInfo);
+        console.log('userInfo', userInfo);
 
-      localStorage.setItem('userInfo', JSON.stringify(userInfo));
-      if (data.additionalUserInfo.isNewUser) {
-        // return this.setUpNewUser(data);
-      }
-      // this.router.navigate(['/home']);
-      this.formstatusservice.checkForInitialSetup();
-    });
+        localStorage.setItem('userInfo', JSON.stringify(userInfo));
+        if (data.additionalUserInfo.isNewUser) {
+          // return this.setUpNewUser(data);
+        }
+        // this.router.navigate(['/home']);
+        this.formstatusservice.checkForInitialSetup();
+        });
 
-  }
+    }
 
 }

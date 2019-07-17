@@ -61,7 +61,7 @@ export class GoalsPage implements OnInit {
 
   onSubmit() {
 
-    $.ajax('https://aadit-server.azurewebsites.net/bulkUpdateCell', {
+    $.ajax('https://aadit-nodeserver.herokuapp.com/bulkUpdateCell', {
       method: 'POST',
       contentType: 'application/json',
       processData: false,

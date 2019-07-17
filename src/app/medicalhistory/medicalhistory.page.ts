@@ -54,7 +54,7 @@ export class MedicalhistoryPage implements OnInit {
       values.push(value);
     });
 
-    $.ajax('https://aadit-server.azurewebsites.net/bulkUpdateCell', {
+    $.ajax('https://aadit-nodeserver.herokuapp.com/bulkUpdateCell', {
       method: 'POST',
       contentType: 'application/json',
       processData: false,

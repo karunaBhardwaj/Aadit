@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SheetsService } from '../services/sheets.service';
 
 @Component({
   selector: 'app-aboutus',
@@ -7,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutusPage implements OnInit {
 
-  constructor() { }
+  constructor(private sheetsservice: SheetsService) { }
 
   ngOnInit() {
-  }
+          }
 
 }

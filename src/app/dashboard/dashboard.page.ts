@@ -628,7 +628,7 @@ async chart() {
       let target;
       let cardioData;
 
-    await $.ajax('https://aadit-server.azurewebsites.net/getCells', {
+    await $.ajax('https://aadit-nodeserver.herokuapp.com/getCells', {
       method: 'POST',
       contentType: 'application/json',
       dataType: 'json',
@@ -655,7 +655,7 @@ async chart() {
           // console.log('Target Data retrieved succesfully');
       }
   );
-      await $.ajax('https://aadit-server.azurewebsites.net/getRows', {
+      await $.ajax('https://aadit-nodeserver.herokuapp.com/getRows', {
         method: 'POST',
         contentType: 'application/json',
         dataType: 'json',

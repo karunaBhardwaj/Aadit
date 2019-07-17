@@ -13,7 +13,7 @@ export class FormstatusService {
       let ProfileData;
       let TestData;
       // Profile Data
-      await $.ajax('https://aadit-server.azurewebsites.net/getCells', {
+      await $.ajax('https://aadit-nodeserver.herokuapp.com/getCells', {
         method: 'POST',
         contentType: 'application/json',
         dataType: 'json',
@@ -39,7 +39,7 @@ export class FormstatusService {
         }
       });
       // Test Data
-      await $.ajax('https://aadit-server.azurewebsites.net/getCells', {
+      await $.ajax('https://aadit-nodeserver.herokuapp.com/getCells', {
         method: 'POST',
         contentType: 'application/json',
         dataType: 'json',

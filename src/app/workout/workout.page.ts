@@ -25,7 +25,7 @@ export class WorkoutPage implements OnInit {
     async fetchTodayWorkout() {
       let workOut: any;
 
-      await $.ajax('https://aadit-server.azurewebsites.net/getRows', {
+      await $.ajax('https://aadit-nodeserver.herokuapp.com/getRows', {
         method: 'POST',
         contentType: 'application/json',
         dataType: 'json',
@@ -58,7 +58,7 @@ export class WorkoutPage implements OnInit {
 
     async fetchStrengthex() {
       let Data: any;
-      await $.ajax('https://aadit-server.azurewebsites.net/getRows', {
+      await $.ajax('https://aadit-nodeserver.herokuapp.com/getRows', {
         method: 'POST',
         contentType: 'application/json',
         dataType: 'json',
@@ -214,7 +214,7 @@ export class WorkoutPage implements OnInit {
   async ngOnInit() {
     document.getElementById('Day').innerHTML = new Date().toDateString();
     let schedule: string[];
-    await $.ajax('https://aadit-server.azurewebsites.net/getRows', {
+    await $.ajax('https://aadit-nodeserver.herokuapp.com/getRows', {
       method: 'POST',
       contentType: 'application/json',
       dataType: 'json',

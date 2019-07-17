@@ -38,7 +38,7 @@ export class FoodlogPage implements OnInit {
     Object.values(this.myForm.value).forEach(value => {
       values.push(value);
     });
-    $.ajax('https://aadit-server.azurewebsites.net/addRow', {
+    $.ajax('https://aadit-nodeserver.herokuapp.com/addRow', {
       method: 'POST',
       contentType: 'application/json',
       processData: false,
