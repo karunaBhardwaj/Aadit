@@ -9,7 +9,7 @@ import { UserProfileModel, UserInfoModel, TokenModel } from '../models/user-info
 import { Router } from '@angular/router';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { firebaseConfig } from '../../config';
-import { LoadingController} from '@ionic/angular';
+import { LoadingController, Platform} from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { DbqueryService } from './dbquery.service';
@@ -22,6 +22,7 @@ export class AuthService {
   private userToken;
   private authToken;
   constructor(
+    private plt: Platform,
     public afAuth: AngularFireAuth,
     private afDb: AngularFireDatabase,
     private router: Router,
@@ -138,7 +139,6 @@ export class AuthService {
       this.afDb.database.ref('profile').orderByChild('userId').equalTo
       (data['additionalUserInfo']['profile']['email']).on('child_added', (snapshot) => {
         const sheetId: string = snapshot.child('sheetId')['node_']['value_'];
-        console.log(sheetId);
         const userInfo = new UserInfoModel(new TokenModel(this.authToken,
         data['user']['refreshToken'], sheetId), new UserProfileModel(data['additionalUserInfo']['profile']['email'],
         data['additionalUserInfo']['profile']['family_name'], data['additionalUserInfo']['profile']['given_name'],
@@ -155,5 +155,47 @@ export class AuthService {
         });
 
     }
+
+    signInWithGoogleWeb() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('profile');
+      provider.addScope('email');
+      provider.addScope('https://www.googleapis.com/auth/spreadsheets');
+      provider.addScope('https://www.googleapis.com/auth/drive');
+
+      return this.oauthSignIn(provider)
+        .then(res => {
+          console.log('signInWithGoogle', res);
+          this.signInHandler(res);
+        });
+    }
+    public oauthSignIn(provider: AuthProvider): any {
+      if (!(<any>window).cordova) {
+        return this.afAuth.auth.signInWithPopup(provider);
+      } else {
+        return this.afAuth.auth.signInWithRedirect(provider)
+          .then(() => {
+            return this.afAuth.auth.getRedirectResult().then(result => {
+              return this.signInHandler(result);
+            }).catch(function (error) {
+              console.error(error.message);
+            });
+          });
+      }
+    }
+
+
+    public PlatformSelect() {
+      if (this.plt.is('cordova')) {
+        this.signInWithGoogle().catch(
+          error => console.log(error.message)
+        );
+
+    } else {
+      this.signInWithGoogleWeb().catch(
+        error => console.log(error.message)
+      );
+    }
+  }
 
 }

@@ -56,8 +56,6 @@ export class LoginPage implements OnInit {
   }
 
   loginWithGoogle() {
-    this.auth.signInWithGoogle().catch(
-      error => console.log(error.message)
-    );
+    this.auth.PlatformSelect();
   }
 }
