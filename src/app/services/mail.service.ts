@@ -9,7 +9,6 @@ export class MailService {
   constructor() { }
 
   sendMail(to, subject, text) {
-    let values;
     let settings = {
       'async': true,
       'crossDomain': true,
@@ -24,8 +23,6 @@ export class MailService {
 
     $.ajax(settings).done(function (response) {
       console.log(response);
-      this.values = response;
     });
-    return values;
   }
 }

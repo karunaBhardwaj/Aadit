@@ -2,6 +2,7 @@ import { Component, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { AppService } from '../services/app.service';
+import { SheetsService } from '../services/sheets.service';
 @Component({
   selector: 'app-workout',
   templateUrl: './workout.page.html',
@@ -12,7 +13,7 @@ export class WorkoutPage implements OnInit {
   weekDay: string;
   WorkoutData;
   strngthExData;
-  constructor(private router: Router, private appservice: AppService) { }
+  constructor(private router: Router, private appservice: AppService, private sheetsservice: SheetsService) { }
     doRefresh(event) {
       console.log('Begin async operation');
       this.ngOnInit();
@@ -22,70 +23,6 @@ export class WorkoutPage implements OnInit {
       }, 2000);
     }
 
-    async fetchTodayWorkout() {
-      let workOut: any;
-
-      await $.ajax('https://aadit-nodeserver.herokuapp.com/getRows', {
-        method: 'POST',
-        contentType: 'application/json',
-        dataType: 'json',
-        processData: false,
-        data: JSON.stringify({
-          'sheetid': `${this.appservice.getUserInfo().token.sheetId}`,
-          'worksheet': 7
-      })
-    })
-    .then(
-        function success(mail) {
-            workOut = { 'Long' : [mail[0]['workouttype'], mail[0]['activitytime-minutes'], mail[0]['activityspeed-kmph'],
-            mail[0]['recoverytime-minutes'], mail[0]['recoveryspeed'], mail[0]['ofrepeats'], mail[0]['totalduration']],
-
-            'Tempo' : [mail[1]['workouttype'], mail[1]['activitytime-minutes'], mail[1]['activityspeed-kmph'],
-            mail[1]['recoverytime-minutes'], mail[1]['recoveryspeed'], mail[1]['ofrepeats'], mail[1]['totalduration']],
-
-            'Interval' : [mail[2]['workouttype'], mail[2]['activitytime-minutes'], mail[2]['activityspeed-kmph'],
-            mail[2]['recoverytime-minutes'], mail[2]['recoveryspeed'], mail[2]['ofrepeats'], mail[2]['totalduration']],
-
-            'Speed' : [mail[3]['workouttype'], mail[3]['activitytime-minutes'], mail[3]['activityspeed-kmph'],
-            mail[3]['recoverytime-minutes'], mail[3]['recoveryspeed'], mail[3]['ofrepeats'], mail[3]['totalduration']]};
-            console.log('Workout Data retrieved succesfully');
-        }
-    );
-      this.WorkoutData = workOut;
-      // console.log('Workout Data', this.WorkoutData);
-
-    }
-
-    async fetchStrengthex() {
-      let Data: any;
-      await $.ajax('https://aadit-nodeserver.herokuapp.com/getRows', {
-        method: 'POST',
-        contentType: 'application/json',
-        dataType: 'json',
-        processData: false,
-        data: JSON.stringify({
-          'sheetid': `${this.appservice.getUserInfo().token.sheetId}`,
-          'worksheet': 8
-      })
-    })
-    .then(
-        function success(mail) {
-            Data = [
-              [mail[0]['strengthexercise'], mail[0]['unit'], mail[0]['unittype']],
-              [mail[1]['strengthexercise'], mail[1]['unit'], mail[1]['unittype']],
-              [mail[2]['strengthexercise'], mail[2]['unit'], mail[2]['unittype']],
-              [mail[3]['strengthexercise'], mail[3]['unit'], mail[3]['unittype']],
-              [mail[4]['strengthexercise'], mail[4]['unit'], mail[4]['unittype']],
-              [mail[5]['strengthexercise'], mail[5]['unit'], mail[5]['unittype']],
-              [mail[6]['strengthexercise'], mail[6]['unit'], mail[6]['unittype']],
-              [mail[7]['strengthexercise'], mail[7]['unit'], mail[7]['unittype']]
-            ];
-            console.log('StrengthEx Data retrieved succesfully');
-        }
-    );
-    this.strngthExData = Data;
-    // console.log('StrngthEx Data', this.strngthExData);
-    }
 
     goToWorkoutLog() {
       if (this.selectedOption === 'Today') {
@@ -214,27 +151,21 @@ export class WorkoutPage implements OnInit {
   async ngOnInit() {
     document.getElementById('Day').innerHTML = new Date().toDateString();
     let schedule: string[];
-    await $.ajax('https://aadit-nodeserver.herokuapp.com/getRows', {
-      method: 'POST',
-      contentType: 'application/json',
-      dataType: 'json',
-      processData: false,
-      data: JSON.stringify({
-        'sheetid': `${this.appservice.getUserInfo().token.sheetId}`,
-        'worksheet': 6
-    })
-  })
-  .then(
-      function success(mail) {
-          schedule = [mail[0].su, mail[0].mo, mail[0].tu, mail[0].we, mail[0].th, mail[0].fr, mail[0].sat];
-          // console.log('Schedule', schedule);
-          console.log('Schedule Data retrieved succesfully');
-      }
-  );
-      const Day = new Date().getDay();
-      this.weekDay = schedule[Day];
-      await this.fetchTodayWorkout();
-      await this.fetchStrengthex();
+    const data = await this.sheetsservice.batchGetValues('1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+    'Schedule!A2:G2, Workout!B2:H5, StrengthEx!A2:C9');
+    schedule = data[0][0];
+    this.WorkoutData = { 'Long' : data[1][0],
 
+    'Tempo' : data[1][1],
+
+    'Interval' : data[1][2],
+
+    'Speed' : data[1][3]
+    };
+    console.log('Workout Data retrieved succesfully');
+    this.strngthExData = data[2];
+    const Day = new Date().getDay();
+    this.weekDay = schedule[Day];
+    console.log(this.WorkoutData);
     }
 }

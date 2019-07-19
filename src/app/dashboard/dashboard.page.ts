@@ -8,6 +8,7 @@ import { GoogleDriveService } from 'src/app/services/google-drive.service';
 import { AppService} from '../services/app.service';
 import * as moment from 'moment';
 import * as $ from 'jquery';
+import { SheetsService } from '../services/sheets.service';
 HC_exporting(Highcharts);
 More(Highcharts);
 HCSoldGauge(Highcharts);
@@ -20,9 +21,9 @@ HCSoldGauge(Highcharts);
 export class DashboardPage implements OnInit {
   testData;
   testTarget;
-  CardioData;
+  CardioData = [];
 
-  constructor(private appservice: AppService) { }
+  constructor(private appservice: AppService, private sheetsservice: SheetsService) { }
 
 // Activity Chart
 async chart() {
@@ -103,7 +104,7 @@ async chart() {
         }
         },
         title: {
-            text: `Weight Chart [ Target: ${this.testTarget[0]}Kg ]`,
+            text: `Weight Chart [ Target: ${this.testTarget[0][1]}Kg ]`,
             style: {
                 fontSize: '15px'
             }
@@ -177,7 +178,7 @@ async chart() {
             color: Highcharts.getOptions().colors[0],
             radius: '112%',
             innerRadius: '88%',
-            y: this.testData[0][1]
+            y: +this.testData[0][1]
             }],
             showInLegend: true
         }, {
@@ -187,7 +188,7 @@ async chart() {
             color: Highcharts.getOptions().colors[1],
             radius: '87%',
             innerRadius: '63%',
-            y: this.testData[1][1]
+            y: +this.testData[1][1]
             }],
             showInLegend: true
         }, {
@@ -197,7 +198,7 @@ async chart() {
             color: Highcharts.getOptions().colors[2],
             radius: '62%',
             innerRadius: '38%',
-            y: this.testData[2][1]
+            y: +this.testData[2][1]
             }],
             showInLegend: true
         }]
@@ -216,7 +217,7 @@ async chart() {
         }
         },
         title: {
-            text: `Fat Chart [ Target: ${this.testTarget[1]}% ]`,
+            text: `Fat Chart [ Target: ${this.testTarget[0][2].slice(0, -1)}% ]`,
             style: {
                 fontSize: '15px'
             }
@@ -290,7 +291,7 @@ async chart() {
             color: Highcharts.getOptions().colors[0],
             radius: '112%',
             innerRadius: '88%',
-            y: this.testData[0][2]
+            y: +this.testData[0][2].slice(0, -1)
             }],
             showInLegend: true
         }, {
@@ -300,7 +301,7 @@ async chart() {
             color: Highcharts.getOptions().colors[1],
             radius: '87%',
             innerRadius: '63%',
-            y: this.testData[1][2]
+            y: +this.testData[1][2].slice(0, -1)
             }],
             showInLegend: true
         }, {
@@ -310,7 +311,7 @@ async chart() {
             color: Highcharts.getOptions().colors[2],
             radius: '62%',
             innerRadius: '38%',
-            y: this.testData[2][2]
+            y: +this.testData[2][2].slice(0, -1)
             }],
             showInLegend: true
         }]
@@ -328,7 +329,7 @@ async chart() {
         }
         },
         title: {
-            text: `BMI Chart [ Target: ${this.testTarget[3]} ]`,
+            text: `BMI Chart [ Target: ${this.testTarget[0][4]} ]`,
             style: {
                 fontSize: '15px'
             }
@@ -402,7 +403,7 @@ async chart() {
             color: Highcharts.getOptions().colors[0],
             radius: '112%',
             innerRadius: '88%',
-            y: this.testData[0][4]
+            y: +this.testData[0][4]
             }],
             showInLegend: true
         }, {
@@ -412,7 +413,7 @@ async chart() {
             color: Highcharts.getOptions().colors[1],
             radius: '87%',
             innerRadius: '63%',
-            y: this.testData[1][4]
+            y: +this.testData[1][4]
             }],
             showInLegend: true
         }, {
@@ -422,7 +423,7 @@ async chart() {
             color: Highcharts.getOptions().colors[2],
             radius: '62%',
             innerRadius: '38%',
-            y: this.testData[2][4]
+            y: +this.testData[2][4]
             }],
             showInLegend: true
         }]
@@ -514,7 +515,7 @@ async chart() {
             color: Highcharts.getOptions().colors[0],
             radius: '112%',
             innerRadius: '88%',
-            y: this.testData[0][3]
+            y: +this.testData[0][3]
             }],
             showInLegend: true
         }, {
@@ -524,7 +525,7 @@ async chart() {
             color: Highcharts.getOptions().colors[1],
             radius: '87%',
             innerRadius: '63%',
-            y: this.testData[1][3]
+            y: +this.testData[1][3]
             }],
             showInLegend: true
         }, {
@@ -534,7 +535,7 @@ async chart() {
             color: Highcharts.getOptions().colors[2],
             radius: '62%',
             innerRadius: '38%',
-            y: this.testData[2][3]
+            y: +this.testData[2][3]
             }],
             showInLegend: true
         }]
@@ -585,19 +586,19 @@ async chart() {
         },
         series: [{
             type: 'line',
-            name: `${this.CardioData[0][0]}`,
-            data: [this.CardioData[0][1], this.CardioData[0][2], this.CardioData[0][3], this.CardioData[0][4],
-            this.CardioData[0][5], this.CardioData[0][6], this.CardioData[0][7]]
+            name: `${+this.CardioData[0][0]}`,
+            data: [+this.CardioData[0][1], +this.CardioData[0][2], +this.CardioData[0][3], +this.CardioData[0][4],
+            +this.CardioData[0][5], +this.CardioData[0][6], +this.CardioData[0][7]]
         }, {
             type: 'line',
-            name: `${this.CardioData[1][0]}`,
-            data: [this.CardioData[1][1], this.CardioData[1][2], this.CardioData[1][3], this.CardioData[1][4],
-            this.CardioData[1][5], this.CardioData[1][6], this.CardioData[1][7]]
+            name: `${+this.CardioData[1][0]}`,
+            data: [+this.CardioData[1][1], +this.CardioData[1][2], +this.CardioData[1][3], +this.CardioData[1][4],
+            +this.CardioData[1][5], +this.CardioData[1][6], +this.CardioData[1][7]]
         }, {
             type: 'line',
-            name: `${this.CardioData[2][0]}`,
-            data: [this.CardioData[2][1], this.CardioData[2][2], this.CardioData[2][3], this.CardioData[2][4],
-            this.CardioData[2][5], this.CardioData[2][6], this.CardioData[2][7]]
+            name: `${+this.CardioData[2][0]}`,
+            data: [+this.CardioData[2][1], +this.CardioData[2][2], +this.CardioData[2][3], +this.CardioData[2][4],
+            +this.CardioData[2][5], +this.CardioData[2][6], +this.CardioData[2][7]]
         }],
 
         responsive: {
@@ -624,66 +625,12 @@ async chart() {
 
 
     async ngOnInit() {
-      let Data;
-      let target;
-      let cardioData;
-
-    await $.ajax('https://aadit-nodeserver.herokuapp.com/getCells', {
-      method: 'POST',
-      contentType: 'application/json',
-      dataType: 'json',
-      processData: false,
-      data: JSON.stringify({
-        'sheetid': `${this.appservice.getUserInfo().token.sheetId}`,
-        'worksheet': 4,
-        'options': {
-          'min-row' : 2,
-          'max-row' : 10,
-          'min-col' : 1,
-          'max-col' : 5
-        }
-    })
-  })
-  .then(
-      function success(data) {
-          Data = [[data[5]['_value'].slice(1, -1), +data[6]['_value'], +data[7]['_value'].slice(0, -1), +data[8]['_value'], +data[9]['_value']],
-                  [data[10]['_value'].slice(1, -1), +data[11]['_value'], +data[12]['_value'].slice(0, -1), +data[13]['_value'], +data[14]['_value']],
-                  [data[15]['_value'].slice(1, -1), +data[16]['_value'], +data[17]['_value'].slice(0, -1), +data[18]['_value'], +data[19]['_value']]];
-          target = [+data[21]['_value'], +data[22]['_value'].slice(0, -1), +data[23]['_value'], +data[24]['_value']];
-
-          // console.log(target);
-          // console.log('Target Data retrieved succesfully');
-      }
-  );
-      await $.ajax('https://aadit-nodeserver.herokuapp.com/getRows', {
-        method: 'POST',
-        contentType: 'application/json',
-        dataType: 'json',
-        processData: false,
-        data: JSON.stringify({
-          'sheetid': `${this.appservice.getUserInfo().token.sheetId}`,
-          'worksheet': 5
-      })
-    })
-    .then(
-        function success(mail) {
-            cardioData = [[mail[0].date.slice(1, -1), +mail[0]['_cokwr'], +mail[0]['_cpzh4'], +mail[0]['_cre1l'],
-            +mail[0]['_chk2m'], +mail[0]['_ciyn3'], +mail[0]['_ckd7g'], +mail[0]['_clrrx']],
-                    [mail[1].date.slice(1, -1), +mail[1]['_cokwr'], +mail[1]['_cpzh4'], +mail[1]['_cre1l'],
-                    +mail[1]['_chk2m'], +mail[1]['_ciyn3'], +mail[1]['_ckd7g'], +mail[1]['_clrrx']],
-                    [mail[2].date.slice(1, -1), +mail[2]['_cokwr'], +mail[2]['_cpzh4'], +mail[2]['_cre1l'],
-                    +mail[2]['_chk2m'], +mail[2]['_ciyn3'], +mail[2]['_ckd7g'], +mail[2]['_clrrx']]]
-            // console.log('Schedule', Data);
-            // console.log('Schedule Data retrieved succesfully');
-        }
-    );
-    this.CardioData = cardioData;
-    console.log('Cardio Data', this.CardioData);
-    this.testData = Data;
-    this.testTarget = target;
-    console.log('Test Data', this.testData);
-    console.log('Target data', this.testTarget);
-    this.chart();
+      const data = await this.sheetsservice.batchGetValues('1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+      'TestData!A2:E5,TestData!A10:E10,CardioData!A2:I4');
+      this.testData = data[0];
+      this.testTarget = data[1];
+      this.CardioData = data[2];
+      this.chart();
   }
 
 

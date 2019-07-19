@@ -7,9 +7,9 @@ export class SheetsService {
 
   constructor() { }
 
-  getValues(sheetid, range) {
-    let values;
-    let settings = {
+  async getValues(sheetid, range) {
+    let values = [];
+    const settings = {
       'async': true,
       'crossDomain': true,
       'url': `https://aadit-server.herokuapp.com/api/getValues/${sheetid}/${range}`,
@@ -20,16 +20,16 @@ export class SheetsService {
       }
     };
 
-    $.ajax(settings).done(function (response) {
+    await $.ajax(settings).done(function (response) {
       console.log(response);
-      values = response;
+      values.push(response[0]);
     });
     return values;
   }
 
-  batchGetValues(sheetid, range) {
-    let values = [] ;
-    let settings = {
+  async batchGetValues(sheetid, range) {
+    const values = [] ;
+    const settings = {
       'async': true,
       'crossDomain': true,
       'url': `https://aadit-server.herokuapp.com/api/batchGetValues/${sheetid}/${range}`,
@@ -40,18 +40,18 @@ export class SheetsService {
       }
     };
 
-    $.ajax(settings).done(function (response) {
+    await $.ajax(settings).then(function (response) {
       console.log('response', response);
-      values.push(response.valueRanges);
+      values.push(response.valueRanges[0]['values']);
+      values.push(response.valueRanges[1]['values']);
+      values.push(response.valueRanges[2]['values']);
 
     });
-    console.log('values', values);
     return values;
   }
 
 
   updateValues(sheetid, range, input_option, data) {
-    let values;
     let settings = {
       'async': true,
       'crossDomain': true,
@@ -67,15 +67,12 @@ export class SheetsService {
     };
     $.ajax(settings).done(function (response) {
       console.log(response);
-      values = response;
     });
-    return values;
   }
 
 
   appendValues(sheetid, range, input_option, data) {
-    let values;
-    let settings = {
+    const settings = {
       'async': true,
       'crossDomain': true,
       'url': `https://aadit-server.herokuapp.com/api/appendValues/${sheetid}/${range}/${input_option}`,
@@ -83,16 +80,17 @@ export class SheetsService {
       'headers': {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'cache-control': 'no-cache'
+        'cache-control': 'no-cache',
       },
+      'dataType': 'json',
       'processData': false,
       'data': `${data}`
     };
-
+    console.log('data', data);
     $.ajax(settings).done(function (response) {
-      console.log(response);
-      values = response;
+      console.log(response.error);
+    }).fail(function(error) {
+      console.log(error);
     });
-    return values;
   }
 }
