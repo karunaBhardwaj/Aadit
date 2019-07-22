@@ -45,7 +45,7 @@
 
         
             <label  floating>Organization</label>
-            <input type="text" formControlName="organization" placeholder="Your Orhanization name" required >
+            <input type="text" formControlName="organization" placeholder="Your Organization name" required >
             <div class="validation-errors">
                 <ng-container *ngFor="let validation of validation_messages.organization" >
                 <div class="error-message" *ngIf="myForm.get('organization').hasError(validation.type) && (myForm.get('organization').touched)">

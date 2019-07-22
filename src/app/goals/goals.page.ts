@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { AppService } from '../services/app.service';
+import { SheetsService } from '../services/sheets.service';
 @Component({
   selector: 'app-goals',
   templateUrl: './goals.page.html',
@@ -30,7 +31,7 @@ export class GoalsPage implements OnInit {
     ]
 
     };
-  constructor( private router: Router, private appservice: AppService) { }
+  constructor( private router: Router, private appservice: AppService, private sheetsservice: SheetsService) { }
 
   ngOnInit() {
     this.myForm = new FormGroup({
@@ -60,26 +61,11 @@ export class GoalsPage implements OnInit {
   }
 
   onSubmit() {
-
-    $.ajax('https://aadit-nodeserver.herokuapp.com/bulkUpdateCell', {
-      method: 'POST',
-      contentType: 'application/json',
-      processData: false,
-      data: JSON.stringify({
-        'sheetid': `${this.appservice.getUserInfo().token.sheetId}`,
-        'worksheet': 2,
-        'minRow'   : 2,
-        'maxRow'   : 5,
-        'minCol'   : 2,
-        'maxCol'   : 2,
-        'value'	   : [this.reason, this.reason2, this.activity, this.reason3]
-    })
-  })
-  .then(
-      function success(mail) {
-          console.log('Data updated succesfully');
-      }
-  );
+    const values = [];
+    Object.values(this.myForm.value).forEach(value => {
+      values.push([value]);
+    });
+    this.sheetsservice.updateValues('1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I', 'Goals!B2:B5', 'USER_ENTERED', values);
 
     this.router.navigateByUrl('/medicalhistory');
   }

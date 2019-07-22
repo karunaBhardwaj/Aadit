@@ -2,74 +2,21 @@ import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import * as $ from 'jquery';
+import { SheetsService } from './sheets.service';
 @Injectable({
     providedIn: 'root'
   })
 export class FormstatusService {
-    constructor( private router: Router, private menuCtrl: MenuController) {}
+    constructor( private router: Router, private menuCtrl: MenuController, private sheetsservice: SheetsService) {}
 
     async checkForInitialSetup() {
-      const pages = [3, 4];
-      let ProfileData;
-      let TestData;
-      // Profile Data
-      await $.ajax('https://aadit-nodeserver.herokuapp.com/getCells', {
-        method: 'POST',
-        contentType: 'application/json',
-        dataType: 'json',
-        processData: false,
-        data: JSON.stringify({
-          sheetid: '1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
-          worksheet: 3,
-          options: {
-            'min-row': 2,
-            'max-row': 2,
-            'min-col': 2,
-            'max-col': 2,
-            'return-empty': true
-          }
-        })
-      }).then(function success(mail) {
-        if (mail[0]['_value'] === '') {
-          console.log('no data ');
-          return ProfileData = false;
-        } else {
-          console.log('data present');
-          return ProfileData = true;
-        }
-      });
-      // Test Data
-      await $.ajax('https://aadit-nodeserver.herokuapp.com/getCells', {
-        method: 'POST',
-        contentType: 'application/json',
-        dataType: 'json',
-        processData: false,
-        data: JSON.stringify({
-          sheetid: '1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
-          worksheet: 4,
-          options: {
-            'min-row': 2,
-            'max-row': 2,
-            'min-col': 2,
-            'max-col': 2,
-            'return-empty': true
-          }
-        })
-      }).then(function success(mail) {
-        if (mail[0]['_value'] === '') {
-          console.log('no data ');
-          return TestData = false;
-        } else {
-          console.log('data present');
-          return TestData = true;
-        }
-      });
-
-      if (ProfileData === false && TestData === false) {
+      const data = await this.sheetsservice.intialValuesCheck('1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+      'MedicalHistory!B2:B2,TestData!A2:N2');
+      if (data === 'profile Data unavailable') {
         console.log('Profile not updated');
         this.router.navigateByUrl('/signupform');
         this.menuCtrl.enable(true, 'menu1');
-      } else if (ProfileData === true && TestData === false) {
+      } else if (data === false) {
         this.router.navigateByUrl('/workout');
         this.menuCtrl.enable(true, 'menu1');
       } else {

@@ -3,6 +3,8 @@ import {  Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AppService } from '../services/app.service';
 import * as $ from 'jquery';
+import { SheetsService } from '../services/sheets.service';
+import { MailService } from '../services/mail.service';
 @Component({
   selector: 'app-workoutlog',
   templateUrl: './workoutlog.page.html',
@@ -15,7 +17,9 @@ export class WorkoutlogPage implements OnInit {
   feedback_value: string;
 
   constructor(private router: Router,
-    private appservice: AppService) { }
+    private appservice: AppService,
+    private mailservice: MailService,
+    private sheetsservice: SheetsService) { }
 
   doRefresh(event) {
     console.log('Begin async operation');
@@ -51,27 +55,12 @@ export class WorkoutlogPage implements OnInit {
     if (this.feedback_value === 'Happy') {
       console.log('No need to send mail');
     } else {
-
-      $.ajax('https://aadit-nodeserver.herokuapp.com/sendMail', {
-        method: 'POST',
-        contentType: 'application/json',
-        processData: false,
-        data: JSON.stringify({
-            from : this.Data.profile.email,
-            to: 'abhilash.vadlamudi@wissen.com',
-            subject: 'Workout Feedback',
-            message: `Date : ${new Date().toLocaleDateString()}<br/>
-                      Workout Type: ${this.workout_type}<br/>
-                      Feedback: ${this.feedback}<br/>
-                      Comment:  ${this.comment}`
-        })
-    })
-    .then(
-        function success(mail) {
-            console.log('Mail has been sent successfully');
-        }
-    );
-
+      const data = `Date : ${new Date().toLocaleDateString()},
+      Email: ${this.Data.profile.email},
+      Workout Type: ${this.workout_type},
+      Feedback: ${this.feedback},
+      Comment:  ${this.comment}`;
+      this.mailservice.sendMail('abhilash.vadlamudi@wissen.com', 'Workout Feedback', data );
     }
   }
 
@@ -85,31 +74,14 @@ export class WorkoutlogPage implements OnInit {
   }
 
   onSubmit( ) {
+    const values = []  ;
 
-    const values = [];
     Object.values(this.myForm.value).forEach(value => {
       values.push(value);
     });
-    $.ajax('https://aadit-nodeserver.herokuapp.com/addRow', {
-      method: 'POST',
-      contentType: 'application/json',
-      processData: false,
-      data: JSON.stringify({
-        'sheetid': `${this.appservice.getUserInfo().token.sheetId}`,
-        'worksheet': 10,
-        'data' : {
-          'Date' : values[0],
-          'Workout Type' : values[1],
-          'Feedback'  : values[2],
-          'Comment' : values[3]
-        }
-    })
-  })
-  .then(
-      function success(mail) {
-          console.log('Data updated succesfully');
-      }
-  );
+    this.sheetsservice.appendValues('1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+    'WorkoutLog!A2:D2', 'USER_ENTERED', [values]);
+
     this.Mail();
     this.router.navigateByUrl('/workout');
   }

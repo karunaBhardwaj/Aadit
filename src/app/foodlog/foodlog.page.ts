@@ -3,6 +3,7 @@ import {  Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as $ from 'jquery';
 import { AppService } from '../services/app.service';
+import { SheetsService } from '../services/sheets.service';
 @Component({
   selector: 'app-foodlog',
   templateUrl: './foodlog.page.html',
@@ -10,14 +11,13 @@ import { AppService } from '../services/app.service';
 })
 export class FoodlogPage implements OnInit {
   myForm: FormGroup;
-  foodVal;
   myDate: String = new Date().toISOString();
 
-  constructor(private router: Router, private appservice: AppService) { }
+  constructor(private router: Router, private sheetsservice: SheetsService, private appservice: AppService) { }
 
   ngOnInit() {
     this.myForm = new FormGroup({
-      date: new FormControl(new Date().toLocaleDateString(), [Validators.required]),
+      date: new FormControl(new Date().getUTCDate(), [Validators.required]),
       time : new FormControl(new Date().toLocaleTimeString(), [Validators.required]),
       food : new FormControl('', [Validators.required]),
       details: new FormControl('', [Validators.required, , Validators.minLength(2)])
@@ -38,26 +38,8 @@ export class FoodlogPage implements OnInit {
     Object.values(this.myForm.value).forEach(value => {
       values.push(value);
     });
-    $.ajax('https://aadit-nodeserver.herokuapp.com/addRow', {
-      method: 'POST',
-      contentType: 'application/json',
-      processData: false,
-      data: JSON.stringify({
-        'sheetid': `${this.appservice.getUserInfo().token.sheetId}`,
-        'worksheet': 9,
-        'data' : {
-          'Date' : values[0],
-          'Time' : values[1],
-          'Meal Time'  : values[2],
-          'Meal Details' : values[3]
-        }
-    })
-  })
-  .then(
-      function success(mail) {
-          console.log('Data updated succesfully');
-      }
-  );
+    this.sheetsservice.appendValues('1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+    'FoodLog!A2:D2', 'USER_ENTERED', [values]);
     this.router.navigateByUrl('/workout');
   }
 

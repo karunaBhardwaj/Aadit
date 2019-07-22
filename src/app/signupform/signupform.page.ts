@@ -3,6 +3,7 @@ import {  Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AppService } from '../services/app.service';
 import * as $ from 'jquery';
+import { SheetsService } from '../services/sheets.service';
 
 
 @Component({
@@ -48,6 +49,7 @@ export class SignupformPage implements OnInit {
     };
   constructor(private router: Router,
     private appservice: AppService,
+    private sheetsservice: SheetsService
     ) {
   }
 
@@ -91,27 +93,15 @@ export class SignupformPage implements OnInit {
 
 
   onSubmit( ) {
-      $.ajax('https://aadit-server.azurewebsites.net/bulkUpdateCell', {
-        method: 'POST',
-        contentType: 'application/json',
-        processData: false,
-        data: JSON.stringify({
-          'sheetid': `${this.appservice.getUserInfo().token.sheetId}`,
-          'worksheet': 1,
-          'minRow'   : 2,
-          'maxRow'   : 2,
-          'minCol'   : 1,
-          'maxCol'   : 7,
-          'value'	   : [this.firstname, this.lastname, this.email, this.organization, this.contact, this.gender, this.year]
-      })
-    })
-    .then(
-        function success(mail) {
-            console.log('Data updated succesfully');
-        }
-    );
+    const values = []  ;
 
+    Object.values(this.myForm.value).forEach(value => {
+      values.push(value);
+    });
+    console.log(values);
+    this.sheetsservice.updateValues('1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+    'SignUp!A2:G2', 'USER_ENTERED', [values]);
 
-      this.router.navigateByUrl('/goals');
+    this.router.navigateByUrl('/goals');
     }
 }

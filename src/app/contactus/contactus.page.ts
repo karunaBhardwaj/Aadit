@@ -3,6 +3,7 @@ import { HttpClient} from '@angular/common/http';
 import * as $ from 'jquery';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AppService } from '../services/app.service';
+import { MailService } from '../services/mail.service';
 
 
 @Component({
@@ -13,7 +14,8 @@ import { AppService } from '../services/app.service';
 export class ContactusPage implements OnInit {
 
   constructor(private http: HttpClient,
-    private appService: AppService
+    private appService: AppService,
+    private mailservice: MailService
     ) { }
   myForm: FormGroup;
   Data = this.appService.getUserInfo();
@@ -48,24 +50,11 @@ export class ContactusPage implements OnInit {
   }
 
   onSubmit() {
-    $.ajax('https://aadit-server.azurewebsites.net/sendMail', {
-      method: 'POST',
-      contentType: 'application/json',
-      processData: false,
-      data: JSON.stringify({
-          from : this.Data.profile.email,
-          to: 'abhilash.vadlamudi@wissen.com',
-          subject: 'Contact Form',
-          message: `First Name : ${this.firstname}<br/>
-                    Last Name: ${this.lastname}<br/>
-                    Country: ${this.country}<br/>
-                    Message: ${this.message}`
-      })
-  })
-  .then(
-      function success(mail) {
-          console.log('Mail has been sent successfully');
-      }
-  );
-  }
+    const data = `First Name : ${this.firstname},
+    Last Name: ${this.lastname},
+    Email : ${this.Data.profile.email},
+    Country: ${this.country},
+    Message: ${this.message}`;
+    this.mailservice.sendMail('abhilash.vadlamudi@wissen.com', 'Contact Form', data);
+   }
 }

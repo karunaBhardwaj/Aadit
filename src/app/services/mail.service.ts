@@ -9,13 +9,13 @@ export class MailService {
   constructor() { }
 
   sendMail(to, subject, text) {
-    let settings = {
+    const settings = {
       'async': true,
       'crossDomain': true,
       'url': `https://aadit-server.herokuapp.com/api/sendmail/${to}/${subject}`,
       'method': 'POST',
       'headers': {
-        'Content-Type': 'text/plain',
+        'Content-Type': 'text/html',
         'cache-control': 'no-cache'
       },
       'data': `${text}`
