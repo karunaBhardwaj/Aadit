@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import * as $ from 'jquery';
 import { AppService } from '../services/app.service';
 import { SheetsService } from '../services/sheets.service';
 @Component({
@@ -12,7 +11,6 @@ import { SheetsService } from '../services/sheets.service';
 export class GoalsPage implements OnInit {
 
   myForm: FormGroup;
-  activity_level: string;
   validation_messages = {
     'reason': [
     { type: 'required', message: 'Enter a valid Reason.'},
@@ -42,29 +40,13 @@ export class GoalsPage implements OnInit {
     });
 
   }
-  selectFrequency(activity) {
-    this.activity_level = '';
-    this.activity_level = activity;
-  }
-
-  get reason(): string {
-    return this.myForm.value['reason'];
-  }
-  get reason2(): string {
-    return this.myForm.value['reason2'];
-  }
-  get activity(): string {
-    return this.myForm.value['activity'] = this.activity_level;
-  }
-  get reason3(): string {
-    return this.myForm.value['reason3'];
-  }
 
   onSubmit() {
     const values = [];
     Object.values(this.myForm.value).forEach(value => {
       values.push([value]);
     });
+    console.log(values);
     this.sheetsservice.updateValues('1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I', 'Goals!B2:B5', 'USER_ENTERED', values);
 
     this.router.navigateByUrl('/medicalhistory');

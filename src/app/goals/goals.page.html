@@ -4,12 +4,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <div id="container">
+<ion-content padding-horozantal>
+  <div class="container-fluid">
     <form (ngSubmit)="onSubmit(myForm.value)" [formGroup]="myForm">
-          
+      <div class="form-group">
         <label >The reason  for the signup of program is *</label>
-        <input  type="text" formControlName="reason" placeholder="enter a valid reason" required >
+        <input  type="text" class="form-control" formControlName="reason" placeholder="enter a valid reason" required >
         <div class="validation-errors">
             <ng-container *ngFor="let validation of validation_messages.reason" >
             <div class="error-message" *ngIf="myForm.get('reason').hasError(validation.type) && ( myForm.get('reason').touched)">
@@ -17,9 +17,11 @@
             </div>
             </ng-container>
         </div>  
+      </div>
       
+      <div class="form-group">
         <label > In six months, I will be delighted if *</label>
-        <input type="text" formControlName="reason2" placeholder="enter your goal"  required >
+        <input type="text" class="form-control" formControlName="reason2" placeholder="enter your goal"  required >
         <div class="validation-errors">
             <ng-container *ngFor="let validation of validation_messages.reason2" >
             <div class="error-message" *ngIf="myForm.get('reason2').hasError(validation.type) && (myForm.get('reason2').touched)">
@@ -27,44 +29,36 @@
             </div>
             </ng-container>
         </div>  
+      </div>
 
-        <ion-label  floating text-wrap>My current frequency of physical activity is *</ion-label>
-        <ion-row>
-        <ion-col col-4 no-padding class="one">
-          <ion-item lines="none">
-            <ion-label text-wrap>Not Regular- less than once a week</ion-label>
-            <ion-radio [checked]="this.activity === 'Notregular'" formControlName ="activity"  required value="NotRegular" (ionSelect)="selectFrequency('Notregular')"></ion-radio>
-          </ion-item>
-        </ion-col>
-        </ion-row>
-        <ion-row>
-        <ion-col col-5 no-padding class="two">
-          <ion-item lines="none">
-            <ion-label text-wrap >Somewhat Regular-between one and three times a week.</ion-label>
-            <ion-radio [checked]="this.activity === 'Somewhat regular'" formControlName ="activity"  required value="Somewhat regular" (ionSelect)="selectFrequency('Somewhat regular')"></ion-radio>
-          </ion-item>
-        </ion-col>
-        </ion-row>
-        <ion-row>
-        <ion-col col-5 no-padding class="two">
-          <ion-item lines="none">
-            <ion-label text-wrap>Regular-three or more times a week.</ion-label>
-            <ion-radio [checked]="this.activity === 'Regular'" formControlName ="activity"  required value="Regular" (ionSelect)="selectFrequency('Regular')"></ion-radio>
-          </ion-item>
-          <div class="validation-errors">
-              <ng-container *ngFor="let validation of validation_messages.activity" >
-              <div class="error-message" *ngIf="myForm.get('activity').hasError(validation.type) && (myForm.get('activity').touched)">
-                  {{ validation.message }}
-              </div>
-              </ng-container>
-          </div>  
+      <div class="form-group">
+        <label  floating text-wrap>My current frequency of physical activity is *</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio"  formControlName ="activity" id="inlineRadio1" value="NotRegular">
+          <label class="form-check-label" for="inlineRadio1">Not Regular- less than once a week</label>
+        </div>
 
-        </ion-col>
-        </ion-row>
+        <div class="form-check">
+          <input class="form-check-input" type="radio"  formControlName ="activity" id="inlineRadio2" value="Somewhat regular">
+          <label class="form-check-label" for="inlineRadio2">Somewhat Regular-between one and three times a week.</label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio"  formControlName ="activity" id="inlineRadio3" value="Regular">
+          <label class="form-check-label" for="inlineRadio3">Regular-three or more times a week.</label>
+        </div>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.activity" >
+            <div class="error-message" *ngIf="myForm.get('activity').hasError(validation.type) && (myForm.get('activity').touched)">
+              {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>  
+      </div>
      
-
-        <label text-wrap stacked> Briefly describe what you currently do for physical activity *</label>
-        <input type="text" formControlName="reason3" placeholder="your current physical activities" required >
+      <div class="form-group">
+        <label text-wrap> Briefly describe what you currently do for physical activity *</label>
+        <input type="text" formControlName="reason3" class="form-control" placeholder="your current physical activities" required >
         <div class="validation-errors">
             <ng-container *ngFor="let validation of validation_messages.reason3" >
             <div class="error-message" *ngIf="myForm.get('reason3').hasError(validation.type) && ( myForm.get('reason3').touched)">
@@ -72,11 +66,9 @@
             </div>
             </ng-container>
         </div>  
+      </div>
 
-      <ion-button [disabled]="!myForm.valid" type="submit" >Submit</ion-button>
-      
-
-
+      <button type="submit" [disabled]="!myForm.valid" class="btn btn-primary">Submit</button>
     </form>
 
   </div>
