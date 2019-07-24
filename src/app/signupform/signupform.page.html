@@ -1,111 +1,114 @@
 <ion-header>
-  <ion-toolbar  >
-    <ion-title light>Aadit Life Signup Form</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content padding-horizantal>
-    <div class="container">
-    
-    <form (ngSubmit)="onSubmit(myForm.value)" [formGroup]="myForm">
-        
-        <!-- <ion-item-group>    -->
-            <label for="firstname" >First Name</label>
-            <input type="text" formControlName="firstname" placeholder="your firstname" required >
-            <div class="validation-errors">
-                <ng-container *ngFor="let validation of validation_messages.firstname" >
-                <div class="error-message" *ngIf="myForm.get('firstname').hasError(validation.type) && (myForm.get('firstname').touched)">
-                    {{ validation.message }}
-                </div>
-                </ng-container>
-            </div>
-
-
-            <label  floating>Last Name</label>
-            <input type="text" formControlName="lastname" placeholder="your lastname" required >
-            <div class="validation-errors">
-                <ng-container *ngFor="let validation of validation_messages.lastname" >
-                <div class="error-message" *ngIf="myForm.get('lastname').hasError(validation.type) && (myForm.get('lastname').touched)">
-                    {{ validation.message }}
-                </div>
-                </ng-container>
-            </div>
-            
-
-
-            <label floating>Email Address</label>
-            <input type="email" readonly formControlName="email" placeholder="your mail id" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required >
-            <div class="validation-errors">
-                <ng-container *ngFor="let validation of validation_messages.email" >
-                <div class="error-message" *ngIf="myForm.get('email').hasError(validation.type) && (myForm.get('email').touched)">
-                    {{ validation.message }}
-                </div>
-                </ng-container>
-            </div>  
-
-        
-            <label  floating>Organization</label>
-            <input type="text" formControlName="organization" placeholder="Your Organization name" required >
-            <div class="validation-errors">
-                <ng-container *ngFor="let validation of validation_messages.organization" >
-                <div class="error-message" *ngIf="myForm.get('organization').hasError(validation.type) && (myForm.get('organization').touched)">
-                    {{ validation.message }}
-                </div>
-                </ng-container>
-            </div>  
-        
-            
-            <label  floating>Mobile Number</label>
-            <input type="tel" formControlName="contact" placeholder="your mobile number" required >
-            <div class="validation-errors">
-                <ng-container *ngFor="let validation of validation_messages.contact" >
-                <div class="error-message" *ngIf="myForm.get('contact').hasError(validation.type) && (myForm.get('contact').touched)">
-                    {{ validation.message }}
-                </div>
-                </ng-container>
-            </div>
-
-
-            <label padding floating text-wrap>Gender</label>
-            <ion-col col-4 no-padding class="one">
-            <ion-item lines="none">
-                <ion-label >Male</ion-label>
-                <ion-radio [checked]="this.gender === 'Male'" formControlName ="gender"  required value="Male" (ionSelect)="selectGender('Male')"></ion-radio>
-            </ion-item>
-            </ion-col>
-            <ion-col col-5 no-padding class="two">
-            <ion-item lines="none">
-                <ion-label  >Female</ion-label>
-                <ion-radio [checked]="this.gender === 'Female'" formControlName ="gender"  required value="Female" (ionSelect)="selectGender('Female')"></ion-radio>
-            </ion-item>
-            </ion-col>
-            <div class="validation-errors">
-                <ng-container *ngFor="let validation of validation_messages.gender" >
-                <div class="error-message" *ngIf="myForm.get('gender').hasError(validation.type) && (myForm.get('gender').touched)">
-                    {{ validation.message }}
-                </div>
-                </ng-container>
-            </div>
-
-            
-            <label  floating>Birth Year(YYYY)</label>
-            <input type="number" formControlName="year" min= "1940" max="2010" placeholder="your birth year" required >
-            <div class="validation-errors">
-                <ng-container *ngFor="let validation of validation_messages.year" >
-                <div class="error-message" *ngIf="myForm.get('year').hasError(validation.type) && (myForm.get('year').touched)">
-                    {{ validation.message }}
-                </div>
-                </ng-container>
-            </div>
-            
-        <!-- </ion-item-group> -->
-
-            
-        <ion-button [disabled]="!myForm.valid" type="submit" >Submit</ion-button>
-            
-        
-    </form>
-
-</div>
-
-</ion-content>
+    <ion-toolbar  >
+      <ion-title light>Aadit Life Signup Form</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding-horizantal>
+      <div class="container-fluid">
+      
+      <form (ngSubmit)="onSubmit(myForm.value)" [formGroup]="myForm">
+          
+          <div class="form-group">
+              <label for="firstname" >First Name</label>
+              <input type="text" class="form-control" formControlName="firstname" placeholder="your firstname" required >
+              <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.firstname" >
+                  <div class="error-message" *ngIf="myForm.get('firstname').hasError(validation.type) && (myForm.get('firstname').touched)">
+                      {{ validation.message }}
+                  </div>
+                  </ng-container>
+              </div>
+          </div>
+  
+          <div class="form-group">
+              <label  floating>Last Name</label>
+              <input type="text" class="form-control" formControlName="lastname" placeholder="your lastname" required >
+              <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.lastname" >
+                  <div class="error-message" *ngIf="myForm.get('lastname').hasError(validation.type) && (myForm.get('lastname').touched)">
+                      {{ validation.message }}
+                  </div>
+                  </ng-container>
+              </div>
+          </div>
+              
+  
+          <div class="form-group">
+              <label floating>Email Address</label>
+              <input type="email" class="form-control" readonly formControlName="email" placeholder="your mail id" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required >
+              <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.email" >
+                  <div class="error-message" *ngIf="myForm.get('email').hasError(validation.type) && (myForm.get('email').touched)">
+                      {{ validation.message }}
+                  </div>
+                  </ng-container>
+              </div>  
+          </div>
+  
+  
+          <div class="form-group">
+              <label  floating>Organization</label>
+              <input type="text" class="form-control" formControlName="organization" placeholder="Your Organization name" required >
+              <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.organization" >
+                  <div class="error-message" *ngIf="myForm.get('organization').hasError(validation.type) && (myForm.get('organization').touched)">
+                      {{ validation.message }}
+                  </div>
+                  </ng-container>
+              </div>  
+          </div>
+              
+  
+          <div class="form-group">
+              <label  floating>Mobile Number</label>
+              <input type="tel" class="form-control" formControlName="contact" pattern="[789][0-9]{9}" placeholder="your mobile number" required >
+              <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.contact" >
+                  <div class="error-message" *ngIf="myForm.get('contact').hasError(validation.type) && (myForm.get('contact').touched)">
+                      {{ validation.message }}
+                  </div>
+                  </ng-container>
+              </div>
+          </div>
+  
+  
+          <!-- <div class="form-group"> -->
+              <label floating style="padding-right: 10%">Gender</label>
+              <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio"  formControlName ="gender" id="inlineRadio1" value="Male">
+                  <label class="form-check-label" for="inlineRadio1">Male</label>
+              </div>
+              <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio"  formControlName ="gender" id="inlineRadio2" value="Female">
+                  <label class="form-check-label" for="inlineRadio2">Female</label>
+              </div>
+              <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.gender" >
+                  <div class="error-message" *ngIf="myForm.get('gender').hasError(validation.type) && (myForm.get('gender').touched)">
+                      {{ validation.message }}
+                  </div>
+                  </ng-container>
+          </div>
+          <!-- </div> -->
+  
+              
+          <div class="form-group">
+              <label  floating>Birth Year(YYYY)</label>
+              <input type="number" formControlName="year" class="form-control" placeholder="your birth year" required >
+              <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.year" >
+                  <div class="error-message" *ngIf="myForm.get('year').hasError(validation.type) && (myForm.get('year').touched)">
+                      {{ validation.message }}
+                  </div>
+                  </ng-container>
+              </div>
+          </div>
+              
+          <button type="submit" [disabled]="!myForm.valid" class="btn btn-primary">Submit</button>
+      </form>
+  
+  </div>
+  
+  </ion-content>
+  

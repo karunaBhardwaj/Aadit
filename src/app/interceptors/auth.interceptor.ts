@@ -12,11 +12,11 @@ export class AuthInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         console.log(this.googleDriveService.getOauthToken());
 
-        request = request.clone({
-            headers: new HttpHeaders({
-                Authorization: `Bearer ${this.googleDriveService.getOauthToken()}`
-            })
-        });
+        // request = request.clone({
+        //     headers: new HttpHeaders({
+        //         Authorization: `Bearer ${this.googleDriveService.getOauthToken()}`
+        //     })
+        // });
         request = request.clone(request);
         return next.handle(request).pipe(catchError(err => {
             if (err.status === 401) {
