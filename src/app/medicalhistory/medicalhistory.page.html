@@ -5,120 +5,105 @@
 </ion-header>
 
 
-<ion-content padding>
-  <div id="container">
+<ion-content padding-horizantal>
+  <div class="container-fluid">
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content
-          pullingIcon="arrow-dropdown"
-          pullingText="Pull to refresh"
-          refreshingSpinner="circles"
-          refreshingText="Refreshing...">
-        </ion-refresher-content>
-      </ion-refresher>
+      <ion-refresher-content
+        pullingIcon="arrow-dropdown"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
 
     
     <form (ngSubmit)="onSubmit(myForm.value)"  [formGroup]="myForm" >
-            <label  floating text-wrap>The last time I had a medical check up was *</label>
-            <ion-row>
-            <ion-col col-4 no-padding class="one">
-              <ion-item lines="none">
-                <ion-label text-wrap>Within the last six months.</ion-label>
-                <ion-radio formControlName="checkup" [checked]="this.checkup === 'With in last six months'"    value="With in last six months" (ionSelect)="selectCheckup('With in last six months')" ></ion-radio>
-              </ion-item>
-            </ion-col>
-            </ion-row>
-            <ion-row>
-            <ion-col col-5 no-padding class="two">
-              <ion-item lines="none">
-                <ion-label text-wrap >Between six and eighteen months ago.</ion-label>
-                <ion-radio [checked]="this.checkup === 'Between six and eighteen months ago.'" formControlName="checkup"   required value="Between six and eighteen months ago." (ionSelect)="selectCheckup('Between six and eighteen months ago.')"></ion-radio>
-              </ion-item>
-            </ion-col>
-            </ion-row>
-            <ion-row>
-            <ion-col col-5 no-padding class="two">
-              <ion-item lines="none">
-                <ion-label text-wrap>More than eighteen months ago / never.</ion-label>
-                <ion-radio [checked]="this.checkup === 'More than eighteen months ago / never.'" formControlName="checkup"   required value="More than eighteen months ago / never." (ionSelect)="selectCheckup('More than eighteen months ago / never.')"></ion-radio>
-              </ion-item>
-            </ion-col>
-            </ion-row>
+      <div class="form-group">
+        <label  floating text-wrap>The last time I had a medical check up was *</label>
+        <div class="custom-control custom-radio">
+            <input class="custom-control-input" type="radio"  formControlName ="checkup" id="inlineRadio1" value="With in last six months">
+            <label class="custom-control-label" for="inlineRadio1">Within the last six months.</label>
+        </div>
+
+        <div class="custom-control custom-radio">
+            <input class="custom-control-input" type="radio"  formControlName ="checkup" id="inlineRadio2" value="Between six and eighteen months ago.">
+            <label class="custom-control-label" for="inlineRadio2">Between six and eighteen months ago.</label>
+        </div>
+
+        <div class="custom-control custom-radio">
+            <input class="custom-control-input" type="radio"  formControlName ="checkup" id="inlineRadio3" value="More than eighteen months ago / never.">
+            <label class="custom-control-label" for="inlineRadio3">More than eighteen months ago / never.</label>
+        </div>
+      </div>
 
 
-        <ion-item-group lines="none" >
-            <ion-label text-wrap> Please review the following questions : * </ion-label>
-            <p ><sub>Check the boxes that you will answer "yes" to. If you have checked any of the boxes (except the last one), 
-              you should check with a doctor before you start an exercise program.
-                </sub></p>
-            <ion-item>
-              <ion-label text-wrap><sub>I have been told I have a heart condition that requires me to take up only 
-                physical activity recommended by a doctor.</sub></ion-label>
-              <ion-checkbox checkbox="false" formControlName="rev1" (ionChange)="datachanged($event)"  ></ion-checkbox>
-            </ion-item>
+      <div class="form-group">
+        <label text-wrap> Please review the following questions : * </label>
+          <p><sub>Check the boxes that you will answer "yes" to. If you have checked any of the boxes (except the last one), 
+            you should check with a doctor before you start an exercise program.
+          </sub></p>
 
-            <ion-item>
-              <ion-label text-wrap><sub>I have in the past felt a pain in my chest when I do 
-                physical activity / exercise.</sub></ion-label>
-              <ion-checkbox checked="false" formControlName="rev2"  (ionChange)="datachanged($event)" ></ion-checkbox>
-            </ion-item>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" formControlName="rev1" class="custom-control-input" id="customCheck1">
+          <label class="custom-control-label" for="customCheck1"><p>I have been told I have a heart condition that requires me to take up only 
+              physical activity recommended by a doctor.</p></label>
+        </div>
 
-            <ion-item>
-              <ion-label text-wrap><sub>In the past month I have had chest pain when not doing 
-                any physical activity..</sub></ion-label>
-              <ion-checkbox checked="false" formControlName="rev3"  (ionChange)="datachanged($event)" ></ion-checkbox>
-            </ion-item>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" formControlName="rev2" class="custom-control-input" id="customCheck2">
+          <label class="custom-control-label" for="customCheck2"><p>I have in the past felt a pain in my chest when I do 
+              physical activity / exercise.</p></label>
+        </div>
 
-            <ion-item>
-              <ion-label text-wrap><sub>I have in the past lost balance because I felt dizzy, or lost consciousness.
-                </sub></ion-label>
-              <ion-checkbox checked="false" formControlName="rev4" ></ion-checkbox>
-            </ion-item>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" formControlName="rev3" class="custom-control-input" id="customCheck3">
+          <label class="custom-control-label" for="customCheck3"><p>In the past month I have had chest pain when not doing 
+              any physical activity..</p></label>
+        </div>
 
-            <ion-item>
-              <ion-label text-wrap><sub>I have a bone or joint problem that could be made worse with physical activity.
-                </sub></ion-label>
-              <ion-checkbox checked="false" formControlName="rev5"></ion-checkbox>
-            </ion-item>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" formControlName="rev4" class="custom-control-input" id="customCheck4">
+          <label class="custom-control-label" for="customCheck4"><p>I have in the past lost balance because I felt dizzy, or lost consciousness..</p></label>
+        </div>
 
-            <ion-item>
-              <ion-label text-wrap><sub>I am taking medication for blood pressure or a heart condition.
-                </sub></ion-label>
-              <ion-checkbox checked="false" formControlName="rev6" ></ion-checkbox>
-            </ion-item>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" formControlName="rev5" class="custom-control-input" id="customCheck5">
+          <label class="custom-control-label" for="customCheck5"><p>I have a bone or joint problem that could be made worse with physical activity.</p></label>
+        </div>
 
-            <ion-item>
-              <ion-label text-wrap><sub>I am diabetic.
-                </sub></ion-label>
-              <ion-checkbox checked="false" formControlName="rev7"></ion-checkbox>
-            </ion-item>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" formControlName="rev6" class="custom-control-input" id="customCheck6">
+          <label class="custom-control-label" for="customCheck6"><p>I am taking medication for blood pressure or a heart condition.</p></label>
+        </div>
 
-            <ion-item>
-              <ion-label text-wrap><sub>I sometimes have difficulty breathing - especially in cold dry conditions.
-                </sub></ion-label>
-              <ion-checkbox checked ="false" formControlName="rev8" ></ion-checkbox>
-            </ion-item>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" formControlName="rev7" class="custom-control-input" id="customCheck7">
+          <label class="custom-control-label" for="customCheck7"><p>I am diabetic..</p></label>
+        </div>
 
-            <ion-item>
-              <ion-label text-wrap><sub>I am aware of some other reason why I should do physical activity.
-                </sub></ion-label>
-              <ion-checkbox checked="false" formControlName="rev9"></ion-checkbox>
-            </ion-item>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" formControlName="rev8" class="custom-control-input" id="customCheck8">
+          <label class="custom-control-label" for="customCheck8"><p>I sometimes have difficulty breathing - especially in cold dry conditions.</p></label>
+        </div>
 
-            <ion-item>
-              <ion-label text-wrap><sub>I am pregnant.
-                </sub></ion-label>
-              <ion-checkbox checked="false" formControlName="rev10"></ion-checkbox>
-            </ion-item>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" formControlName="rev9" class="custom-control-input" id="customCheck9">
+          <label class="custom-control-label" for="customCheck9"><p>I am aware of some other reason why I should do physical activity.</p></label>
+        </div>
 
-            <ion-item>
-              <ion-label text-wrap><sub>None of the things listed above apply to me.
-                </sub></ion-label>
-              <ion-checkbox checked="false" formControlName="rev11" ></ion-checkbox>
-            </ion-item>
-        </ion-item-group>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" formControlName="rev10" class="custom-control-input" id="customCheck10">
+          <label class="custom-control-label" for="customCheck10"><p>I am pregnant.</p></label>
+        </div>
 
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" formControlName="rev11" class="custom-control-input noneabove" id="customCheck11" (change)="datachanged($event)" >
+          <label class="custom-control-label" for="customCheck11"><p>None of the things listed above apply to me.</p></label>
+        </div>
 
-        <ion-button  [disabled]="!myForm.valid" type="submit" >Submit</ion-button>
+      </div>
+    
+      <button type="submit" [disabled]="!myForm.valid" class="btn btn-primary">Submit</button>
     </form>
     
   </div>

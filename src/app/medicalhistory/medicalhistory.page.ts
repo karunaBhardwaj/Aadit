@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import * as $ from 'jquery';
 import { AppService } from '../services/app.service';
 import { SheetsService } from '../services/sheets.service';
+import $ from 'jquery';
 @Component({
   selector: 'app-medicalhistory',
   templateUrl: './medicalhistory.page.html',
@@ -11,7 +11,6 @@ import { SheetsService } from '../services/sheets.service';
 })
 export class MedicalhistoryPage implements OnInit {
   myForm: FormGroup;
-  checkup_value: string;
   constructor(private router: Router, private appservice: AppService, private sheetsservice: SheetsService) { }
 
   ngOnInit() {
@@ -30,32 +29,22 @@ export class MedicalhistoryPage implements OnInit {
       rev11: new FormControl(false)
     });
   }
+
   datachanged(e) {
-    console.log(e);
-}
-  selectCheckup(checkup) {
-    this.checkup_value = '';
-    this.checkup_value = checkup;
+    if (this.myForm.value.rev11) {
+
+    }
   }
 
-  get checkup(): string {
-    return this.myForm.value['checkup'] = this.checkup_value;
-  }
-  doRefresh(event) {
-    console.log('Begin async operation');
-    this.ngOnInit();
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      event.target.complete();
-    }, 2000);
-  }
-  async onSubmit() {
+  onSubmit() {
+
     const values = [];
     Object.values(this.myForm.value).forEach(value => {
       values.push([value]);
     });
+    console.log(values);
 
-    this.sheetsservice.updateValues('1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+    this.sheetsservice.updateValues(this.appservice.getUserInfo().token.sheetId,
     'MedicalHistory!B2:B13', 'USER_ENTERED', values);
 
     this.router.navigateByUrl('/disclaimer');

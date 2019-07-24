@@ -47,7 +47,7 @@ export class GoalsPage implements OnInit {
       values.push([value]);
     });
     console.log(values);
-    this.sheetsservice.updateValues('1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I', 'Goals!B2:B5', 'USER_ENTERED', values);
+    this.sheetsservice.updateValues(this.appservice.getUserInfo().token.sheetId, 'Goals!B2:B5', 'USER_ENTERED', values);
 
     this.router.navigateByUrl('/medicalhistory');
   }

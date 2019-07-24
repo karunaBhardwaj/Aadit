@@ -87,29 +87,29 @@ public allPages = [
     console.log('userInfo', this.appService.getUserInfo());
     // setInterval(this.auth.refresh, 55 * 60 * 1000);
 
-    await this.auth.afAuth.authState
-      .subscribe(
-        user => {
-          if (this.appService.getUserInfo()) {
-            if (this.platform.is('cordova')) {
+    // await this.auth.afAuth.authState
+    //   .subscribe(
+    //     user => {
+    //       if (this.appService.getUserInfo()) {
+    //         if (this.platform.is('cordova')) {
 
-            const Sentry = cordova.require('sentry-cordova.Sentry');
-            Sentry.configureScope(function (scope) {
-              scope.setUser({email: JSON.parse(localStorage.getItem('userInfo')).profile.email,
-              username: JSON.parse(localStorage.getItem('userInfo')).profile.fullName});
-            });
-          }
-            // this.router.navigate(['/home']);
-            this.formstatusservice.checkForInitialSetup();
-          } else {
-            this.router.navigate(['/login']);
-          }
-        },
-        () => {
-          this.router.navigate(['/login']);
-        }
-      );
-    // this.router.navigate(['/workoutlog']);
+    //         const Sentry = cordova.require('sentry-cordova.Sentry');
+    //         Sentry.configureScope(function (scope) {
+    //           scope.setUser({email: JSON.parse(localStorage.getItem('userInfo')).profile.email,
+    //           username: JSON.parse(localStorage.getItem('userInfo')).profile.fullName});
+    //         });
+    //       }
+    //         // this.router.navigate(['/home']);
+    //         this.formstatusservice.checkForInitialSetup();
+    //       } else {
+    //         this.router.navigate(['/login']);
+    //       }
+    //     },
+    //     () => {
+    //       this.router.navigate(['/login']);
+    //     }
+    //   );
+    this.router.navigate(['/medicalhistory']);
   }
 
   logout() {
