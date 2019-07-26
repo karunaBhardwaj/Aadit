@@ -19,25 +19,27 @@
         </ion-refresher-content>
       </ion-refresher>
   <form (ngSubmit)="onSave(myForm.value)" [formGroup]="myForm">
-     
-  <div>
+
+  <div class="form-group">
     <ion-label>Date</ion-label>
-    <ion-datetime formControlName="date" display-format="DD/MM/YYYY " picker-format="DD MMMM YYYY" [(ngModel)]="myDate" placeholder="Select a Date"></ion-datetime>
+    <input type="date" formControlName="date" class="form-control" >
   </div>
 
+  <div class="form-group">
   <label  floating>Meal Time</label> 
-    <ion-select formControlName="food" placeholder="Select One">
-      <ion-select-option value="Breakfast">Breakfast</ion-select-option>
-      <ion-select-option value="Lunch">Lunch</ion-select-option>
-      <ion-select-option value="Dinner">Dinner</ion-select-option>
-    </ion-select>
+  <select class="custom-select custom-select-lg mb-3" formControlName="food" >
+      <option  value="Breakfast">Breakfast</option>
+      <option  value="Lunch" >Lunch</option>
+      <option  value="Dinner">Dinner</option>
+    </select>
+  </div>
 
-    <div>
+  <div class="form-group">
     <ion-label floating>Meal Details</ion-label>
-    <textarea  type="text" formControlName="details" style="height:200px"required ></textarea>
-    </div>
+    <textarea class="form-control" type="text" formControlName="details" style="height:200px"required ></textarea>
+  </div>
 
-    <ion-button [disabled]="!myForm.valid" type="submit" >Save</ion-button> 
+  <button type="submit" [disabled]="!myForm.valid" class="btn btn-primary">Save</button>
   </form>
 
 </ion-content>

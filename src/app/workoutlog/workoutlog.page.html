@@ -10,8 +10,7 @@
   </ion-header>
 
 <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
-<!-- <link href="//code.ionicframework.com/nightly/css/ionic.css" rel="stylesheet"> -->
-<!-- <script src="//code.ionicframework.com/nightly/js/ionic.bundle.js"></script> -->
+
 
 <ion-content padding>
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
@@ -22,31 +21,41 @@
         refreshingText="Refreshing...">
       </ion-refresher-content>
     </ion-refresher>
+
+
+  <div class="container-fluid"> 
   <form (ngSubmit)="onSubmit(myForm.value)" [formGroup]="myForm">
-   
-    <h6 floating >Workout Type</h6>
-    <input type="text" formControlName="workout_type" required >
 
-    <h6 floating>Feedback</h6> 
-    <div>
-    <div class="radio-wrapper">Happy
-    <ion-radio class="em em-slightly_smiling_face" formControlName="feedback" [checked]="this.feedback === 'Happy'" value="Happy"  (ionSelect)="addExpression('Happy')"></ion-radio>
+    <div class="form-group">
+      <h6 floating >Workout Type</h6>
+      <input class="form-control" type="text" formControlName="workout_type" required >
     </div>
 
-    <div class="radio-wrapper">Neutral
-      <ion-radio class="em em-anguished" formControlName="feedback" [checked]="this.feedback === 'Neutral'" value="Neutral"  (ionSelect)="addExpression('Neutral')"></ion-radio>
-    </div>
+    <label >Feedback</label>
+    <div class="form-group" align="center">
+      <label style="padding-right: 5%">
+        <input class="custom-control-input"  formControlName="feedback" type="radio"  id="inlineRadio1" value="Happy" (change)="addExpression('Happy')">
+        <img src="../../assets/images/happy.png"  height="50" width="50">
+      </label>
+      
+      <label style="padding-right: 5%">
+          <input class="custom-control-input"  formControlName="feedback" type="radio"  id="inlineRadio2" value="Neutral" (change)="addExpression('Neutral')">
+          <img src="../../assets/images/sad.png"  height="50" width="50">
+      </label>
 
-    <div class="radio-wrapper">Unhappy
-      <ion-radio class="em em-angry"  formControlName="feedback" [checked]="this.feedback === 'Unhappy'" value="Unhappy"  (ionSelect)="addExpression('Unhappy')"></ion-radio>
-    </div>
+      <label style="padding-right: 5%">
+          <input class="custom-control-input"  formControlName="feedback" type="radio"  id="inlineRadio3" value="Unhappy" (change)="addExpression('Unhappy')">
+          <img src="../../assets/images/pouting-face.png"  height="50" width="50">
+      </label>
     </div>
 
     <div id="div1" class="hide">
     <h6 >Comment</h6>
-    <textarea id="comment" type="text" formControlName="comment" style="height:200px" ></textarea>
+    <textarea class="form-control" id="comment" type="text" formControlName="comment" style="height:200px" ></textarea>
     </div>
-    <ion-button button class = "loginBtn" [disabled]="!myForm.valid" type="submit" >Save</ion-button> 
-  </form>
 
+
+    <button type="submit" [disabled]="!myForm.valid" class="btn btn-primary">Save</button>
+  </form>
+  </div>
 </ion-content>

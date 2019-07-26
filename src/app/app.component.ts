@@ -6,7 +6,6 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router} from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { AppService } from './services/app.service';
-// import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
 @Component({
   selector: 'app-root',
@@ -67,13 +66,11 @@ public allPages = [
     private auth: AuthService,
     private appService: AppService,
     private formstatusservice: FormstatusService,
-    // private backgroundMode: BackgroundMode
       ) {
     this.initializeApp();
   }
   async initializeApp() {
     this.platform.ready().then(() => {
-      // this.backgroundMode.enable();
       if (this.platform.is('cordova')) {
 
       document.addEventListener('deviceready', function() {
@@ -85,31 +82,30 @@ public allPages = [
     });
 
     console.log('userInfo', this.appService.getUserInfo());
-    // setInterval(this.auth.refresh, 55 * 60 * 1000);
 
-    // await this.auth.afAuth.authState
-    //   .subscribe(
-    //     user => {
-    //       if (this.appService.getUserInfo()) {
-    //         if (this.platform.is('cordova')) {
+    await this.auth.afAuth.authState
+      .subscribe(
+        user => {
+          if (this.appService.getUserInfo()) {
+            if (this.platform.is('cordova')) {
 
-    //         const Sentry = cordova.require('sentry-cordova.Sentry');
-    //         Sentry.configureScope(function (scope) {
-    //           scope.setUser({email: JSON.parse(localStorage.getItem('userInfo')).profile.email,
-    //           username: JSON.parse(localStorage.getItem('userInfo')).profile.fullName});
-    //         });
-    //       }
-    //         // this.router.navigate(['/home']);
-    //         this.formstatusservice.checkForInitialSetup();
-    //       } else {
-    //         this.router.navigate(['/login']);
-    //       }
-    //     },
-    //     () => {
-    //       this.router.navigate(['/login']);
-    //     }
-    //   );
-    this.router.navigate(['/medicalhistory']);
+            const Sentry = cordova.require('sentry-cordova.Sentry');
+            Sentry.configureScope(function (scope) {
+              scope.setUser({email: JSON.parse(localStorage.getItem('userInfo')).profile.email,
+              username: JSON.parse(localStorage.getItem('userInfo')).profile.fullName});
+            });
+          }
+            // this.router.navigate(['/home']);
+            this.formstatusservice.checkForInitialSetup();
+          } else {
+            this.router.navigate(['/login']);
+          }
+        },
+        () => {
+          this.router.navigate(['/login']);
+        }
+      );
+    // this.router.navigate(['/foodlog']);
   }
 
   logout() {

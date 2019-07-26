@@ -19,7 +19,7 @@
     
     <form (ngSubmit)="onSubmit(myForm.value)"  [formGroup]="myForm" >
       <div class="form-group">
-        <label  floating text-wrap>The last time I had a medical check up was *</label>
+        <label style="font-size: 1.2rem">The last time I had a medical check up was *</label>
         <div class="custom-control custom-radio">
             <input class="custom-control-input" type="radio"  formControlName ="checkup" id="inlineRadio1" value="With in last six months">
             <label class="custom-control-label" for="inlineRadio1">Within the last six months.</label>
@@ -38,10 +38,10 @@
 
 
       <div class="form-group">
-        <label text-wrap> Please review the following questions : * </label>
-          <p><sub>Check the boxes that you will answer "yes" to. If you have checked any of the boxes (except the last one), 
+        <label  style="font-size: 1.2rem"> Please review the following questions : * </label>
+          <p>Check the boxes that you will answer "yes" to. If you have checked any of the boxes (except the last one), 
             you should check with a doctor before you start an exercise program.
-          </sub></p>
+          ></p>
 
         <div class="custom-control custom-checkbox">
           <input type="checkbox" formControlName="rev1" class="custom-control-input" id="customCheck1">

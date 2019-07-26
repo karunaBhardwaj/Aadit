@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {  Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AppService } from '../services/app.service';
-import * as $ from 'jquery';
 import { SheetsService } from '../services/sheets.service';
 import { MailService } from '../services/mail.service';
 @Component({
@@ -79,7 +78,7 @@ export class WorkoutlogPage implements OnInit {
     Object.values(this.myForm.value).forEach(value => {
       values.push(value);
     });
-    this.sheetsservice.appendValues('1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+    this.sheetsservice.appendValues(this.appservice.getUserInfo().token.sheetId,
     'WorkoutLog!A2:D2', 'USER_ENTERED', [values]);
 
     this.Mail();

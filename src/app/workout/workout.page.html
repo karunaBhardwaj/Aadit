@@ -19,9 +19,11 @@
     </ion-refresher-content>
   </ion-refresher>
   <h3 align="center" id = "Day" ></h3>
+  
 <div align='center'>
   <label>Select an option</label>
-  <select [(ngModel)]="selectedOption" (ngModelChange) ="SelectedValue(selectedOption)">
+  <select class="custom-select custom-select-lg mb-3" [(ngModel)]="selectedOption" (change)="SelectedValue($event.target.value)">
+    <option value = "select">Select an option</option>
     <option value = "Today">Today's Workout</option>
     <option value = "Long">Long Workout</option>
     <option value = "Tempo">Tempo Workout</option>
@@ -31,104 +33,29 @@
   </select>
 </div>
 
-<div class="hide" id = "container">
-	<table class="table table-responsive table-striped">
-		<thead>
-			<!-- <tr>
-				<th>Column 1</th>
-				<th>Column 2</th>
-			</tr> -->
-		</thead>
-		<tbody>
-			<tr>
-        <td>Workout Type</td>
-        <td id ="workout_type"></td>
-			</tr>
-			<tr>
-        <td>Activity Time - Minutes</td>
-        <td id = "activity_time"></td>
-			</tr>
-			<tr>
-        <td>Activity Speed -Kmph</td>
-        <td id = "activity_speed"></td>
-			</tr>
-			<tr>
-        <td>Recovery Time - Minutes</td>
-        <td id = "recovery_time"></td>
-      </tr>
-      <tr>
-          <td>Recovery Speed - Kmph</td>
-          <td id = "recovery_speed"></td>
-      </tr>
-      <tr>
-        <td># of repeats</td>
-        <td id = "repeats"></td>
-      </tr>
-      <tr>
-        <td>Duration - Minutes</td>
-        <td id = "duration"></td>
-			</tr>
-		</tbody>
-  </table>
-  </div>
 
-  <div class="hide" id = "Strengthex">
-    <table>
-      <thead>
-        <tr>
-          <th>Strength Exercise</th>
-          <th>Unit</th>
-          <th>Unit Type</th>
+ <div class="container-fluid hide" id="Workout">
+    <table class="table table-responsive table-striped">
+      <tbody >
+        <tr *ngFor="let val of title; let i=index">
+          <td>{{val}}</td>
+          <td>{{Data[i]}}</td>
         </tr>
-      </thead>
-      <tbody>
-        <!-- <tr>
-          <td >Date</td>
-          <td id = "date"></td>
-        </tr> -->
-        <tr>
-          <td id="Excer1"></td>
-          <td id ="Excer1_unit"></td>
-          <td id ="Excer1_unitType"></td>
-        </tr>
-        <tr>
-          <td id ="Excer2"></td>
-          <td id = "Excer2_unit"></td>
-          <td id = "Excer2_unitType"></td>
-        </tr>
-        <tr>
-          <td id = "Excer3"></td>
-          <td id = "Excer3_unit"></td>
-          <td id=  "Excer3_unitType"></td>
-        </tr>
-        <tr>
-          <td id="Excer4"></td>
-          <td id ="Excer4_unit"></td>
-          <td id ="Excer4_unitType"></td>
-        </tr>
-        <tr>
-          <td id ="Excer5"></td>
-          <td id = "Excer5_unit"></td>
-          <td id = "Excer5_unitType"></td>
-        </tr>
-        <tr>
-          <td id = "Excer6"></td>
-          <td id = "Excer6_unit"></td>
-          <td id=  "Excer6_unitType"></td>
-        </tr>
-        <tr>
-          <td id ="Excer7"></td>
-          <td id = "Excer7_unit"></td>
-          <td id = "Excer7_unitType"></td>
-        </tr>
-        <tr>
-          <td id = "Excer8"></td>
-          <td id = "Excer8_unit"></td>
-          <td id=  "Excer8_unitType"></td>
-        </tr>
-
-      </tbody>
+    </tbody>
     </table>
+ </div>
+
+
+  <div class="container-fluid hide" id="Strengthex">
+      <table class="table table-responsive table-striped">
+          <tbody >
+            <tr *ngFor="let val of strngthExData">
+              <td>{{val[0]}}</td>
+              <td>{{val[1]}}</td>
+              <td>{{val[2]}}</td>
+            </tr>
+        </tbody>
+        </table>
     </div>
 
   <div class = "logbutton">

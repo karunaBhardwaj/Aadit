@@ -625,7 +625,7 @@ async chart() {
 
 
     async ngOnInit() {
-      const data = await this.sheetsservice.batchGetValues('1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+      const data = await this.sheetsservice.batchGetValues(this.appservice.getUserInfo().token.sheetId,
       'TestData!A2:E5,TestData!A10:E10,CardioData!A2:I4');
       this.testData = data[0];
       this.testTarget = data[1];

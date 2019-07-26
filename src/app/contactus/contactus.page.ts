@@ -56,5 +56,6 @@ export class ContactusPage implements OnInit {
     Country: ${this.country},
     Message: ${this.message}`;
     this.mailservice.sendMail('abhilash.vadlamudi@wissen.com', 'Contact Form', data);
+    this.myForm.reset();
    }
 }

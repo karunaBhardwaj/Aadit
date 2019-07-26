@@ -29,18 +29,16 @@
           and agree to release and discharge Aadit Life Wellness (OPC) Pvt. Ltd. from any and all claims or causes of action, 
           known or unknown, that may happen during the program.
       </sub></p>
+    <div class="form-group">
+        <label  text-wrap>In checking the box below I confirm that I have read, understood and agree to 
+            the terms of the Disclaimer / Liability Waiver *</label>
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" formControlName="grantPermission" required class="custom-control-input" id="customCheck1" >
+        <label class="custom-control-label" for="customCheck1">I Agree</label>
+      </div>
+    </div>
 
-      <ion-item-group>
-        <ion-label text-wrap>In checking the box below I confirm that I have read, understood and agree to 
-          the terms of the Disclaimer / Liability Waiver *</ion-label>
-        
-        <ion-item>
-          <ion-label  >I Agree</ion-label>
-          <ion-checkbox checked="false" formControlName="grantPermission"  required>I Agree</ion-checkbox>
-        </ion-item>
-      </ion-item-group>
-
-      <ion-button [disabled]="!myForm.valid" type="submit" >Submit</ion-button>
+    <button type="submit" [disabled]="!myForm.valid" class="btn btn-primary">Submit</button>
 
   </form>
 

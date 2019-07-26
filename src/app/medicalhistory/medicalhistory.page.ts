@@ -3,7 +3,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppService } from '../services/app.service';
 import { SheetsService } from '../services/sheets.service';
-import $ from 'jquery';
 @Component({
   selector: 'app-medicalhistory',
   templateUrl: './medicalhistory.page.html',
@@ -28,12 +27,6 @@ export class MedicalhistoryPage implements OnInit {
       rev10: new FormControl(false),
       rev11: new FormControl(false)
     });
-  }
-
-  datachanged(e) {
-    if (this.myForm.value.rev11) {
-
-    }
   }
 
   onSubmit() {

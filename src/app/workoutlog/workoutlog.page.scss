@@ -1,50 +1,22 @@
-input[type=text], select, textarea {
-    width: 100%; /* Full width */
-    padding: 12px; /* Some padding */  
-    border: 1px solid #ccc; /* Gray border */
-    border-radius: 4px; /* Rounded borders */
-    box-sizing: border-box; /* Make sure that padding and width stays in place */
-    margin-top: 6px; /* Add a top margin */
-    margin-bottom: 16px; /* Bottom margin */
-    resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
-  }
+
   
   .hide {
     display: none;
   }
 
-  .radio-icon { visibility: visible!important;}
-
-  .radio-wrapper {
-      display: inline-flex;
-      padding: 0 2px;
-      // .item-radio {
-      //     border: medium none;
-      //     width: 24px;
-      //     .radio-icon {
-      //       padding: 0;
-      //     }
-      //     .radio-icon:before{
-      //         content: "\263A";
-      //         border:1px solid black;
-      //         width: 24px;
-      //         height: 24px;
-      //         border-radius: 50%;
-      //         overflow:hidden;
-      //     }
-      // }
-      // .item-radio input:checked + .radio-content .radio-icon:before{
-      //   color: #fff;
-      //   background-color: red;
-      //   content: "\263A";
-      // }
+  [type=radio] { 
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
   }
-
-  .em {
-    // content: '';
-    // border: 10px solid yellow ;
-    width: 50px !important;
-    height: 50px !important;
-    border-radius: 50% !important;
-    overflow: hidden !important;
+  
+  /* IMAGE STYLES */
+  [type=radio] + img {
+    cursor: pointer;
+  }
+  
+  /* CHECKED STYLES */
+  [type=radio]:checked + img {
+    outline: 2px solid #f00;
   }

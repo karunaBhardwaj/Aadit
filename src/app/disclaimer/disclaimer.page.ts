@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import * as $ from 'jquery';
 import { AppService } from '../services/app.service';
 import { SheetsService } from '../services/sheets.service';
 @Component({
@@ -22,9 +21,7 @@ export class DisclaimerPage implements OnInit {
     });
 
   }
-  get grantPermission(): string {
-    return this.myForm.value['grantPermission'];
-  }
+
   doRefresh(event) {
     console.log('Begin async operation');
     this.ngOnInit();
@@ -39,7 +36,8 @@ export class DisclaimerPage implements OnInit {
     Object.values(this.myForm.value).forEach(value => {
       values.push(value);
     });
-    this.sheetsservice.updateValues('1Sv1BbZFmN4rxu2L1VM6RZ679xrV3RwtmlIY0vcIZC5I',
+    console.log(values);
+    this.sheetsservice.updateValues(this.appservice.getUserInfo().token.sheetId,
     'MedicalHistory!B14:B14', 'USER_ENTERED', [values]);
     alert('profile setup completed');
     this.router.navigateByUrl('/thankyou');

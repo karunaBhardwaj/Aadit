@@ -23,6 +23,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 import { SentryIonicErrorHandler } from './errorhandler/error.handler';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
