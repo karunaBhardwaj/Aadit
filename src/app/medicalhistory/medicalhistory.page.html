@@ -19,7 +19,7 @@
     
     <form (ngSubmit)="onSubmit(myForm.value)"  [formGroup]="myForm" >
       <div class="form-group">
-        <label style="font-size: 1.2rem">The last time I had a medical check up was *</label>
+        <label style="font-size: 1.2rem; font-weight: bold">The last time I had a medical check up was</label>
         <div class="custom-control custom-radio">
             <input class="custom-control-input" type="radio"  formControlName ="checkup" id="inlineRadio1" value="With in last six months">
             <label class="custom-control-label" for="inlineRadio1">Within the last six months.</label>
@@ -38,10 +38,9 @@
 
 
       <div class="form-group">
-        <label  style="font-size: 1.2rem"> Please review the following questions : * </label>
+        <label  style="font-size: 1.2rem; font-weight: bold"> Please review the following questions : * </label>
           <p>Check the boxes that you will answer "yes" to. If you have checked any of the boxes (except the last one), 
-            you should check with a doctor before you start an exercise program.
-          ></p>
+            you should check with a doctor before you start an exercise program.</p>
 
         <div class="custom-control custom-checkbox">
           <input type="checkbox" formControlName="rev1" class="custom-control-input" id="customCheck1">
@@ -97,7 +96,7 @@
         </div>
 
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" formControlName="rev11" class="custom-control-input noneabove" id="customCheck11" (change)="datachanged($event)" >
+          <input type="checkbox" formControlName="rev11" class="custom-control-input" id="customCheck11" >
           <label class="custom-control-label" for="customCheck11"><p>None of the things listed above apply to me.</p></label>
         </div>
 

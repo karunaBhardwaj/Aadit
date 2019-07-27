@@ -2,7 +2,17 @@
     display: none;
   }
 
-.logbutton {
-	display: flex;
-	justify-content: center;
-  }
+button{
+  position: relative;
+  left: 31%;
+  transform: translateX(-31%); 
+  background-color: #F4741B;
+}
+
+ion-content {
+  --background: url('../../assets/images/body-building.jpg') 0 0/120% 100% no-repeat; 
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #F4741B;
+}

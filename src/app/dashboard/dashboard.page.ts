@@ -4,10 +4,8 @@ import More from 'highcharts/highcharts-more';
 import HCSoldGauge from 'highcharts/modules/solid-gauge';
 import HC_exporting from 'highcharts/modules/exporting';
 import {theme} from './theme';
-import { GoogleDriveService } from 'src/app/services/google-drive.service';
 import { AppService} from '../services/app.service';
 import * as moment from 'moment';
-import * as $ from 'jquery';
 import { SheetsService } from '../services/sheets.service';
 HC_exporting(Highcharts);
 More(Highcharts);
@@ -559,7 +557,7 @@ async chart() {
         },
 
         // subtitle: {
-        //     text: 'Source: thesolarfoundation.com'
+        //     text: 'Source: '
         // },
 
         yAxis: {
@@ -578,7 +576,7 @@ async chart() {
                 label: {
                     connectorAllowed: false
                 },
-                // pointStart: 100
+                // pointStart: 4
             }
         },
         credits: {
@@ -586,17 +584,17 @@ async chart() {
         },
         series: [{
             type: 'line',
-            name: `${+this.CardioData[0][0]}`,
+            name: `${this.CardioData[0][0]}`,
             data: [+this.CardioData[0][1], +this.CardioData[0][2], +this.CardioData[0][3], +this.CardioData[0][4],
             +this.CardioData[0][5], +this.CardioData[0][6], +this.CardioData[0][7]]
         }, {
             type: 'line',
-            name: `${+this.CardioData[1][0]}`,
+            name: `${this.CardioData[1][0]}`,
             data: [+this.CardioData[1][1], +this.CardioData[1][2], +this.CardioData[1][3], +this.CardioData[1][4],
             +this.CardioData[1][5], +this.CardioData[1][6], +this.CardioData[1][7]]
         }, {
             type: 'line',
-            name: `${+this.CardioData[2][0]}`,
+            name: `${this.CardioData[2][0]}`,
             data: [+this.CardioData[2][1], +this.CardioData[2][2], +this.CardioData[2][3], +this.CardioData[2][4],
             +this.CardioData[2][5], +this.CardioData[2][6], +this.CardioData[2][7]]
         }],

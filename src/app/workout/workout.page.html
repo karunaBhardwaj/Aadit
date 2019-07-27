@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>
+    <ion-title style="color: white">
       Today's Workout
     </ion-title>
   </ion-toolbar>
@@ -18,49 +18,68 @@
       refreshingText="Refreshing...">
     </ion-refresher-content>
   </ion-refresher>
-  <h3 align="center" id = "Day" ></h3>
+  <h3 align="center" style="color: #F4741B"  id = "Day" ></h3>
   
-<div align='center'>
-  <label>Select an option</label>
-  <select class="custom-select custom-select-lg mb-3" [(ngModel)]="selectedOption" (change)="SelectedValue($event.target.value)">
-    <option value = "select">Select an option</option>
-    <option value = "Today">Today's Workout</option>
-    <option value = "Long">Long Workout</option>
-    <option value = "Tempo">Tempo Workout</option>
-    <option value = "Interval">Interval workout</option>
-    <option value = "Speed">Speed workout</option>
-    <option value = "Strengthex">Strength workout</option>
-  </select>
-</div>
+  <div align='center'>
+    <!-- <label style="color: white">Select an option</label> -->
+    <select style="background: #F4741B; color: white;" class="custom-select custom-select-lg mb-3" [(ngModel)]="selectedOption" (change)="SelectedValue($event.target.value)">
+      <option value = "select">Select an option</option>
+      <option value = "Today">Today's Workout</option>
+      <option value = "Long">Long Workout</option>
+      <option value = "Tempo">Tempo Workout</option>
+      <option value = "Interval">Interval workout</option>
+      <option value = "Speed">Speed workout</option>
+      <option value = "Strengthex">Strength workout</option>
+    </select>
+  </div>
 
 
- <div class="container-fluid hide" id="Workout">
-    <table class="table table-responsive table-striped">
+  <div class="container-fluid hide"  id="Workout">
+    <table style="color: white" class="table  table-bordered table-hover">
       <tbody >
         <tr *ngFor="let val of title; let i=index">
           <td>{{val}}</td>
           <td>{{Data[i]}}</td>
         </tr>
-    </tbody>
+      </tbody>
     </table>
- </div>
+  </div>
+
 
 
   <div class="container-fluid hide" id="Strengthex">
-      <table class="table table-responsive table-striped">
-          <tbody >
-            <tr *ngFor="let val of strngthExData">
-              <td>{{val[0]}}</td>
-              <td>{{val[1]}}</td>
-              <td>{{val[2]}}</td>
-            </tr>
-        </tbody>
-        </table>
-    </div>
+    <table style="color: white" class="table table-bordered table-hover">
+      <tbody >
+        <tr *ngFor="let val of strngthExData">
+          <td>{{val[0]}}</td>
+          <td>{{val[1]}}</td>
+          <td>{{val[2]}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="container-fluid hide" id="rest">
+    <ion-card>
+      <ion-card-content style="color: white; text-align: center; font-family: sans-serif; font-weight: bolder; height:20rem; justify-content: center; display: flex; align-content: center; align-items: center">
+        Ola!!! No workout schedule today.....
+        Enjoy the rest period
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div class="container-fluid hide" id="select">
+    <ion-card>
+      <ion-card-content style="color: white; text-align: center; font-family: sans-serif; font-weight: bolder; height:20rem; justify-content: center; display: flex; align-content: center; align-items: center">
+        Please select the type of workout 
+        which you want to do today.....
+      </ion-card-content>
+    </ion-card>
+  </div>
 
   <div class = "logbutton">
-    <ion-button (click)= "goToWorkoutLog()" >Workout Log</ion-button>
-    <ion-button (click)= "goToFoodLog()"  >Food Log</ion-button>
+    <button style="color: white" type="button" class="btn" (click) ="goToWorkoutLog()">Workout Log</button>
+    <button style="color: white" type="button" class="btn" (click)= "goToFoodLog()">Food Log</button>
   </div>
 
 </ion-content>

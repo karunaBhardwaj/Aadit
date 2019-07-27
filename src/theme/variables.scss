@@ -78,13 +78,26 @@
 
 
 ion-toolbar{
-  --background: #3171e0;
+  --background: #F4741B;
 }
 
-ion-title {
-  color: white;
-  font-family: Roboto;
-}
-ion-content{ 
-  font-family: Roboto;
-}
+ 
+  @font-face{
+    font-family: 'SourceSansPro-Light';
+    font-style: normal;
+    font-weight: 600;
+    src:url('../assets/fonts/SourceSansPro-Light.ttf');
+  }
+
+  @font-face{
+    font-family: 'SourceSansPro-Regular';
+    font-style: normal;
+    font-weight: 600;
+    src:url('../assets/fonts/SourceSansPro-Regular.ttf');
+  }
+
+  * {
+    font-family: 'Roboto';
+    // color: #fff !important;
+  }
+  
