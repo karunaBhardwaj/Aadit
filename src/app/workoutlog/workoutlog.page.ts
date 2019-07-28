@@ -13,6 +13,7 @@ import { MailService } from '../services/mail.service';
 export class WorkoutlogPage implements OnInit {
   myForm: FormGroup;
   Data = this.appservice.getUserInfo();
+  // workoutType: string = this.router.getNavigatedData();
   feedback_value: string;
 
   constructor(private router: Router,
@@ -34,8 +35,11 @@ export class WorkoutlogPage implements OnInit {
     this.feedback_value = '';
     this.feedback_value = feedback;
     if (this.feedback_value === 'Happy') {
-      document.getElementById('div1').style.display = 'none';
-    } else { document.getElementById('div1').style.display = 'block'; }
+      document.getElementById('comment').setAttribute('disabled', 'true');
+      this.myForm.get('comment').setValue('');
+    } else { 
+      document.getElementById('comment').removeAttribute('disabled');
+   }
   }
 
   get workout_type(): string {
@@ -66,9 +70,9 @@ export class WorkoutlogPage implements OnInit {
   ngOnInit() {
     this.myForm = new FormGroup({
       date: new FormControl(new Date().toLocaleDateString(), [Validators.required]),
-      workout_type: new FormControl(this.router.getNavigatedData()),
+      workout_type: new FormControl(''),
       feedback: new FormControl('',  [Validators.required]),
-      comment: new FormControl('')
+      comment: new FormControl({value: '', disabled: true })
     });
   }
 
@@ -78,6 +82,7 @@ export class WorkoutlogPage implements OnInit {
     Object.values(this.myForm.value).forEach(value => {
       values.push(value);
     });
+    console.log(values);
     this.sheetsservice.appendValues(this.appservice.getUserInfo().token.sheetId,
     'WorkoutLog!A2:D2', 'USER_ENTERED', [values]);
 

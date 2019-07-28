@@ -3,7 +3,7 @@
       <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
-      <ion-title >
+      <ion-title style="color: white" >
         Workout Log
       </ion-title>
     </ion-toolbar>
@@ -27,35 +27,36 @@
   <form (ngSubmit)="onSubmit(myForm.value)" [formGroup]="myForm">
 
     <div class="form-group">
-      <h6 floating >Workout Type</h6>
-      <input class="form-control" type="text" formControlName="workout_type" required >
+      <h6 floating style="color: white" >Workout Type</h6>
+      <input class="form-control" type="text" formControlName="workout_type" style=" background: rgba(0,0,0,0.3);color: white" required >
     </div>
 
-    <label >Feedback</label>
+    <label style="color: white" >Feedback</label>
     <div class="form-group" align="center">
       <label style="padding-right: 5%">
-        <input class="custom-control-input"  formControlName="feedback" type="radio"  id="inlineRadio1" value="Happy" (change)="addExpression('Happy')">
-        <img src="../../assets/images/happy.png"  height="50" width="50">
+        <input class="custom-control-input" formControlName="feedback" type="radio"  id="inlineRadio1" value="Happy" (change)="addExpression('Happy')">
+        <img src="../../assets/images/1f642.png"  height="50" width="50">
       </label>
       
       <label style="padding-right: 5%">
           <input class="custom-control-input"  formControlName="feedback" type="radio"  id="inlineRadio2" value="Neutral" (change)="addExpression('Neutral')">
-          <img src="../../assets/images/sad.png"  height="50" width="50">
+          <img src="../../assets/images/1f610.png"  height="50" width="50">
       </label>
 
       <label style="padding-right: 5%">
           <input class="custom-control-input"  formControlName="feedback" type="radio"  id="inlineRadio3" value="Unhappy" (change)="addExpression('Unhappy')">
-          <img src="../../assets/images/pouting-face.png"  height="50" width="50">
+          <img src="../../assets/images/1f621.png"  height="50" width="50">
       </label>
     </div>
 
-    <div id="div1" class="hide">
-    <h6 >Comment</h6>
-    <textarea class="form-control" id="comment" type="text" formControlName="comment" style="height:200px" ></textarea>
+    <div>
+    <h6 style="color: white" >Comment</h6>
+    <textarea class="form-control" id="comment" type="text" formControlName="comment" style="height:200px; background: rgba(0,0,0,0.3);color: white" ></textarea>
     </div>
 
-
-    <button type="submit" [disabled]="!myForm.valid" class="btn btn-primary">Save</button>
+  <div align="center" style="padding-top: 5%">
+    <button type="submit" [disabled]="!myForm.valid"  style="color: white; background: #F4741B; border-radius: 00%" class="btn btn-lg btn-block">Save</button>
+  </div>
   </form>
   </div>
 </ion-content>
