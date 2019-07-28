@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar  >
-      <ion-title light>Aadit Life Signup Form</ion-title>
+      <ion-title light style="color: white">Aadit Life Signup Form</ion-title>
     </ion-toolbar>
   </ion-header>
   
@@ -36,7 +36,7 @@
   
           <div class="form-group">
               <label floating>Email Address</label>
-              <input type="email" class="form-control" readonly formControlName="email" placeholder="your mail id" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required >
+              <input type="email" class="form-control" style="color: tomato" readonly formControlName="email" placeholder="your mail id" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required >
               <div class="validation-errors">
                   <ng-container *ngFor="let validation of validation_messages.email" >
                   <div class="error-message" *ngIf="myForm.get('email').hasError(validation.type) && (myForm.get('email').touched)">
@@ -105,7 +105,7 @@
               </div>
           </div>
               
-          <button type="submit" [disabled]="!myForm.valid" class="btn btn-primary">Submit</button>
+          <button type="submit" [disabled]="!myForm.valid" style="background: #F4741B" class="btn btn-block">Submit</button>
       </form>
   
   </div>
