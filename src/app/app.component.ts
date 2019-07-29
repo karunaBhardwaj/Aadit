@@ -105,7 +105,7 @@ public allPages = [
           this.router.navigate(['/login']);
         }
       );
-    // this.router.navigate(['/foodlog']);
+    // this.router.navigate(['/workout']);
   }
 
   logout() {

@@ -46,13 +46,20 @@ export class AuthService {
     return this.user && this.user.email;
   }
   signOut() {
-    this.googlePlus.logout()
-    .then(res => {
-      localStorage.clear();
-      this.router.navigate(['/login']);
-    }, err => {
-      console.log(err);
-    });
+    if (this.plt.is('cordova')) {
+      this.googlePlus.logout()
+      .then(res => {
+        localStorage.clear();
+        this.router.navigate(['/login']);
+      }, err => {
+        console.log(err);
+      });
+  } else {
+    localStorage.clear();
+    return this.afAuth.auth.signOut();
+  }
+
+
   }
   signInWithEmail(credentials) {
     console.log('Sign in with email');

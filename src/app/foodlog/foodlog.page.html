@@ -21,13 +21,13 @@
   <form (ngSubmit)="onSave(myForm.value)" [formGroup]="myForm">
 
   <div class="form-group">
-    <ion-label style="color: white">Date</ion-label>
-    <input type="date" style="background-color:rgba(0, 0, 0, 0.3); color: white;" formControlName="date" class="form-control" >
+    <ion-label>Date</ion-label>
+    <input type="date" formControlName="date" class="form-control" >
   </div>
 
   <div class="form-group">
-  <label  floating style="color: white">Meal Time</label> 
-  <select class="custom-select custom-select-lg mb-3" style="background-color:rgba(0, 0, 0, 0.3); color:white" formControlName="food" >
+  <label  floating >Meal Time</label> 
+  <select class="custom-select custom-select-lg mb-3" formControlName="food" >
       <option  value="Breakfast">Breakfast</option>
       <option  value="Lunch" >Lunch</option>
       <option  value="Dinner">Dinner</option>
@@ -35,11 +35,11 @@
   </div>
 
   <div class="form-group">
-    <ion-label floating style="color: white">Meal Details</ion-label>
-    <textarea class="form-control" type="text" formControlName="details" style="height:200px; color: white; background-color:rgba(0, 0, 0, 0.3);"required ></textarea>
+    <ion-label floating >Meal Details</ion-label>
+    <textarea class="form-control" type="text" formControlName="details" style="height:200px;"required ></textarea>
   </div>
 <div align="center">
-  <button type="submit" [disabled]="!myForm.valid" style="color: white; background: #F4741B; border-radius: 0%" class="btn btn-block btn-lg">Save</button>
+  <button type="submit" [disabled]="!myForm.valid" style="color: white; background: #3171e0;" class="btn btn-block btn-lg">Save</button>
 </div>
   </form>
 

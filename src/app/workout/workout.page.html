@@ -18,11 +18,11 @@
       refreshingText="Refreshing...">
     </ion-refresher-content>
   </ion-refresher>
-  <h3 align="center" style="color: #F4741B"  id = "Day" ></h3>
+  <h3 align="center" id = "Day" ></h3>
   
   <div align='center'>
     <!-- <label style="color: white">Select an option</label> -->
-    <select style="background: #F4741B; color: white;" class="custom-select custom-select-lg mb-3" [(ngModel)]="selectedOption" (change)="SelectedValue($event.target.value)">
+    <select class="custom-select custom-select-lg mb-3" [(ngModel)]="selectedOption" (change)="SelectedValue($event.target.value)">
       <option value = "select">Select an option</option>
       <option value = "Today">Today's Workout</option>
       <option value = "Long">Long Workout</option>
@@ -35,7 +35,7 @@
 
 
   <div class="container-fluid hide"  id="Workout">
-    <table style="color: white" class="table  table-bordered table-hover">
+    <table class="table  table-bordered table-hover">
       <tbody >
         <tr *ngFor="let val of title; let i=index">
           <td>{{val}}</td>
@@ -48,7 +48,7 @@
 
 
   <div class="container-fluid hide" id="Strengthex">
-    <table style="color: white" class="table table-bordered table-hover">
+    <table class="table table-bordered table-hover">
       <tbody >
         <tr *ngFor="let val of strngthExData">
           <td>{{val[0]}}</td>
@@ -61,7 +61,7 @@
 
   <div class="container-fluid hide" id="rest">
     <ion-card>
-      <ion-card-content style="color: white; text-align: center; font-family: sans-serif; font-weight: bolder; height:20rem; justify-content: center; display: flex; align-content: center; align-items: center">
+      <ion-card-content style=" text-align: center; font-family: sans-serif; font-weight: bolder; height:20rem; justify-content: center; display: flex; align-content: center; align-items: center">
         Ola!!! No workout schedule today.....
         Enjoy the rest period
       </ion-card-content>
@@ -70,7 +70,7 @@
 
   <div class="container-fluid hide" id="select">
     <ion-card>
-      <ion-card-content style="color: white; text-align: center; font-family: sans-serif; font-weight: bolder; height:20rem; justify-content: center; display: flex; align-content: center; align-items: center">
+      <ion-card-content style="text-align: center; font-family: sans-serif; font-weight: bolder; height:20rem; justify-content: center; display: flex; align-content: center; align-items: center">
         Please select the type of workout 
         which you want to do today.....
       </ion-card-content>

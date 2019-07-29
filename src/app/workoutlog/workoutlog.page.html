@@ -27,11 +27,11 @@
   <form (ngSubmit)="onSubmit(myForm.value)" [formGroup]="myForm">
 
     <div class="form-group">
-      <h6 floating style="color: white" >Workout Type</h6>
-      <input class="form-control" type="text" formControlName="workout_type" style=" background: rgba(0,0,0,0.3);color: white" required >
+      <h6 floating>Workout Type</h6>
+      <input class="form-control" type="text" formControlName="workout_type" required >
     </div>
 
-    <label style="color: white" >Feedback</label>
+    <label>Feedback</label>
     <div class="form-group" align="center">
       <label style="padding-right: 5%">
         <input class="custom-control-input" formControlName="feedback" type="radio"  id="inlineRadio1" value="Happy" (change)="addExpression('Happy')">
@@ -50,12 +50,12 @@
     </div>
 
     <div>
-    <h6 style="color: white" >Comment</h6>
-    <textarea class="form-control" id="comment" type="text" formControlName="comment" style="height:200px; background: rgba(0,0,0,0.3);color: white" ></textarea>
+    <h6>Comment</h6>
+    <textarea class="form-control" id="comment" type="text" formControlName="comment" style="height:200px;" ></textarea>
     </div>
 
   <div align="center" style="padding-top: 5%">
-    <button type="submit" [disabled]="!myForm.valid"  style="color: white; background: #F4741B; border-radius: 00%" class="btn btn-lg btn-block">Save</button>
+    <button type="submit" [disabled]="!myForm.valid"  style="color: white; background: #3171e0; border-radius: 00%" class="btn btn-lg btn-block">Save</button>
   </div>
   </form>
   </div>

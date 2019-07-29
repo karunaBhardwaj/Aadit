@@ -6,13 +6,14 @@ button{
   position: relative;
   left: 31%;
   transform: translateX(-31%); 
-  background-color: #F4741B;
+  background-color: #3171e0;
 }
 
-ion-content {
-  --background: url('../../assets/images/adult-athlete-biceps.jpg') 0 0/100% 100% no-repeat; 
-}
+// ion-content {
+//   --background: url('../../assets/images/adult-athlete-biceps.jpg') 0 0/100% 100% no-repeat; 
+// }
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-  background-color: #F4741B;
+  background-color: #3171e0;
 }
+
