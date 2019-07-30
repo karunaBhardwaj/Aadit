@@ -9,6 +9,6 @@ export const firebaseConfig = {
     },
     firbase: {
         client_id: '48119150430-87dj9t81g9h1erfkibhtr7vva07kov0j.apps.googleusercontent.com',
-        client_secret: 'KRSKPKZMfUGCFMq52J7C9JOJ',
+        client_secret: 'KRSKPKZMfUGCFMq52J7C9JOJ'
     }
 };

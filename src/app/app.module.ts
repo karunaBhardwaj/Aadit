@@ -20,7 +20,6 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { CommonModule } from '@angular/common';
 import 'angular2-navigate-with-data';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
-import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 import { SentryIonicErrorHandler } from './errorhandler/error.handler';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
@@ -48,7 +47,6 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
     EndpointService,
     GooglePlus,
     GoogleDriveService,
-    BackgroundMode,
     AngularFireAuth,
     {
       provide: HTTP_INTERCEPTORS,

@@ -19,7 +19,7 @@ export class FormstatusService {
         this.router.navigateByUrl('/signupform');
         this.menuCtrl.enable(true, 'menu1');
       } else if (data === false) {
-        this.router.navigateByUrl('/workout');
+        this.router.navigateByUrl('/thankyou');
         this.menuCtrl.enable(true, 'menu1');
       } else {
         this.router.navigateByUrl('/workout');
