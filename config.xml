@@ -94,6 +94,65 @@
     </plugin>
     <plugin name="sentry-cordova" spec="^0.15.0" />
     <allow-navigation href="http://10.1.1.61:8100" sessionid="96b30944" />
-    <engine name="android" spec="7.1.4" />
+    <plugin name="cordova-android-play-services-gradle-release" spec="^4.0.0">
+        <variable name="PLAY-SERVICES-ADS" value="18.0.0" />
+        <variable name="PLAY-SERVICES-ADS-IDENTIFIER" value="17.0.0" />
+        <variable name="PLAY-SERVICES-ADS-LITE" value="18.0.0" />
+        <variable name="PLAY-SERVICES-AFS-NATIVE" value="17.0.0" />
+        <variable name="PLAY-SERVICES-ANALYTICS" value="17.0.0" />
+        <variable name="PLAY-SERVICES-ANALYTICS-IMPL" value="17.0.0" />
+        <variable name="PLAY-SERVICES-APPINVITE" value="18.0.0" />
+        <variable name="PLAY-SERVICES-AUDIENCE" value="17.0.0" />
+        <variable name="PLAY-SERVICES-AUTH" value="17.0.0" />
+        <variable name="PLAY-SERVICES-AUTH-API-PHONE" value="17.0.0" />
+        <variable name="PLAY-SERVICES-AWARENESS" value="17.0.0" />
+        <variable name="PLAY-SERVICES-BASE" value="17.0.0" />
+        <variable name="PLAY-SERVICES-BASEMENT" value="17.0.0" />
+        <variable name="PLAY-SERVICES-CAST" value="17.0.0" />
+        <variable name="PLAY-SERVICES-CAST-FRAMEWORK" value="17.0.0" />
+        <variable name="PLAY-SERVICES-CLEARCUT" value="17.0.0" />
+        <variable name="PLAY-SERVICES-CRONET" value="17.0.0" />
+        <variable name="PLAY-SERVICES-DRIVE" value="17.0.0" />
+        <variable name="PLAY-SERVICES-FIDO" value="18.0.0" />
+        <variable name="PLAY-SERVICES-FITNESS" value="17.0.0" />
+        <variable name="PLAY-SERVICES-FLAGS" value="17.0.0" />
+        <variable name="PLAY-SERVICES-GAMES" value="18.0.0" />
+        <variable name="PLAY-SERVICES-GASS" value="18.0.0" />
+        <variable name="PLAY-SERVICES-GCM" value="17.0.0" />
+        <variable name="PLAY-SERVICES-IDENTITY" value="17.0.0" />
+        <variable name="PLAY-SERVICES-IID" value="17.0.0" />
+        <variable name="PLAY-SERVICES-INSTANTAPPS" value="17.0.0" />
+        <variable name="PLAY-SERVICES-LOCATION" value="17.0.0" />
+        <variable name="PLAY-SERVICES-MAPS" value="17.0.0" />
+        <variable name="PLAY-SERVICES-MEASUREMENT" value="17.0.0" />
+        <variable name="PLAY-SERVICES-MEASUREMENT-API" value="17.0.0" />
+        <variable name="PLAY-SERVICES-MEASUREMENT-IMPL" value="17.0.0" />
+        <variable name="PLAY-SERVICES-MEASUREMENT-SDK" value="17.0.0" />
+        <variable name="PLAY-SERVICES-MEASUREMENT-SDK-API" value="17.0.0" />
+        <variable name="PLAY-SERVICES-NEARBY" value="17.0.0" />
+        <variable name="PLAY-SERVICES-OSS-LICENSES" value="17.0.0" />
+        <variable name="PLAY-SERVICES-PANORAMA" value="17.0.0" />
+        <variable name="PLAY-SERVICES-PHENOTYPE" value="17.0.0" />
+        <variable name="PLAY-SERVICES-PLACES" value="17.0.0" />
+        <variable name="PLAY-SERVICES-PLACES-PLACEREPORT" value="17.0.0" />
+        <variable name="PLAY-SERVICES-PLUS" value="17.0.0" />
+        <variable name="PLAY-SERVICES-SAFETYNET" value="17.0.0" />
+        <variable name="PLAY-SERVICES-STATS" value="17.0.0" />
+        <variable name="PLAY-SERVICES-TAGMANAGER" value="17.0.0" />
+        <variable name="PLAY-SERVICES-TAGMANAGER-API" value="17.0.0" />
+        <variable name="PLAY-SERVICES-TAGMANAGER-V4-IMPL" value="17.0.0" />
+        <variable name="PLAY-SERVICES-TASKS" value="17.0.0" />
+        <variable name="PLAY-SERVICES-VISION" value="18.0.0" />
+        <variable name="PLAY-SERVICES-VISION-COMMON" value="18.0.0" />
+        <variable name="PLAY-SERVICES-VISION-IMAGE-LABEL" value="18.0.0" />
+        <variable name="PLAY-SERVICES-WALLET" value="17.0.0" />
+        <variable name="PLAY-SERVICES-WEARABLE" value="17.0.0" />
+    </plugin>
+    <plugin name="cordova-plugin-androidx" spec="^1.0.2" />
+    <plugin name="cordova-plugin-androidx-adapter" spec="^1.1.0" />
+    <plugin name="cordova-android-support-gradle-release" spec="^3.0.1">
+        <variable name="ANDROID_SUPPORT_VERSION" value="27.0.0" />
+    </plugin>
     <engine name="ios" spec="4.5.5" />
+    <engine name="android" spec="^8.1.0" />
 </widget>
