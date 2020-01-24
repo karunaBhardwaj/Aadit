@@ -34,6 +34,7 @@
     "@ng-bootstrap/ng-bootstrap": "^5.1.0",
     "@sentry/cli": "^1.41.1",
     "@sentry/wizard": "^0.12.1",
+    "@types/jquery": "^3.3.31",
     "angular2-navigate-with-data": "^1.1.11",
     "angularfire2": "^5.1.0",
     "bootstrap": "^4.3.1",

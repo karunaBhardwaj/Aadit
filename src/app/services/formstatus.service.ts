@@ -1,7 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
-import * as $ from 'jquery';
 import { SheetsService } from './sheets.service';
 import { AppService } from './app.service';
 @Injectable({

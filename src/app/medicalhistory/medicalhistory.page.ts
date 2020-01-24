@@ -14,7 +14,7 @@ export class MedicalhistoryPage implements OnInit {
 
   ngOnInit() {
     this.myForm = new FormGroup({
-      checkup: new FormControl(''),
+      checkup: new FormControl('', [Validators.required]),
       rev1: new FormControl(false),
       rev2: new FormControl(false),
       rev3: new FormControl(false),
@@ -28,6 +28,36 @@ export class MedicalhistoryPage implements OnInit {
       rev11: new FormControl(false)
     });
   }
+  getAccess() {
+    const NonecheckBox = document.getElementById('none-checkbox') as HTMLInputElement;
+    const checkBox = document.getElementById('customCheck10') as HTMLInputElement;
+    if (NonecheckBox.checked === true) {
+      checkBox.checked = false;
+    }
+    //  else if (checkBox.checked === true) {
+    //   NonecheckBox.checked = false;
+    // }
+  }
+  getAccess1() {
+    const NonecheckBox = document.getElementById('none-checkbox') as HTMLInputElement;
+    const checkBox = document.getElementById('customCheck10') as HTMLInputElement;
+    if (checkBox.checked === true) {
+      NonecheckBox.checked = false;
+    }
+    //  else if (checkBox.checked === true) {
+    //   NonecheckBox.checked = false;
+    // }
+  }
+
+//   onChangeRole(userRole: string, isChecked) {
+//     this.myForm. = isChecked;
+//      for(var i=0;i<this.appUserRoleList.length;i++ ){
+//        if( this.appUserRoleList[i].roleName==userRole){
+
+//       this.appUserRoleList[i].isChecked=!this.appUserRoleList[i].isChecked;
+//        }
+//     }
+// }
 
   onSubmit() {
 
