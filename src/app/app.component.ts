@@ -14,16 +14,28 @@ import { AppService } from './services/app.service';
 export class AppComponent implements OnInit {
   public appPages = [
     {
+      title : 'Profile',
+      url : '/profile'
+    },
+    {
       title : 'About US',
       url : '/aboutus'
     },
     {
       title : 'Contact US',
       url : '/contactus'
+    },
+    {
+      title : 'ProfileTabs',
+      url : '/profile-tabs'
     }
   ];
 
 public allPages = [
+  {
+    title : 'Profile',
+    url : '/profile'
+  },
   {
     title: 'Dashboard',
     url: '/dashboard'
@@ -57,7 +69,7 @@ public allPages = [
     private router: Router,
     private auth: AuthService,
     private appService: AppService,
-    private formstatusservice: FormstatusService,
+    private formstatusservice: FormstatusService
       ) {
     this.initializeApp();
   }

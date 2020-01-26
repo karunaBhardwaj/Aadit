@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const routes: Routes = [
   {
@@ -17,11 +17,15 @@ const routes: Routes = [
   { path: 'medicalhistory', loadChildren: './medicalhistory/medicalhistory.module#MedicalhistoryPageModule' },
   { path: 'disclaimer', loadChildren: './disclaimer/disclaimer.module#DisclaimerPageModule' },
   { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardPageModule' },
-  { path: 'workout', loadChildren: './workout/workout.module#WorkoutPageModule' },  { path: 'thankyou', loadChildren: './thankyou/thankyou.module#ThankyouPageModule' },
+  { path: 'workout', loadChildren: './workout/workout.module#WorkoutPageModule' },
+  { path: 'thankyou', loadChildren: './thankyou/thankyou.module#ThankyouPageModule' },
   { path: 'contactus', loadChildren: './contactus/contactus.module#ContactusPageModule' },
   { path: 'workoutlog', loadChildren: './workoutlog/workoutlog.module#WorkoutlogPageModule' },
   { path: 'foodlog', loadChildren: './foodlog/foodlog.module#FoodlogPageModule' },
-  { path: 'aboutus', loadChildren: './aboutus/aboutus.module#AboutusPageModule' }
+  { path: 'aboutus', loadChildren: './aboutus/aboutus.module#AboutusPageModule' },
+  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule'},
+  { path: 'profile-tabs', loadChildren: './profile-tabs/profile-tabs.module#ProfileTabsPageModule' }
+
 
 
   // {
@@ -32,7 +36,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
