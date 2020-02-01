@@ -25,9 +25,9 @@ export class DashboardPage implements OnInit {
 
 // Activity Chart
 async chart() {
-  const Month1 = moment(this.testData[2][0], 'M/D/YYYY');
+  const Month1 = moment(this.testData[0][0], 'M/D/YYYY');
   const Month2 = moment(this.testData[1][0], 'M/D/YYYY');
-  const Month3 = moment(this.testData[0][0], 'M/D/YYYY');
+  const Month3 = moment(this.testData[2][0], 'M/D/YYYY');
     // apply theme
     Highcharts.setOptions(theme);
 
@@ -102,7 +102,7 @@ async chart() {
         }
         },
         title: {
-            text: `Weight Chart [ Target: ${this.testTarget[0][1]}Kg ]`,
+            text: `Weight Chart [ Target: ${this.testTarget[0][1]}Kg ] \n CURRENT WEIGHT: ${+this.testData[2][1]}Kg`,
             style: {
                 fontSize: '15px'
             }
@@ -156,7 +156,7 @@ async chart() {
         plotOptions: {
           solidgauge: {
             dataLabels: {
-              enabled: true
+              enabled: false
             },
             stickyTracking: false,
             linecap: 'round',
@@ -215,7 +215,7 @@ async chart() {
         }
         },
         title: {
-            text: `Fat Chart [ Target: ${this.testTarget[0][2].slice(0, -1)}% ]`,
+            text: `Fat Chart [ Target: ${this.testTarget[0][2].slice(0, -1)}% ] \n CURRENT FAT: ${+this.testData[2][2].slice(0, -1)}%`,
             style: {
                 fontSize: '15px'
             }
@@ -269,7 +269,7 @@ async chart() {
         plotOptions: {
           solidgauge: {
             dataLabels: {
-              enabled: true
+              enabled: false
             },
             stickyTracking: false,
             linecap: 'round',
@@ -327,7 +327,7 @@ async chart() {
         }
         },
         title: {
-            text: `BMI Chart [ Target: ${this.testTarget[0][4]} ]`,
+            text: `BMI Chart `,
             style: {
                 fontSize: '15px'
             }
@@ -381,7 +381,7 @@ async chart() {
         plotOptions: {
           solidgauge: {
             dataLabels: {
-              enabled: true
+              enabled: false
             },
             stickyTracking: false,
             linecap: 'round',
@@ -493,7 +493,7 @@ async chart() {
         plotOptions: {
           solidgauge: {
             dataLabels: {
-              enabled: true
+              enabled: false
             },
             stickyTracking: false,
             linecap: 'round',
