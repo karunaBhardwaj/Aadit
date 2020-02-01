@@ -24,10 +24,6 @@ export class AppComponent implements OnInit {
     {
       title : 'Contact US',
       url : '/contactus'
-    },
-    {
-      title : 'ProfileTabs',
-      url : '/profile-tabs'
     }
   ];
 

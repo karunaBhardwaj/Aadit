@@ -24,7 +24,6 @@ const routes: Routes = [
   { path: 'foodlog', loadChildren: './foodlog/foodlog.module#FoodlogPageModule' },
   { path: 'aboutus', loadChildren: './aboutus/aboutus.module#AboutusPageModule' },
   { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule'},
-  { path: 'profile-tabs', loadChildren: './profile-tabs/profile-tabs.module#ProfileTabsPageModule' }
 
 
 

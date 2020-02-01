@@ -26,9 +26,18 @@
   <div class="container-fluid"> 
   <form (ngSubmit)="onSubmit(myForm.value)" [formGroup]="myForm">
 
+    <label for="country">Workout Type</label>
+    <select class="custom-select mb-3"  formControlName="workout_type" required> 
+      <option value="long">Long Workout</option>
+      <option value="tempo">Tempo Workout</option>
+      <option value="interval">Interval workout</option>
+      <option value="speed">Speed workout</option>
+      <option value="strength">Strength workout</option>
+    </select>
+
     <div class="form-group">
-      <h6 floating>Workout Type</h6>
-      <input class="form-control" type="text" formControlName="workout_type" required >
+      <label>Date</label>
+      <input type="date" formControlName="date" class="form-control" >
     </div>
 
     <label>Feedback</label>

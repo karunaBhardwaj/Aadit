@@ -53,6 +53,10 @@ export class WorkoutlogPage implements OnInit {
     return this.myForm.value['comment'];
   }
 
+  get date(): string {
+    return this.myForm.value['date'];
+  }
+
 
   Mail() {
     if (this.feedback_value === 'Happy') {
@@ -69,8 +73,9 @@ export class WorkoutlogPage implements OnInit {
 
   ngOnInit() {
     this.myForm = new FormGroup({
-      date: new FormControl(new Date().toLocaleDateString(), [Validators.required]),
-      workout_type: new FormControl(''),
+      // date: new FormControl(new Date().toLocaleDateString(), [Validators.required]),
+      date: new FormControl(new Date().toISOString().substr(0, 10), [Validators.required]),
+      workout_type: new FormControl('', Validators.required),
       feedback: new FormControl('',  [Validators.required]),
       comment: new FormControl({value: '', disabled: true })
     });
@@ -86,8 +91,8 @@ export class WorkoutlogPage implements OnInit {
     this.sheetsservice.appendValues(this.appservice.getUserInfo().token.sheetId,
     'WorkoutLog!A2:D2', 'USER_ENTERED', [values]);
 
-    this.Mail();
-    this.router.navigateByUrl('/workout');
+    // this.Mail();
+    // this.router.navigateByUrl('/workout');
   }
 
 }
