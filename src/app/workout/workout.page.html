@@ -21,9 +21,7 @@
   <h3 align="center" id = "Day" ></h3>
   
   <div align='center'>
-    <!-- <label style="color: white">Select an option</label> -->
     <select class="custom-select custom-select-lg mb-3" [(ngModel)]="selectedOption" (change)="SelectedValue($event.target.value)">
-      <option value = "select">Select an option</option>
       <option value = "Today">Today's Workout</option>
       <option value = "Long">Long Workout</option>
       <option value = "Tempo">Tempo Workout</option>
@@ -64,15 +62,6 @@
       <ion-card-content style=" text-align: center; font-family: sans-serif; font-weight: bolder; height:20rem; display: flex; align-content: center; align-items: center">
         Ola!!! No workout schedule today.....
         Enjoy the rest period
-      </ion-card-content>
-    </ion-card>
-  </div>
-
-  <div class="container-fluid hide" id="select">
-    <ion-card>
-      <ion-card-content style="text-align: center; font-family: sans-serif; font-weight: bolder; height:20rem; display: flex; align-content: center; align-items: center">
-        Please select the type of workout 
-        which you want to do today.....
       </ion-card-content>
     </ion-card>
   </div>
