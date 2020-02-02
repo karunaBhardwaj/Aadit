@@ -14,7 +14,7 @@ import { AppService } from './services/app.service';
 export class AppComponent implements OnInit {
   public appPages = [
     {
-      title : 'Profile',
+      title : 'Google Profile',
       url : '/profile'
     },
     {
@@ -24,12 +24,28 @@ export class AppComponent implements OnInit {
     {
       title : 'Contact US',
       url : '/contactus'
+    },
+    {
+      title : 'Profile',
+      url : '/display-profile'
+    },
+    {
+      title : 'Goals',
+      url : '/display-goals'
+    },
+    {
+      title : 'Medical History',
+      url : '/display-medical'
+    },
+    {
+      title : 'Disclaimer',
+      url : '/display-disclaimer'
     }
   ];
 
 public allPages = [
   {
-    title : 'Profile',
+    title : 'Google Profile',
     url : '/profile'
   },
   {
@@ -55,6 +71,22 @@ public allPages = [
   {
     title : 'Food Log',
     url : '/foodlog'
+  },
+  {
+    title : 'Profile',
+    url : '/display-profile'
+  },
+  {
+    title : 'Goals',
+    url : '/display-goals'
+  },
+  {
+    title : 'Medical History',
+    url : '/display-medical'
+  },
+  {
+    title : 'Disclaimer',
+    url : '/display-disclaimer'
   }
 ];
 

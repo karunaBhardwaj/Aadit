@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-toolbar >
+    <ion-title style="color: white">Medical History</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding-horizantal>
+  <div class="container-fluid">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content
+        pullingIcon="arrow-dropdown"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+    
+    <form >
+      <div class="form-group">
+        <label style="font-size: 1.2rem; font-weight: bold">The last time I had a medical check up was</label>
+        <div class="custom-control custom-radio">
+            <input class="custom-control-input" type="radio" [(ngModel)]="this.checkup" name ='With in last six months' [checked]="this.checkup==='With in last six months'" id="inlineRadio1" value="With in last six months" onclick="return false">
+            <label class="custom-control-label" for="inlineRadio1">Within the last six months.</label>
+        </div>
+
+        <div class="custom-control custom-radio">
+            <input class="custom-control-input" type="radio" [(ngModel)]="this.checkup" name ='Between six and eighteen months ago.' [checked]="this.checkup==='Between six and eighteen months ago.'" id="inlineRadio2" value="Between six and eighteen months ago." onclick="return false">
+            <label class="custom-control-label" for="inlineRadio2">Between six and eighteen months ago.</label>
+        </div>
+
+        <div class="custom-control custom-radio">
+            <input class="custom-control-input" type="radio" [(ngModel)]="this.checkup" name ='More than eighteen months ago / never.' [checked]="this.checkup==='More than eighteen months ago / never.'" id="inlineRadio3" value="More than eighteen months ago / never." onclick="return false">
+            <label class="custom-control-label" for="inlineRadio3">More than eighteen months ago / never.</label>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label  style="font-size: 1.2rem; font-weight: bold"> Please review the following questions : * </label>
+          <p>Check the boxes that you will answer "yes" to. If you have checked any of the boxes (except the last one), 
+            you should check with a doctor before you start an exercise program.</p>
+
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" onclick="return false" class="custom-control-input" id="customCheck1">
+          <label class="custom-control-label" for="customCheck1"><p>I have been told I have a heart condition that requires me to take up only 
+              physical activity recommended by a doctor.</p></label>
+        </div>
+
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" onclick="return false" id="customCheck2">
+          <label class="custom-control-label" for="customCheck2"><p>I have in the past felt a pain in my chest when I do 
+              physical activity / exercise.</p></label>
+        </div>
+
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox"  class="custom-control-input" onclick="return false" id="customCheck3">
+          <label class="custom-control-label" for="customCheck3"><p>In the past month I have had chest pain when not doing 
+              any physical activity..</p></label>
+        </div>
+
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" onclick="return false" class="custom-control-input" id="customCheck4">
+          <label class="custom-control-label" for="customCheck4"><p>I have in the past lost balance because I felt dizzy, or lost consciousness..</p></label>
+        </div>
+
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" onclick="return false" class="custom-control-input" id="customCheck5">
+          <label class="custom-control-label" for="customCheck5"><p>I have a bone or joint problem that could be made worse with physical activity.</p></label>
+        </div>
+
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" onclick="return false" class="custom-control-input" id="customCheck6">
+          <label class="custom-control-label" for="customCheck6"><p>I am taking medication for blood pressure or a heart condition.</p></label>
+        </div>
+
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" onclick="return false" class="custom-control-input" id="customCheck7">
+          <label class="custom-control-label" for="customCheck7"><p>I am diabetic..</p></label>
+        </div>
+
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" onclick="return false" class="custom-control-input" id="customCheck8">
+          <label class="custom-control-label" for="customCheck8"><p>I sometimes have difficulty breathing - especially in cold dry conditions.</p></label>
+        </div>
+
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" onclick="return false" class="custom-control-input" id="customCheck9">
+          <label class="custom-control-label" for="customCheck9"><p>I am aware of some other reason why I should do physical activity.</p></label>
+        </div>
+
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" onclick="return false" class="custom-control-input" id="customCheck10">
+          <label class="custom-control-label" for="customCheck10"><p>I am pregnant.</p></label>
+        </div>
+
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" onclick="return false" class="custom-control-input" id="customCheck11" >
+          <label class="custom-control-label" for="customCheck11"><p>None of the things listed above apply to me.</p></label>
+        </div>
+
+      </div>
+    
+    </form>
+    
+  </div>
+</ion-content>

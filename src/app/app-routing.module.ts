@@ -23,7 +23,11 @@ const routes: Routes = [
   { path: 'workoutlog', loadChildren: './workoutlog/workoutlog.module#WorkoutlogPageModule' },
   { path: 'foodlog', loadChildren: './foodlog/foodlog.module#FoodlogPageModule' },
   { path: 'aboutus', loadChildren: './aboutus/aboutus.module#AboutusPageModule' },
-  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule'},
+  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule'},  { path: 'display-profile', loadChildren: './display-profile/display-profile.module#DisplayProfilePageModule' },
+  { path: 'display-goals', loadChildren: './display-goals/display-goals.module#DisplayGoalsPageModule' },
+  { path: 'display-medical', loadChildren: './display-medical/display-medical.module#DisplayMedicalPageModule' },
+  { path: 'display-disclaimer', loadChildren: './display-disclaimer/display-disclaimer.module#DisplayDisclaimerPageModule' },
+
 
 
 

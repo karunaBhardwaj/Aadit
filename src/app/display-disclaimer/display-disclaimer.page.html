@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar >
+    <ion-title style="color: white">Disclaimer/ Liability Waiver </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+          pullingIcon="arrow-dropdown"
+          pullingText="Pull to refresh"
+          refreshingSpinner="circles"
+          refreshingText="Refreshing...">
+        </ion-refresher-content>
+      </ion-refresher>
+  <form (ngSubmit)="onSubmit(value)">
+
+      <p><sub>
+          Aadit Life recommends that you consult with your physician before beginning any exercise program.
+          While the program is conservative, and workouts are based on a wellness evaluation that is conducted,
+          there is still the possibility that an existing condition could be aggravated during the wellness 
+          evaluation - or over the course of the program.
+          
+          You should understand that when participating in any exercise, or exercise program, there is the possibility
+          of physical injury.
+          
+          When signing up for the program, and doing the activities that are part of the program, you agree that you do 
+          so at your own risk, are voluntarily participating in these activities, assume all risk of injury to yourself, 
+          and agree to release and discharge Aadit Life Wellness (OPC) Pvt. Ltd. from any and all claims or causes of action, 
+          known or unknown, that may happen during the program.
+      </sub></p>
+    <div class="form-group">
+        <label  text-wrap>In checking the box below I confirm that I have read, understood and agree to 
+            the terms of the Disclaimer / Liability Waiver *</label>
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" required class="custom-control-input" id="customCheck1" onclick="return false">
+        <label class="custom-control-label" for="customCheck1">I Agree</label>
+      </div>
+    </div>
+  </form>
+
+</ion-content>

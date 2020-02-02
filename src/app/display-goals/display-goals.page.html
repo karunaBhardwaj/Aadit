@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar >
+    <ion-title style="color: white">Current Activity/ Goals</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding-horozantal>
+  <div class="container-fluid">
+    <form>
+      <div class="form-group">
+        <label >The reason  for the signup of program is *</label>
+        <input  type="text" class="form-control" value="{{this.reason1}}" placeholder="enter a valid reason" required readonly>
+      </div>
+      
+      <div class="form-group">
+        <label > In six months, I will be delighted if *</label>
+        <input type="text" class="form-control" value="{{this.reason2}}" placeholder="enter your goal"  required readonly>
+
+      </div>
+
+      <div class="form-group">
+        <label  floating text-wrap>My current frequency of physical activity is *</label>
+        <div class="custom-control custom-radio">
+          <input class="custom-control-input" type="radio" [(ngModel)]="this.frequency" name ='NotRegular' [checked]="this.frequency==='NotRegular'" id="inlineRadio1" value="NotRegular" onclick="return false">
+          <label class="custom-control-label" for="inlineRadio1">Not Regular- less than once a week</label>
+        </div>
+
+        <div class="custom-control custom-radio">
+          <input class="custom-control-input" type="radio" [(ngModel)]="this.frequency" name ='Somewhat regular' [checked]="this.frequency==='Somewhat regular'" id="inlineRadio2" value="Somewhat regular" onclick="return false">
+          <label class="custom-control-label" for="inlineRadio2">Somewhat Regular-between one and three times a week.</label>
+        </div>
+
+        <div class="custom-control custom-radio">
+          <input class="custom-control-input" type="radio" [(ngModel)]="this.frequency" name ='Regular' [checked]="this.frequency==='Regular'" id="inlineRadio3" value="Regular" onclick="return false">
+          <label class="custom-control-label" for="inlineRadio3">Regular-three or more times a week.</label>
+        </div>
+      </div>
+     
+      <div class="form-group">
+        <label text-wrap> Briefly describe what you currently do for physical activity *</label>
+        <input type="text"  class="form-control" value="{{this.reason3}}" placeholder="your current physical activities" required readonly >
+      </div>
+    </form>
+
+  </div>
+</ion-content>
