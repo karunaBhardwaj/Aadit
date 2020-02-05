@@ -18,14 +18,6 @@ export class AppComponent implements OnInit {
       url : '/profile'
     },
     {
-      title : 'About US',
-      url : '/aboutus'
-    },
-    {
-      title : 'Contact US',
-      url : '/contactus'
-    },
-    {
       title : 'Profile',
       url : '/display-profile'
     },
@@ -40,6 +32,14 @@ export class AppComponent implements OnInit {
     {
       title : 'Disclaimer',
       url : '/display-disclaimer'
+    },
+    {
+      title : 'About US',
+      url : '/aboutus'
+    },
+    {
+      title : 'Contact US',
+      url : '/contactus'
     }
   ];
 
@@ -47,30 +47,6 @@ public allPages = [
   {
     title : 'Google Profile',
     url : '/profile'
-  },
-  {
-    title: 'Dashboard',
-    url: '/dashboard'
-  },
-  {
-    title : 'Workout',
-    url : '/workout'
-  },
-  {
-    title : 'Contact US',
-    url : '/contactus'
-  },
-  {
-    title : 'About US',
-    url : '/aboutus'
-  },
-  {
-    title : 'Workout log',
-    url : '/workoutlog'
-  },
-  {
-    title : 'Food Log',
-    url : '/foodlog'
   },
   {
     title : 'Profile',
@@ -87,6 +63,30 @@ public allPages = [
   {
     title : 'Disclaimer',
     url : '/display-disclaimer'
+  },
+  {
+    title: 'Dashboard',
+    url: '/dashboard'
+  },
+  {
+    title : 'Workout',
+    url : '/workout'
+  },
+  {
+    title : 'Workout log',
+    url : '/workoutlog'
+  },
+  {
+    title : 'Food Log',
+    url : '/foodlog'
+  },
+  {
+    title : 'Contact US',
+    url : '/contactus'
+  },
+  {
+    title : 'About US',
+    url : '/aboutus'
   }
 ];
 

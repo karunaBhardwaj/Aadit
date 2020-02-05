@@ -90,6 +90,15 @@ export class WorkoutlogPage implements OnInit {
     console.log(values);
     this.sheetsservice.appendValues(this.appservice.getUserInfo().token.sheetId,
     'WorkoutLog!A2:D2', 'USER_ENTERED', [values]);
+    if (values[1] === 'speed') {
+      console.log('change to interval');
+      this.sheetsservice.updateValues(this.appservice.getUserInfo().token.sheetId,
+      'Schedule!E2:E2', 'USER_ENTERED', [['Interval']]);
+    } else if (values[1] === 'interval') {
+      console.log('change to speed');
+      this.sheetsservice.updateValues(this.appservice.getUserInfo().token.sheetId,
+      'Schedule!E2:E2', 'USER_ENTERED', [['Speed']]);
+    }
 
     // this.Mail();
     // this.router.navigateByUrl('/workout');
