@@ -61,7 +61,7 @@
     "gradle": "^1.0.9",
     "highcharts": "^7.0.1",
     "ionic-angular": "^3.9.2",
-    "jquery": "^3.4.0",
+    "jquery": "^3.5.0",
     "ng-feedback": "^1.1.8",
     "ng2-charts": "^1.6.0",
     "node-sass": "^4.13.0",
