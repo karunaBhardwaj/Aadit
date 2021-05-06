@@ -59,7 +59,7 @@
     "font-awesome": "^4.7.0",
     "fsevents": "^2.1.2",
     "gradle": "^1.0.9",
-    "highcharts": "^7.0.1",
+    "highcharts": "^9.0.0",
     "ionic-angular": "^3.9.2",
     "jquery": "^3.4.0",
     "ng-feedback": "^1.1.8",
